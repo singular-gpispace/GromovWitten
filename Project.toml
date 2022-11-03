@@ -10,6 +10,7 @@ Oscar = "f1435218-dba5-11e9-1e4d-f1a5fab5fc13"
 StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
 
 [compat]
+Oscar = "0.10"
 julia = "1.1"
 
 [extras]
