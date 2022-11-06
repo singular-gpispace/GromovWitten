@@ -3,7 +3,7 @@ module tropicalfeynman
 # Write your package code here.
 using Oscar, Graphs, Combinatorics,StatsBase
 
-el = Edge.([(1, 2), (1,2),(2, 4), (1, 3) ,(3, 4),(3,4)])
+el =Edge.([(1, 2), (1,2),(2, 4), (1, 3) ,(3, 4),(3,4)])
 ee=collect(el)
 G= DiGraph(el)
 
