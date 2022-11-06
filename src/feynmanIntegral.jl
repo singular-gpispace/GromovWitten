@@ -14,7 +14,7 @@ function specificFeynmanIntegral(G::SimpleDiGraph,a::Vector{Int64})
                    tmp = tmp * constterm(x[dst(ee[j])], x[src(ee[j])], N)
                end
            else
-               tmp = tmp * term(x[src(ee[j])], x[dst(ee[j])], q[j],f[i][2][j], N)
+               tmp = tmp * proterm(x[src(ee[j])], x[dst(ee[j])], q[j],f[i][2][j], N)
            end 
        end
       p=p+f[i][1]*coefterm(G,tmp,N)
@@ -69,7 +69,7 @@ function feynmanIntegralSum(G::SimpleDiGraph,d::Integer)
     return res
 end
 
-function sub(p::fmpq_mpoly)
+function subt(p::fmpq_mpoly)
 
     if is_constant(R(p))
         return 0

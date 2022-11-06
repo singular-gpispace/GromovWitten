@@ -37,7 +37,7 @@ function preimg(S::Vector, a::Integer)
     end
 end
 
-function sgn(G::SimpleDiGraph{Int64},p::fmpq_mpoly,a::Integer) #graph G, list p, branch type a
+function sgn(G::SimpleDiGraph{Int64},p::Vector,a::Vector) #graph G, list p, branch type a
   
     b=zeros(Int,length(a))
     for (i,(ai,ev)) in enumerate(zip(a,ee))

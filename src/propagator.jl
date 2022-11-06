@@ -1,6 +1,6 @@
 
 
-function constterm( x1::fmpg_mpoly, x2::fmpg_mpoly, N::Integer)
+function constterm( x1::fmpq_mpoly, x2::fmpq_mpoly, N::Integer)
     p=0
     for i in 1:N
         p=p+i*x1^(N+i)*x2^(N-i)
@@ -8,7 +8,7 @@ function constterm( x1::fmpg_mpoly, x2::fmpg_mpoly, N::Integer)
     return p
 end
 
-function term( x1::fmpq_mpoly, x2::fmpq_mpoly, q::fmpq_mpoly, a::Integer, N::Integer)
+function proterm( x1::fmpq_mpoly, x2::fmpq_mpoly, q::fmpq_mpoly, a::Integer, N::Integer)
     p=0
     for w in 1:a
         if a%w==0
@@ -22,7 +22,7 @@ end
 function propagator( x1::fmpq_mpoly, x2::fmpq_mpoly,q::fmpq_mpoly, N::Integer)
     p=constterm(x1,x2,N)
     for i in 1:N
-        p=p+term(x1,x2,q,i,N)
+        p=p+proterm(x1,x2,q,i,N)
     end
     return p
 end
