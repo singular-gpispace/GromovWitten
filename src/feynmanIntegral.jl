@@ -1,7 +1,6 @@
 function specificFeynmanIntegral(G::SimpleDiGraph,a::Vector{Int64})
     N = sum(a)
     f = flip(G, a)
-   ee=collect(el)
    p=0
    for i in 1:length(f)
       tmp=1

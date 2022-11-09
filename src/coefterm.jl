@@ -1,5 +1,4 @@
 function coefterm(G::SimpleDiGraph{Int64} ,p::fmpq_mpoly,d::Integer)
-    ee=collect(el)
 
     L=zeros(Int,nv(G))
     for ev in ee
