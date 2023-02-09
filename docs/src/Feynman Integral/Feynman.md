@@ -61,4 +61,5 @@ The Feynman Integral is calculated by substituting all instances of the q variab
 julia> subt(R,x,q,feynmanIntegralSum(R,x,q,G,4))
 
 25344*q[1]^8 + 1792*q[1]^6 + 32*q[1]^4
+
 ```
