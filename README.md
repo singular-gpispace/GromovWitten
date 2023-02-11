@@ -15,6 +15,9 @@ In the local folder where the package is located, type in the terminal.
 julia --project. #this will activate the environment 
 ```
 Once julia opened type:
+```bash
+ pkg> instantiate 
+```
 
 ```bash
 using tropicalfeynman  #this will load the package 
