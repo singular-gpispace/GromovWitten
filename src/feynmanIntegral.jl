@@ -11,7 +11,6 @@ function specificFeynmanIntegral(R::MPolyRing,x::Vector,q::Vector, G::graphe,a::
            if f[i][2][j] < 1
               if  f[i][2][j] == -1
                    tmp = tmp * constterm(x[src(ee[j])], x[dst(ee[j])], N)
-
                else
                    tmp = tmp * constterm(x[dst(ee[j])], x[src(ee[j])], N)
                end
@@ -27,14 +26,18 @@ function specificFeynmanIntegral(R::MPolyRing,x::Vector,q::Vector, G::graphe,a::
 end
 
 
- function feynmanIntegral(R::MPolyRing,x::Vector,q::Vector,G::graphe,d::Integer)
+function feynmanIntegral(R::MPolyRing,x::Vector,q::Vector,G::graphe,d::Integer)
      ee=Edge.(G.edge)
-
-    !:
+     a=partition(length(ee),d) 
+    sum=0
+    for ai in a
+        sum=sum+specificFeynmanIntegral(R,x,q,G,ai) 
+    end
+    return sum
+end
     
- end
 
- function feynmanIntegralParallel(R::MPolyRing,x::Vector,q::Vector,G::graphe, d::Integer)
+function feynmanIntegralParallel(R::MPolyRing,x::Vector,q::Vector,G::graphe, d::Integer)
     ee=Edge.(G.edge)
 
     a=partition(d,length(ee)) 
