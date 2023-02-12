@@ -36,7 +36,7 @@ We then define the Polynomial Ring
 R,x,q=polynomialring(G) 
 ```
 To compute the specific Feynman Integral, we define a list ```a=[0,2,1,0,0,1]```;
-We have then ,,,,,,,,,,,,,,:::::::ty
+We have then 
 ```bash
  specificFeynmanIntegral(R,x,q,G,a)
 ```
