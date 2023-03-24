@@ -35,28 +35,6 @@ function feynmanIntegral(R::MPolyRing,x::Vector,q::Vector,G::graphe,d::Integer)
     end
     return sum
 end
-    
-
-function feynmanIntegralParallel(R::MPolyRing,x::Vector,q::Vector,G::graphe, d::Integer)
-    ee=Edge.(G.edge)
-
-    a=partition(d,length(ee)) 
-    c=Sys.CPU_THREADS
-    while length(a)>0
-        res =[]
-        for i in 1:c 
-            if length(a)>0
-                push!(res,specificFeynmanIntegral(R,x,q,G,a[1]))
-            a=deleteat!(a,1)
-            end
-        end
-        
-    end
-    return sum(res)
-    
-end
-
-
 function feynmanIntegralSum(R::MPolyRing,x::Vector,q::Vector,G::graphe,d::Integer)
     res=0
    for i in 1:d
