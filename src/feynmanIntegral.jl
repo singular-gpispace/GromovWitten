@@ -102,7 +102,7 @@ function feynmanIntegralV(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z::Vector,
     end
     return sum
 end 
-function feynmanIntegralSumV(R::Nemo.FmpqMPolyRing,x::Vector,q::Vector,G::graphe,d::Integer;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
+function feynmanIntegralSumV(R::Nemo.FmpqMPolyRing,x::Vector,q::Vector,z::Vector,G::graphe,d::Integer;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
     res=0
     for i in 1:d
         res+=feynmanIntegralV(R,x,q,z,G,i;aa,l,g)
