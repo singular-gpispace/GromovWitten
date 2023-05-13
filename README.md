@@ -44,8 +44,8 @@ also we can compute Feynman Integral of degree 4
 ```bash
 feynmanIntegral(R,x,q,G ,4)
 ```
-Finally we substitute all q variable by
+Finally we substitute all q variables by $q_1$
 
 ```bash
-feynmanIntegral(R,x,q,G ,4)
+subt(R,x,q,feynmanIntegral(R,x,q,G ,4))
 ```
