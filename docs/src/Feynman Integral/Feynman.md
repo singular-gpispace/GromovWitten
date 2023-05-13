@@ -10,9 +10,6 @@ end
 using tropicalfeynman
 ```
 
-```@contents
-Pages = ["Feyman.md"]
-```
 export graphe,Polynomialring
 export polynomialring,constterm, proterm, propagator, coefterm, partition, preimg, sgn,flip,
 
@@ -32,10 +29,7 @@ julia> E=[(1, 2), (1,2),(2, 4), (1, 3) ,(3, 4),(3,4)]
 ```
 and 
 ```jldoctest graph
-
 julia> G=graphe(E)
-graphe([(1, 2), (1, 2), (2, 4), (1, 3), (3, 4), (3, 4)])
-graphe([(1, 2), (1, 2), (2, 4), (1, 3), (3, 4), (3, 4)])
 graphe([(1, 2), (1, 2), (2, 4), (1, 3), (3, 4), (3, 4)])
 ```
 We then define the $R,x,q=PolynomialRing(G)$ from the graph G.  The polynomial ring has $5g-5$ variables, consisting of two sets of variables: $x_{1},x_{2},...,x_{2g-2}$ and $q_{1},q_{2},...,q_{3g-3}$.
