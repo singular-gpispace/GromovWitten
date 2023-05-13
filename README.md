@@ -30,7 +30,7 @@ then we define a graphe using a list.
   G=graphe(ve) #The graphe G.
 
 ```
-We then define the Polynomial Ring 
+We then define the Polynomial Ring of variables x and q where x are vertices and q edges
 
 ```bash
 R,x,q=polynomialring(G) 
@@ -47,5 +47,5 @@ feynmanIntegral(R,x,q,G ,4)
 Finally we substitute all q variables by $q_1$
 
 ```bash
-subt(R,x,q,feynmanIntegral(R,x,q,G ,4))
+subt(R,x,q,feynmanIntegral(R,x,q,G ,4)) 
 ```
