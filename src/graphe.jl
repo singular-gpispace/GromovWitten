@@ -6,7 +6,9 @@ function polynomialring(G::graphe)
     return  R, x, q = PolynomialRing(QQ, "x" => 1:nv(G), "q" => 1:ne(G))
  
  end
-
+ function polynomialringV(G::graphe)
+    return  PolynomialRing(QQ, "x" => 1:nv(G), "q" => 1:ne(G),"z" => 1:nv(G))
+end
 edge(G::graphe)=Edge.(G.edge)
 
 
