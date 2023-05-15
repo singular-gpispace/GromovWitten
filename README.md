@@ -16,6 +16,7 @@ julia --project. #this will activate the environment
 ```
 Once julia opened type:
 ```bash
+
  pkg> instantiate 
 ```
 
@@ -30,7 +31,7 @@ then we define a graphe using a list.
   G=graphe(ve) #The graphe G.
 
 ```
-We then define the Polynomial Ring of variables x and q where x are vertices and q edges
+We then define the Polynomial Ring 
 
 ```bash
 R,x,q=polynomialring(G) 
@@ -44,8 +45,8 @@ also we can compute Feynman Integral of degree 4
 ```bash
 feynmanIntegral(R,x,q,G ,4)
 ```
-Finally we substitute all q variables by $q_1$
+Finally we substitute all q variable by
 
 ```bash
-subt(R,x,q,feynmanIntegral(R,x,q,G ,4)) 
+feynmanIntegral(R,x,q,G ,4)
 ```

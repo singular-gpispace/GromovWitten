@@ -11,11 +11,13 @@ import Graphs: nv,ne,Edge,dst, src
 
 
 export graphe,nv,ne,PolynomialRing,QQ
-export polynomialring,constterm, proterm, propagator, coefterm, partition, preimg, sgn,flip
-export specificFeynmanIntegral, feynmanIntegral,feynmanIntegralSum,subt,polynomialringV,consttermV, protermV, coeftermX , coefterm2Z, coeftermQ, sgnV,flipV,
-specificFeynmanIntegralV, looptermV,feynmanIntegralV,feynmanIntegralSumV,subtV,Sfunction,InvSfunction
+export polynomialring,constterm, proterm, propagator, coefterm, partition, preimg, sgn,flip,
+specificFeynmanIntegral, feynmanIntegral,feynmanIntegralSum,subt,polynomialringV,consttermV, protermV, coefterm2Z, coeftermQ,coeftermX, sgnV,flipV,
+specificFeynmanIntegralV, feynmanIntegralV,feynmanIntegralSumV,subtV
+
 
 include("graphe.jl")
+include("coeftermV.jl")
 include("coefterm.jl")
 include("ceoftermGV.jl")
 include("feynmanIntegral.jl")

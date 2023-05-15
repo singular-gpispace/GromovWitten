@@ -55,19 +55,17 @@ function subt(R::MPolyRing,x::Vector,q::Vector,p::fmpq_mpoly)
     end
         return evaluate(p,r)
 end
-function specificFeynmanIntegralV(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z::Vector, G::graphe ,a::Vector{Int64} ;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
+function specificFeynmanIntegralV(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z::Vector, G::graphe, a::Vector{Int64};aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
     ee = Edge.(G.edge)
     N = sum(a)
-    f = flip(G, a)
+    f = flipV(G, a)
     p=0
-    pp=sum(g)
      sz=1
     for k in 1:length(l)
         sz=sz*InvSfunction(z[k],aa)
     end
     for i in 1:length(f)
         tmp=1
-        tm=1
         for j in 1:length(f[i][2])
 
                 if f[i][2][j] == -1
@@ -83,16 +81,18 @@ function specificFeynmanIntegralV(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z:
                         tmp = tmp * protermV(x[src(ee[j])], x[dst(ee[j])], z[src(ee[j])], z[dst(ee[j])], q[j],f[i][2][j],aa, N)
                 end 
         end
-            #p=p+f[i][1]*tm
         p=p+f[i][1]*coeftermX(G,tmp,l,N)
         
         if i==length(f)
             pr=sz*p
             p=coefterm2Z(G,pr,g)
         end
+
+            
     end
     return p
 end
+
 function feynmanIntegralV(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z::Vector, G::graphe,d::Integer; aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
     ee=Edge.(G.edge)
     a=partition(length(ee),d) 
@@ -102,7 +102,7 @@ function feynmanIntegralV(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z::Vector,
     end
     return sum
 end 
-function feynmanIntegralSumV(R::Nemo.FmpqMPolyRing,x::Vector,q::Vector,G::graphe,d::Integer;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
+function feynmanIntegralSumV(R::Nemo.FmpqMPolyRing,x::Vector,q::Vector,z::Vector,G::graphe,d::Integer;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
     res=0
     for i in 1:d
         res+=feynmanIntegralV(R,x,q,z,G,i;aa,l,g)

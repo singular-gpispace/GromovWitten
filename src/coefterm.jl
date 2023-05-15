@@ -65,7 +65,26 @@ function sgn(G::graphe ,p::Vector,a::Vector) #graph G, list p, branch type a
     end
             return b
 end
+function sgnV(G::graphe ,p::Vector,a::Vector) #graph G, list p, branch type a
+    
+    ee=Edge.(G.edge)
+    b=zeros(Int,length(a))
+    for (i, (ai, ev)) in enumerate(zip(a, ee))
+        if ai == 0 && src(ev) != dst(ev)
+            if preimg(p, src(ev)) < preimg(p, dst(ev))
+                b[i] = -1
+            else
+                b[i] = 0
+            end
+        elseif  src(ev) == dst(ev)
+            b[i] = -2
+        elseif ai != 0 && src(ev) != dst(ev)
+            b[i] = ai
+        end
+    end
 
+return b
+end
 
 function flip( G::graphe,  a::Vector)
 
@@ -101,4 +120,39 @@ function flip( G::graphe,  a::Vector)
         push!(b,[ val*dd, key]) 
     end
     return b   
+end
+function flipV( G::graphe, a::Vector)
+
+    ee=Edge.(G.edge)
+
+    p=[]
+    b=Vector{Vector{Any}}()
+
+    l=zeros(Int,nv(G))
+    y=Vector{Any}()
+
+    for (ev,ai) in zip(ee,a)
+        if ai==0 && src(ev) != dst(ev)
+            l[src(ev)] =1
+            l[dst(ev)] =1
+        end
+    end
+
+    for (i,li) in enumerate(l)
+        if li==1
+            push!(p,i)
+    end
+
+    end 
+    p=collect(permutations(p))
+
+    for ga in p 
+        push!(y,sgnV(G,ga,a)) 
+    end
+    dd=div(factorial( nv(G) ) , length( p ) )
+
+    for (key, val) in countmap(y)
+        push!(b,[ val*dd, key]) 
+    end
+    return b 
 end
