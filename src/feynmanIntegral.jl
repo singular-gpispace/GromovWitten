@@ -115,3 +115,50 @@ coeffs_dict = coeffs(p)
 coeffs_array = collect(values(coeffs_dict))
 return sum(coeffs_array)
 end
+function specificFeynmanIntegralo(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z::Vector, G::graphe ,a::Vector{Int64} ,o::Vector{Int64};aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
+    ee = Edge.(G.edge)
+    N = sum(a)
+    f = flipo(G, a,o)
+    p=0
+    pp=sum(g)
+     sz=1
+    for k in 1:length(l)
+        sz=sz*InvSfunction(z[k],aa)
+    end
+    for i in 1:length(f)
+        tmp=1
+        tm=1
+        for j in 1:length(f[i][2])
+
+                if f[i][2][j] == -1
+                        tmp = tmp * consttermV(x[src(ee[j])], x[dst(ee[j])], z[src(ee[j])], z[dst(ee[j])],aa,N)
+
+                elseif f[i][2][j] == 0
+                        tmp = tmp * consttermV(x[dst(ee[j])], x[src(ee[j])],z[src(ee[j])], z[dst(ee[j])],aa, N)
+
+                elseif f[i][2][j] == -2
+                        tmp = tmp *looptermV(z[j],q[j],aa,a[j])
+
+                else 
+                        tmp = tmp * protermV(x[src(ee[j])], x[dst(ee[j])], z[src(ee[j])], z[dst(ee[j])], q[j],f[i][2][j],aa, N)
+                end 
+        end
+            #p=p+f[i][1]*tm
+        p=p+f[i][1]*coeftermX(G,tmp,l,N)
+        
+        if i==length(f)
+            pr=sz*p
+            p=coefterm2Z(G,pr,g)
+        end
+    end
+    return p
+end
+function feynmanIntegralo(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z::Vector, G::graphe,o::Vector{Int64},d::Integer;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
+    ee=Edge.(G.edge)
+    a=partition(length(ee),d) 
+    sum=0
+    for ai in a
+         sum=sum+specificFeynmanIntegralo(R,x,q,z,G,ai,o;aa,l,g) 
+    end
+    return sum
+end 

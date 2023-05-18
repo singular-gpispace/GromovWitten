@@ -156,3 +156,12 @@ function flipV( G::graphe, a::Vector)
     end
     return b 
 end
+function flipo(G::graphe, a::Vector,o::Vector)
+    b=Vector{Vector{Any}}()
+    y=Vector{Any}()
+    push!(y,sgnV(G,o,a)) 
+    for (key, val) in countmap(y)
+        push!(b,[ val, key]) 
+    end
+    return b
+end
