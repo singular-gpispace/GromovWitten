@@ -48,5 +48,5 @@ feynmanIntegral(R,x,q,G ,4)
 Finally we substitute all q variable by
 
 ```bash
-feynmanIntegral(R,x,q,G ,4)
+subtV(feynmanIntegral(R,x,q,G ,4))
 ```
