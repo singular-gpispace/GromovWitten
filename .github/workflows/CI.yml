@@ -62,4 +62,4 @@ jobs:
             doctest(tropicalfeynman)'
           env:
             DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
-            DOCUMENTER_REPOURL: "https://github.com/singular-gpispace/tropicalfeynman.jl/blob/{commit}{path}#{line}"
+            DOCUMENTER_REPOURL: "https://github.com/singular-gpispace/tropicalfeynman.jl"

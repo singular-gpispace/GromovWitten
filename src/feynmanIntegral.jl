@@ -127,7 +127,6 @@ function specificFeynmanIntegralo(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z:
     end
     for i in 1:length(f)
         tmp=1
-        tm=1
         for j in 1:length(f[i][2])
 
                 if f[i][2][j] == -1
