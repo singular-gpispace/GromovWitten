@@ -60,4 +60,6 @@ jobs:
             using tropicalfeynman
             DocMeta.setdocmeta!(tropicalfeynman, :DocTestSetup, :(using tropicalfeynman); recursive=true)
             doctest(tropicalfeynman)'
-  
+          env:
+            DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
+            DOCUMENTER_REPOURL: "https://github.com/singular-gpispace/tropicalfeynman.jl/blob/{commit}{path}#{line}"
