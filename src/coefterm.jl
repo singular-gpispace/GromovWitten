@@ -47,10 +47,8 @@ function preimg(S::Vector, a::Integer)
     end
 end
 
-function sgn(G::graphe ,p::Vector,a::Vector) #graph G, list p, branch type a
-    
+function sgn(G::graphe ,p::Vector,a::Vector) #graph G, list p, branch type a  
     ee=Edge.(G.edge)
-
     b=zeros(Int,length(a))
     for (i,(ai,ev)) in enumerate(zip(a,ee))
        if ai==0
