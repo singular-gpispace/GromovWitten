@@ -16,8 +16,6 @@ specificFeynmanIntegralV, feynmanIntegralV,feynmanIntegralSumV,subtV,specificFey
 include("graphe.jl")
 include("coeftermV.jl")
 include("coefterm.jl")
-include("ceoftermGV.jl")
 include("feynmanIntegral.jl")
 include("propagator.jl")
-
 end

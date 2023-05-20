@@ -1,6 +1,3 @@
-struct graphe
-    edge::Vector
-end
 function polynomialring(G::graphe)
     return  R, x, q = PolynomialRing(QQ, "x" => 1:nv(G), "q" => 1:ne(G))
  
