@@ -48,9 +48,6 @@ jobs:
         with:
           version: '1'
       - uses: julia-actions/julia-buildpkg@v1
-      - name: Install required Julia packages
-        run: |
-          julia --project=docs -e 'import Pkg; Pkg.add(PackageSpec(name="tropicalfeynman", path="src/tropicalfeynman"))'
       - uses: julia-actions/julia-docdeploy@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -60,6 +57,3 @@ jobs:
             using tropicalfeynman
             DocMeta.setdocmeta!(tropicalfeynman, :DocTestSetup, :(using tropicalfeynman); recursive=true)
             doctest(tropicalfeynman)'
-          env:
-            DOCUMENTER_KEY: ${{ secrets.DOCUMENTER_KEY }}
-            DOCUMENTER_REPOURL: "https://github.com/singular-gpispace/tropicalfeynman.jl"
