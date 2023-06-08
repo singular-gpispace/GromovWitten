@@ -80,11 +80,11 @@ function specificFeynmanIntegralV(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z:
                         tmp = tmp * protermV(x[src(ee[j])], x[dst(ee[j])], z[src(ee[j])], z[dst(ee[j])], q[j],f[i][2][j],aa, N)
                 end 
         end
-        p=p+f[i][1]*coeftermX(G,tmp,l,N)
+        p=p+f[i][1]*coeftermXm(G,tmp,l,N)
         
         if i==length(f)
             pr=sz*p
-            p=coefterm2Z(G,pr,g)
+            p=coefterm2Zm(G,pr,g)
         end
 
             
@@ -111,7 +111,7 @@ function specificFeynmanIntegral(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector, G:
                 end 
         end
             #p=p+f[i][1]*tm
-        p=p+f[i][1]*coeftermX(G,tmp,l,N)
+        p=p+f[i][1]*coeftermXm(G,tmp,l,N)
     end
     return p
 end
@@ -165,11 +165,11 @@ function specificFeynmanIntegralo(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z:
                 end 
         end
             #p=p+f[i][1]*tm
-        p=p+f[i][1]*coeftermX(G,tmp,l,N)
+        p=p+f[i][1]*coeftermXm(G,tmp,l,N)
         
         if i==length(f)
             pr=sz*p
-            p=coefterm2Z(G,pr,g)
+            p=coefterm2Zm(G,pr,g)
         end
     end
     return p
