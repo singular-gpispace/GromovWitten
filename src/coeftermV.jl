@@ -49,40 +49,34 @@ function coeftermQ(G::graphe,hp::fmpq_mpoly,a::Vector)
     end
     return hp
 end
-function coefterm2Z(G::graphe,hp::fmpq_mpoly,g::Vector) 
+function coefterm2Zm(G::graphe,hp::fmpq_mpoly,g::Vector) 
     nn=nv(G)+ne(G)+1
-    n=nv(G)+ne(G)+nv(G)
+    r=gens(R)
+    n=length(r)
+    m=r[nn:n]
+    g=2 .* g
     if hp==0
         return 0
     else
-        for i in nn:n
-            f=hp
-            m=coefficients(f,i)
-            gg=g[i-nn+1]
-            hp=m[2*gg+1]
+        hp=coeff(hp,m,g)
+    end
+    return hp
+end
+function coeftermXm(G::graphe ,p::fmpq_mpoly,l::Vector,d::Integer)
+    r=gens(R)
+    m=r[1:nv(G)]
+    ee=Edge.(G.edge)
+    G=DiGraph(Edge.(G.edge))
+    L=zeros(Int,nv(G))
+    for ev in ee
+        if src(ev) == dst(ev)
+
+        else
+            L[src(ev)]=L[src(ev)]+d
+            L[dst(ev)]=L[dst(ev)]+d
         end
     end
-        return hp
-end
-function coeftermX(G::graphe ,p::fmpq_mpoly,l::Vector,d::Integer)
- ee=Edge.(G.edge)
- G=DiGraph(Edge.(G.edge))
- L=zeros(Int,nv(G))
- for ev in ee
-    if src(ev) == dst(ev)
-         
-    else
-        L[src(ev)]=L[src(ev)]+d
-        L[dst(ev)]=L[dst(ev)]+d
-    end
- end
- for (i,li) in enumerate(L) 
-     f=p
-     m=coefficients(f,i)
-     if size(m,1)<=li
-         return 0 
-     end
-     p=m[li+l[i]+1,1]
- end
- return p
+    L=L .+l
+    p=coeff(p,m,L)
+    return p
 end
