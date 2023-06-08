@@ -8,8 +8,7 @@
 # tropicalfeynman
 
 To run:
-- pull the package in your local disk
-In the local folder where the package is located, type in the terminal.
+- First, pull the package onto your local disk. Once the package has been successfully pulled, navigate to the desired folder where the package is located, and then type the following command in the terminal..
 
 ```bash
 julia --project. #this will activate the environment 
