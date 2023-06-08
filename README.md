@@ -13,9 +13,9 @@ To run:
 ```bash
 julia --project. #this will activate the environment 
 ```
-Once julia opened type:
-```bash
+Once julia opened type this command to install missing packages:
 
+```bash
  pkg> instantiate 
 ```
 
