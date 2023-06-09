@@ -39,26 +39,26 @@ graphe([(1, 1), (1, 2), (2, 3), (3, 1)])
 We then define the $R,x,q=polynomialring(G)$ from the graph G.  The polynomial ring has $ 5g-5$ variables, consisting of two sets of variables: $x_{1},x_{2},...,x_{2g-2}$ and $q_{1},q_{2},...,q_{3g-3}$.
 
 ```jldoctest graph
-julia>   R,x,q=polynomialring(G)
-(Multivariate Polynomial Ring in 10 variables x[1], x[2], x[3], x[4], ..., q[6] over Rational Field, Nemo.fmpq_mpoly[x[1], x[2], x[3], x[4]], Nemo.fmpq_mpoly[q[1], q[2], q[3], q[4], q[5], q[6]])
+julia>   R,x,q,z=polynomialring(G,"x","q","z")
+(Multivariate polynomial ring in 10 variables over QQ, QQMPolyRingElem[x_{1}, x_{2}, x_{3}], QQMPolyRingElem[q_{1}, q_{2}, q_{3}, q_{4}], QQMPolyRingElem[z_{1}, z_{2}, z_{3}])
+
 ```
 
 ## specific Feynman Integral
 
-For a given branch type *a*, we compute the Feynman Integral of the labeled Graph.
+For a given branch type $a$, we compute the Feynman Integral of the labeled Graph.
 a is the list of degree a the branch type of
 the tropical cover at p0
 
+
 ```jldoctest graph
-julia> a=[0,2,1,0,0,1]
-6-element Vector{Int64}:
- 0
- 2
- 1
- 0
- 0
- 1
+julia> l=[0,0,0] 
+julia> g=[0,0,0]
+julia> a=[2,0,0,1]
+julia> o=[1,2,3]
+
 ```
+
 
 ```jldoctest graph
 julia> specificFeynmanIntegral(R,x,q,G,a)
