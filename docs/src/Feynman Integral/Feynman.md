@@ -50,10 +50,11 @@ For a given branch type $a$, we compute the Feynman Integral of the labeled Grap
 a is the list of degree a the branch type of
 the tropical cover at p0
 
+```jldoctest graph
+
+```
 
 ```jldoctest graph
-julia> l=[0,0,0] 
-julia> g=[0,0,0]
 julia> a=[2,0,0,1]
 julia> o=[1,2,3]
 

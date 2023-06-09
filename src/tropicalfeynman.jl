@@ -1,5 +1,4 @@
 module tropicalfeynman
-
 # Write your package code here.
 using Oscar, Graphs, Combinatorics,StatsBase
 
@@ -10,8 +9,8 @@ end
 import Graphs: nv,ne,Edge,dst, src
 export graphe,nv,ne,PolynomialRing,QQ
 export polynomialring,constterm, proterm, propagator, coefterm, partition, preimg, sgn,flip,
-specificFeynmanIntegral, feynmanIntegral,feynmanIntegralSum,subt,polynomialringV,consttermV, protermV, coefterm2Z, coeftermQ,coeftermX, sgnV,flipV,
-specificFeynmanIntegralV, feynmanIntegralV,feynmanIntegralSumV,subtV,specificFeynmanIntegralo,feynmanIntegralo
+specificFeynmanIntegral, feynmanIntegral,feynmanIntegralSum,subt,consttermV, protermV, coefterm2Z, coeftermQ,coeftermX, sgnV,flipV,
+feynmanIntegralSumV,subtV,specificFeynmanIntegralo,feynmanIntegralo
 
 include("graphe.jl")
 include("coeftermV.jl")

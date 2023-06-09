@@ -8,11 +8,13 @@
 # tropicalfeynman
 
 To run:
+
 - First, pull the package onto your local disk. Once the package has been successfully pulled, navigate to the desired folder where the package is located, and then type the following command in the terminal..
 
 ```bash
 julia --project. #this will activate the environment 
 ```
+
 Once julia opened type this command to install missing packages:
 
 ```bash
@@ -22,6 +24,7 @@ Once julia opened type this command to install missing packages:
 ```bash
 using tropicalfeynman  #this will load the package 
 ```
+
 then we define a graphe using a list.
 
 ```bash
@@ -30,21 +33,29 @@ then we define a graphe using a list.
   G=graphe(ve) #The graphe G.
 
 ```
-We then define the Polynomial Ring  
+
+We then define the Polynomial Ring
 
 ```bash
-R,x,q,z=polynomialring(G) 
- x represents a vector of vertices,  y represents a vector of edges and  z represents a vector of vertex contributions.
+R,x,q,z=polynomialring(G,"x","q","z")
+ x represents a vector of vertices, 
+ y represents a vector of edges and 
+ z represents a vector of vertex contributions.
 ```
+
 To compute the specific Feynman Integral, we define a list ```a=[0,2,1,0,0,1]```;
-We have then 
+We have then
+
 ```bash
  specificFeynmanIntegral(R,x,q,G,a)
 ```
+
 also we can compute Feynman Integral of degree 4
+
 ```bash
 feynmanIntegral(R,x,q,G ,4)
 ```
+
 Finally we substitute all q variable by
 
 ```bash

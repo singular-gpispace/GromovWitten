@@ -1,26 +1,15 @@
-
-function coefterm(G::graphe ,p::fmpq_mpoly,d::Integer)
-
+function coefterm(R::MPolyRing,x::Vector,q::Vector,G::graphe ,p::fmpq_mpoly,d::Integer;l=zeros(Int,nv(G)))
     ee=Edge.(G.edge)
     G=DiGraph(Edge.(G.edge))
-
     L=zeros(Int,nv(G))
     for ev in ee
         L[src(ev)]=L[src(ev)]+d
         L[dst(ev)]=L[dst(ev)]+d
     end
-    for (i, l) in enumerate(L)         
-        f=p
-        m=coefficients(f,i)
-        if size(m,1)<=l
-            return 0 
-        end
-        p=m[l+1,1]
-    end
-    
+    L=L .+l
+    p=coeff(p,x,L)
     return p
 end 
-
 function partition(n::Integer, k::Integer)
     if k == 1
         return [[n]]
