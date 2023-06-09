@@ -7,4 +7,3 @@ end
 edge(G::graphe)=Edge.(G.edge)
 nv(G::graphe)=nv(DiGraph(Edge.(G.edge)))
 ne(G::graphe)=length(Edge.(G.edge))
-
