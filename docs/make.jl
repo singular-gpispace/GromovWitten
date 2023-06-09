@@ -3,7 +3,6 @@ Pkg.activate("..")
 push!(LOAD_PATH, joinpath(@__DIR__, "..", "src"))
 using tropicalfeynman
 using Documenter
-
 DocMeta.setdocmeta!(tropicalfeynman, :DocTestSetup, :(using tropicalfeynman); recursive=true)
 
 makedocs(;

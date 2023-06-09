@@ -20,24 +20,23 @@ A Feynman graph Γ of genus g is a trivalent connected graph of genus g.
 The graph $G$ is represented as a collection of vertices $V$ and edges $E$. Each edge is a pair $(v,w)$ where both $v$ and $w$ are elements of the set of vertices $V$.
 
 ```jldoctest graph
-julia> E=[(1, 2), (1,2),(2, 4), (1, 3) ,(3, 4),(3,4)]
-6-element Vector{Tuple{Int64, Int64}}:
+julia> ve=[(1, 1), (1, 2), (2, 3), (3, 1)]
+
+4-element Vector{Tuple{Int64, Int64}}:
+ (1, 1)
  (1, 2)
- (1, 2)
- (2, 4)
- (1, 3)
- (3, 4)
- (3, 4)
+ (2, 3)
+ (3, 1)
 ```
 
 and
 
 ```jldoctest graph
-julia> G=graphe(E)
-graphe([(1, 2), (1, 2), (2, 4), (1, 3), (3, 4), (3, 4)])
+julia> G=graphe(ve)
+graphe([(1, 1), (1, 2), (2, 3), (3, 1)])
 ```
 
-We then define the $R,x,q=PolynomialRing(G)$ from the graph G.  The polynomial ring has $5g-5$ variables, consisting of two sets of variables: $x_{1},x_{2},...,x_{2g-2}$ and $q_{1},q_{2},...,q_{3g-3}$.
+We then define the $R,x,q=polynomialring(G)$ from the graph G.  The polynomial ring has $ 5g-5$ variables, consisting of two sets of variables: $x_{1},x_{2},...,x_{2g-2}$ and $q_{1},q_{2},...,q_{3g-3}$.
 
 ```jldoctest graph
 julia>   R,x,q=polynomialring(G)
