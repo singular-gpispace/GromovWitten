@@ -22,11 +22,9 @@ The graph $G$ is represented as a collection of vertices $V$ and edges $E$. Each
 
 ```jldoctest graph
 julia> ve=[(1, 1), (1, 2), (2, 3), (3, 1)]
-
 4-element Vector{Tuple{Int64, Int64}}:
  (1, 1)
- (1, 2)
- (2, 3)
+ ⋮
  (3, 1)
 ```
 
@@ -41,8 +39,7 @@ We then define the $R,x,q=polynomialring(G)$ from the graph G.  The polynomial r
 
 ```jldoctest graph
 julia>   R,x,q,z=polynomialring(G,"x","q","z")
-(Multivariate polynomial ring in 10 variables over QQ, QQMPolyRingElem[x_{1}, x_{2}, x_{3}], QQMPolyRingElem[q_{1}, q_{2}, q_{3}, q_{4}], QQMPolyRingElem[z_{1}, z_{2}, z_{3}])
-
+(Multivariate Polynomial Ring in 10 variables x[1], x[2], x[3], q[1], ..., z[3] over Rational Field, fmpq_mpoly[x[1], x[2], x[3]], fmpq_mpoly[q[1], q[2], q[3], q[4]], fmpq_mpoly[z[1], z[2], z[3]])
 ```
 
 ## specific Feynman Integral
@@ -54,8 +51,7 @@ a is a list of partition of degree d=3 of $\Gamma$.
 julia> a=[2,0,0,1]
 4-element Vector{Int64}:
  2
- 0
- 0
+ ⋮
  1
 ```
 
@@ -74,46 +70,39 @@ Here we have the defaults values of the leak vector and the genus function  l=[0
 
 ```jldoctest graph
 julia>  specificFeynmanIntegralo(R,x,q,z,G,a,o,aa=0,l=[0,0,0],g=[0,0,0])
-3*q_{1}^2*q_{4}.
+3*q[1]^2*q[4]
 ```
-
-
 
 In the case l=[0,0,0], g=[0,0,0] and  $ aa=0$ we can write simply write.
 
 ```jldoctest graph
 julia>  specificFeynmanIntegralo(R,x,q,z,G,a,o)
-3*q_{1}^2*q_{4}.
+3*q[1]^2*q[4]
 ```
-
 
 We compute the Specific Feynman Integral for the Graph G given a fixed partition of degree $a$ for all vertex ordering $o$.
 Here we have the defaults values of the leak vector and the genus function  l=[0,0,0], g=[0,0,0] and we set the order of Sfunction $ aa=0$
 
 ```jldoctest graph
-julia>    specificFeynmanIntegral(R,x,q,z,G,a)
-6*q_{1}^2*q_{4}.
+julia> specificFeynmanIntegral(R,x,q,z,G,a)
+6*q[1]^2*q[4]
 ```
 
-
 ## Feynman Integral
-
-
 
 We compute the  Feynman Integral of the graph G over all  partitions of the degree d=3  for a fixed ordering $o$.
 
 ```jldoctest graph
-julia>   feynmanIntegralo(R,x,q,z,G,o,3) # here d=3
-3*q_{1}^2*q_{4} + q_{1}*q_{2}*q_{3} + q_{1}*q_{2}*q_{4} + q_{1}*q_{3}*q_{4} + 9*q_{1}*q_{4}^2
+julia> feynmanIntegralo(R,x,q,z,G,o,3) # here d=3
+3*q[1]^2*q[4] + q[1]*q[2]*q[3] + q[1]*q[2]*q[4] + q[1]*q[3]*q[4] + 9*q[1]*q[4]^2
 
 ```
-
 
 We compute the Feynman integral over all the partitions of the degree d of graph G for all vertex ordering.
 
 ```jldoctest graph
 julia>  feynmanIntegral(R,x,q,z,G,3) # here d=3
-6*q_{1}^2*q_{2} + 6*q_{1}^2*q_{3} + 6*q_{1}^2*q_{4} + 18*q_{1}*q_{2}^2 + 6*q_{1}*q_{2}*q_{3} + 6*q_{1}*q_{2}*q_{4} + 18*q_{1}*q_{3}^2 + 6*q_{1}*q_{3}*q_{4} + 18*q_{1}*q_{4}^2
+6*q[1]^2*q[2] + 6*q[1]^2*q[3] + 6*q[1]^2*q[4] + 18*q[1]*q[2]^2 + 6*q[1]*q[2]*q[3] + 6*q[1]*q[2]*q[4] + 18*q[1]*q[3]^2 + 6*q[1]*q[3]*q[4] + 18*q[1]*q[4]^2
 ```
 
 We compute the sum of coefficients.

@@ -1,36 +1,21 @@
-name: Deploy Documentation
-
+name: Documenter
 on:
   push:
     branches:
       - main
     tags: '*'
   pull_request:
-
 jobs:
-  deploy_docs:
-    name: Deploy Documentation
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v2
-      - uses: julia-actions/setup-julia@v1
+      - uses: julia-actions/setup-julia@latest
         with:
           version: '1'
-      - uses: julia-actions/julia-buildpkg@v1
-      - name: Install tropicalfeynman package
-        run: julia --project=docs -e 'import Pkg; Pkg.add(PackageSpec(path="src"))'
-      - name: Install Documenter package
-        run: julia --project=docs -e 'import Pkg; Pkg.add("Documenter")'
-      - name: Generate Documentation
-        run: |
-          julia --project=docs -e '
-            using Documenter: DocMeta, doctest
-            using tropicalfeynman
-            DocMeta.setdocmeta!(tropicalfeynman, :DocTestSetup, :(using tropicalfeynman); recursive=true)
-            doctest(tropicalfeynman)'
-      - name: Deploy Documentation
-        uses: julia-actions/julia-docdeploy@v1
+      - name: Install dependencies
+        run: julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
+      - name: Build and deploy
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # For authentication with GitHub Actions token
+        run: julia --project=docs/ docs/make.jl
