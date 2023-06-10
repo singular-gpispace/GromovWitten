@@ -1,5 +1,3 @@
-
-
 function constterm( x1::fmpq_mpoly, x2::fmpq_mpoly, N::Integer)
     p=0
     for i in 1:N

@@ -64,8 +64,6 @@ function specificFeynmanIntegralo(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector, G
     N = sum(a)
     f = flipo(G, a,o)
     p=0
-    pp=sum(g)
-
     for i in 1:length(f)
         tmp=1
         tm=1
@@ -159,15 +157,21 @@ function feynmanIntegral(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z::Vector, 
     end
     return sum
 end 
-function feynmanIntegralSumV(R::Nemo.FmpqMPolyRing,x::Vector,q::Vector,z::Vector,G::graphe,d::Integer;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
+function feynmanIntegralSum(R::Nemo.FmpqMPolyRing,x::Vector,q::Vector,z::Vector,G::graphe,d::Integer;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
     res=0
     for i in 1:d
         res+=feynmanIntegral(R,x,q,z,G,i;aa,l,g)
     end
     return res
 end
-   
-function subtV(p::fmpq_mpoly)
+function feynmanIntegralSum(R::Nemo.FmpqMPolyRing,x::Vector,q::Vector,G::graphe,d::Integer;l=zeros(Int,nv(G)))
+    res=0
+    for i in 1:d
+        res+=feynmanIntegral(R,x,q,G,i;l)
+    end
+    return res
+end
+function subt(p::fmpq_mpoly)
 coeffs_dict = coeffs(p)
 coeffs_array = collect(values(coeffs_dict))
 return sum(coeffs_array)

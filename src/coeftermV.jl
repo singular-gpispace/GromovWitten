@@ -49,16 +49,12 @@ function coeftermQ(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z::Vector,G::grap
     end
     return hp
 end
-function coefterm2Z(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z::Vector,G::graphe,hp::fmpq_mpoly,g::Vector) 
-    nn=nv(G)+ne(G)+1
-    r=gens(R)
-    n=length(r)
-    m=r[nn:n]
+function coefterm2Z(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z::Vector,hp::fmpq_mpoly,g::Vector) 
     g=2 .* g
     if hp==0
         return 0
     else
-        hp=coeff(hp,m,g)
+        hp=coeff(hp,z,g)
     end
     return hp
 end

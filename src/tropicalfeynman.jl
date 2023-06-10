@@ -10,7 +10,7 @@ import Graphs: nv,ne,Edge,dst, src
 export graphe,nv,ne,PolynomialRing,QQ
 export polynomialring,constterm, proterm, propagator, coefterm, partition, preimg, sgn,flip,
 specificFeynmanIntegral, feynmanIntegral,feynmanIntegralSum,subt,consttermV, protermV, coefterm2Z, coeftermQ,coeftermX, sgnV,flipV,
-feynmanIntegralSumV,subtV,specificFeynmanIntegralo,feynmanIntegralo
+feynmanIntegralSumV,specificFeynmanIntegralo,feynmanIntegralo
 
 include("graphe.jl")
 include("coeftermV.jl")
