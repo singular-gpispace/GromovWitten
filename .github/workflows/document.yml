@@ -1,4 +1,4 @@
-name: Documentation
+name: Deploy Documentation
 
 on:
   push:
@@ -6,27 +6,29 @@ on:
       - main
     tags: '*'
   pull_request:
-  workflow_dispatch:
 
 jobs:
   deploy_docs:
+    name: Deploy Documentation
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Set up Julia
-        uses: julia-actions/setup-julia@latest
+      - uses: actions/checkout@v2
+      - uses: julia-actions/setup-julia@v1
         with:
           version: '1'
-
-      - name: Build package
-        uses: julia-actions/julia-buildpkg@latest
-
-      - name: Install dependencies and run tests
+      - uses: julia-actions/julia-buildpkg@v1
+      - name: Install Documenter package
+        run: julia --project=docs -e 'import Pkg; Pkg.add("Documenter")'
+      - name: Generate Documentation
         run: |
           julia --project=docs -e '
             using Documenter: DocMeta, doctest
             using tropicalfeynman
             DocMeta.setdocmeta!(tropicalfeynman, :DocTestSetup, :(using tropicalfeynman); recursive=true)
             doctest(tropicalfeynman)'
+      - name: Deploy Documentation
+        uses: julia-actions/julia-docdeploy@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
