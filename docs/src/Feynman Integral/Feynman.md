@@ -121,3 +121,4 @@ We compute the sum of coefficients.
 julia> subt( feynmanIntegral(R,x,q,z,G,3)
 90
 ```
+![Bildschirmfoto vom 2023-06-10 17-06-36](https://github.com/singular-gpispace/tropicalfeynman/assets/46294807/c5b4b792-6d2f-418f-b38a-21b3c0187a92)
