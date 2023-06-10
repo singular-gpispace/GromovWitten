@@ -28,9 +28,8 @@ using tropicalfeynman  #this will load the package
 then we define a graphe using a list.
 
 ```bash
- ve=[(1, 2), (1,2),(2, 4), (1, 3) ,(3, 4),(3,4)]
- #this is the Cartepillar graph.  
-  G=graphe(ve) #The graphe G.
+ve=[ (1, 2), (2, 3), (3, 1)]  
+G=graphe(ve) #The graphe G.
 
 ```
 
@@ -43,21 +42,20 @@ R,x,q,z=polynomialring(G,"x","q","z")
  z represents a vector of vertex contributions.
 ```
 
-To compute the specific Feynman Integral, we define a list ```a=[0,2,1,0,0,1]```;
-We have then
+To compute the specific Feynman Integral, we define a partition  $a=[0,0,3]$  of degree d=3, a fixed order of vertex $o=[1,2,3]$ and the genus function $g=[1,0,0]$. The leak in G is $L=[0,0,0]$ , $aa=1$ is the order of the Sfunction. We have then
 
 ```bash
- specificFeynmanIntegral(R,x,q,G,a)
+ specificFeynmanIntegralo(R,x,q,z,G,a,o,aa=1,l=[0,0,0],g=[1,0,0])
 ```
 
 also we can compute Feynman Integral of degree 4
 
 ```bash
-feynmanIntegral(R,x,q,G ,4)
+ feynmanIntegral(R,x,q,z,G,3,aa=1,l=[0,0,0],g=[1,0,0])
 ```
 
-Finally we substitute all q variable by
+Finally we substitute all $q$  variables by $q_{1}$
 
 ```bash
-subtV(feynmanIntegral(R,x,q,G ,4))
+subt(feynmanIntegral(R,x,q,z,G,3,aa=1,l=[0,0,0],g=[1,0,0]))
 ```
