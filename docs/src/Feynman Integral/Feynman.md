@@ -16,8 +16,9 @@ export polynomialring,constterm, proterm, propagator, coefterm, partition, preim
 
 ## Graph
 
-A Feynman graph Γ of genus g is a trivalent connected graph of genus g.
+A Feynman graph is a (non-metrized) graph Γ without ends with n vertices which are labeled $ x_1, . . . , x_n $ and with labeled edges $q_1, . . . , q_r$.
 The graph $G$ is represented as a collection of vertices $V$ and edges $E$. Each edge is a pair $(v,w)$ where both $v$ and $w$ are elements of the set of vertices $V$.
+
 
 ```jldoctest graph
 julia> ve=[(1, 1), (1, 2), (2, 3), (3, 1)]
@@ -46,24 +47,34 @@ julia>   R,x,q,z=polynomialring(G,"x","q","z")
 
 ## specific Feynman Integral
 
-For a given branch type $a$, we compute the Feynman Integral of the labeled Graph.
-a is the list of degree a the branch type of
-the tropical cover at p0
-
-```jldoctest graph
-
-```
+For a given branch type $a$, we compute the Specific Feynman Integral of the labeled Graph.
+a is a list of partition of degree d=3 of $\Gamma$.
 
 ```jldoctest graph
 julia> a=[2,0,0,1]
-julia> o=[1,2,3]
-
+4-element Vector{Int64}:
+ 2
+ 0
+ 0
+ 1
 ```
 
+$o$ is a fixed order of vertices.
 
 ```jldoctest graph
-julia> specificFeynmanIntegral(R,x,q,G,a)
-56*q[2]^4*q[3]^2*q[6]^2
+julia> o=[1,2,3]
+3-element Vector{Int64}:
+ 1
+ 2
+ 3
+```
+
+We compute the Specific Feynman Integral for the Graph G given a fixed vertex ordering $o$ and the partition of degree $a$.
+Here we have the defaults values of the leak vector and the genus function  l=[0,0,0], g=[0,0,0] and we set the order of Sfunction $ aa=0$
+
+```jldoctest graph
+julia>  specificFeynmanIntegralo(R,x,q,z,G,a,o,aa=0,l=[0,0,0],g=[0,0,0])
+3*q_{1}^2*q_{4}.
 ```
 
 ## Feynman Integral

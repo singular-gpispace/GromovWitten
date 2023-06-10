@@ -19,6 +19,8 @@ jobs:
         with:
           version: '1'
       - uses: julia-actions/julia-buildpkg@v1
+      - name: Install tropicalfeynman package
+        run: julia --project=docs -e 'import Pkg; Pkg.add(PackageSpec(path="src"))'
       - name: Install Documenter package
         run: julia --project=docs -e 'import Pkg; Pkg.add("Documenter")'
       - name: Generate Documentation
