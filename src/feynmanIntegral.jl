@@ -172,7 +172,7 @@ function feynmanIntegralSum(R::Nemo.FmpqMPolyRing,x::Vector,q::Vector,G::graphe,
     return res
 end
 function subt(p::fmpq_mpoly)
-coeffs_dict = coeffs(p)
+coeffs_dict = coefficients(p)
 coeffs_array = collect(values(coeffs_dict))
 return sum(coeffs_array)
 end
