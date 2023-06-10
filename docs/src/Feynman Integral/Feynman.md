@@ -16,9 +16,8 @@ export polynomialring,constterm, proterm, propagator, coefterm, partition, preim
 
 ## Graph
 
-A Feynman graph is a (non-metrized) graph Γ without ends with n vertices which are labeled $ x_1, . . . , x_n $ and with labeled edges $q_1, . . . , q_r$.
+A Feynman graph Γ of genus g is a trivalent connected graph of genus g.
 The graph $G$ is represented as a collection of vertices $V$ and edges $E$. Each edge is a pair $(v,w)$ where both $v$ and $w$ are elements of the set of vertices $V$.
-
 
 ```jldoctest graph
 julia> ve=[(1, 1), (1, 2), (2, 3), (3, 1)]
@@ -74,7 +73,7 @@ Here we have the defaults values of the leak vector and the genus function  l=[0
 
 ```jldoctest graph
 julia>  specificFeynmanIntegralo(R,x,q,z,G,a,o,aa=0,l=[0,0,0],g=[0,0,0])
-3*q_{1}^2*q_{4}.
+56*q[2]^4*q[3]^2*q[6]^2
 ```
 
 ## Feynman Integral
