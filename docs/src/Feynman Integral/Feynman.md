@@ -24,7 +24,8 @@ The graph $G$ is represented as a collection of vertices $V$ and edges $E$. Each
 julia> ve=[(1, 1), (1, 2), (2, 3), (3, 1)]
 4-element Vector{Tuple{Int64, Int64}}:
  (1, 1)
- ⋮
+ (1, 2)
+ (2, 3)
  (3, 1)
 ```
 
@@ -39,7 +40,7 @@ We then define the $R,x,q=polynomialring(G)$ from the graph G.  The polynomial r
 
 ```jldoctest graph
 julia>   R,x,q,z=polynomialring(G,"x","q","z")
-(Multivariate Polynomial Ring in 10 variables x[1], x[2], x[3], q[1], ..., z[3] over Rational Field, fmpq_mpoly[x[1], x[2], x[3]], fmpq_mpoly[q[1], q[2], q[3], q[4]], fmpq_mpoly[z[1], z[2], z[3]])
+(Multivariate polynomial ring in 10 variables over QQ, Nemo.QQMPolyRingElem[x[1], x[2], x[3]], Nemo.QQMPolyRingElem[q[1], q[2], q[3], q[4]], Nemo.QQMPolyRingElem[z[1], z[2], z[3]])
 ```
 
 ## specific Feynman Integral
@@ -51,7 +52,8 @@ a is a list of partition of degree d=3 of $\Gamma$.
 julia> a=[2,0,0,1]
 4-element Vector{Int64}:
  2
- ⋮
+ 0
+ 0
  1
 ```
 

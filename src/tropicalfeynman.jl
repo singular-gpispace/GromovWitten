@@ -8,7 +8,7 @@ using Nemo, Graphs, Combinatorics,StatsBase
 end
 import Graphs: nv,ne,Edge,dst, src
 export graphe,nv,ne,PolynomialRing,QQ
-export polynomialring,constterm, proterm, propagator, coefterm, partition, preimg, sgn,flip,flipo
+export polynomialring,constterm, proterm, propagator, coefterm, partition, preimg, sgn,flip,flipo,
 specificFeynmanIntegral, feynmanIntegral,feynmanIntegralSum,subt,consttermV, protermV, coefterm2Z, coeftermQ,coeftermX, sgnV,flipV,
 specificFeynmanIntegralo,feynmanIntegralo
 

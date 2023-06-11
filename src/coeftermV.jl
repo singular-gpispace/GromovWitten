@@ -28,27 +28,6 @@ function looptermV( z::fmpq_mpoly,q::fmpq_mpoly, aa::Integer, a::Integer)
    end
        return p
 end
-function coeftermQ(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z::Vector,G::graphe,hp::fmpq_mpoly,a::Vector) 
-    nn=nv(G)+1
-    n=ne(G)
-    r=gens(R)
-    m=length(r)
-    if hp==0
-        return 0
-    else
-        for i in nn:nn+n-1
-            f=hp
-            u=i-nn+1
-            if a[i-nn+1]==0
-            else
-                m=coefficients(f,i)
-                gg=a[i-nn+1]
-                hp=m[gg+1] 
-            end
-        end
-    end
-    return hp
-end
 function coefterm2Z(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z::Vector,hp::fmpq_mpoly,g::Vector) 
     g=2 .* g
     if hp==0
