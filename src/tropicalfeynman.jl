@@ -1,6 +1,6 @@
 module tropicalfeynman
 # Write your package code here.
-using Oscar, Graphs, Combinatorics,StatsBase
+using Nemo, Graphs, Combinatorics,StatsBase
 
 #ve=[(1, 2), (1,2),(2, 4), (1, 3) ,(3, 4),(3,4)]
  struct graphe
@@ -8,9 +8,9 @@ using Oscar, Graphs, Combinatorics,StatsBase
 end
 import Graphs: nv,ne,Edge,dst, src
 export graphe,nv,ne,PolynomialRing,QQ
-export polynomialring,constterm, proterm, propagator, coefterm, partition, preimg, sgn,flip,
+export polynomialring,constterm, proterm, propagator, coefterm, partition, preimg, sgn,flip,flipo
 specificFeynmanIntegral, feynmanIntegral,feynmanIntegralSum,subt,consttermV, protermV, coefterm2Z, coeftermQ,coeftermX, sgnV,flipV,
-feynmanIntegralSumV,specificFeynmanIntegralo,feynmanIntegralo
+specificFeynmanIntegralo,feynmanIntegralo
 
 include("graphe.jl")
 include("coeftermV.jl")

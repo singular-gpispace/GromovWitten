@@ -1,7 +1,7 @@
 using Pkg
 Pkg.activate("..")
 push!(LOAD_PATH, joinpath(@__DIR__, "..", "src"))
-using tropicalfeynman,Oscar
+using tropicalfeynman
 using Documenter
 DocMeta.setdocmeta!(tropicalfeynman, :DocTestSetup, :(using tropicalfeynman); recursive=true)
 

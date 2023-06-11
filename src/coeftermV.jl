@@ -9,7 +9,7 @@ end
 function InvSfunction(x,k)
     su=0
     for n in 0:k+1
-        su=su-(((1//2^(n))*(-2 + 2^n)*Oscar.bernoulli(n))//(factorial(n)))*x^n
+        su=su-(((1//2^(n))*(-2 + 2^n)*bernoulli(n))//(factorial(n)))*x^n
         
     end
     return su
