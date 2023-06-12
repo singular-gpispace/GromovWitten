@@ -14,8 +14,6 @@
 # ```
 # julia --color=yes makeLocal.jl
 # ```
-
-
 using Pkg
 pkg"activate .."
 push!(LOAD_PATH,"../src/")
