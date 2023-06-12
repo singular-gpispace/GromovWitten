@@ -1,5 +1,5 @@
 using Pkg
-Pkg.activate("..")
+Pkg.activate(joinpath(@__DIR__, ".."))
 push!(LOAD_PATH, joinpath(@__DIR__, "..", "src"))
 using tropicalfeynman
 using Documenter
