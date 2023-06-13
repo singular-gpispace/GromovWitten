@@ -37,9 +37,9 @@ We then define the Polynomial Ring
 
 ```bash
 R,x,q,z=polynomialring(G,"x","q","z")
- x represents a vector of vertices, 
- y represents a vector of edges and 
- z represents a vector of vertex contributions.
+ # x represents a vector of vertices, 
+ # y represents a vector of edges and 
+# z represents a vector of vertex contributions.
 ```
 
 To compute the specific Feynman Integral, we define a partition  $a=[0,0,3]$  of degree d=3, a fixed order of vertex $o=[1,2,3]$ and the genus function $g=[1,0,0]$. The leak in G is $L=[0,0,0]$ , $aa=1$ is the order of the Sfunction. We have then
