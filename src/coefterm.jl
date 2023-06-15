@@ -91,7 +91,7 @@ function sgn(G::graphe ,Ω::Vector,a::Vector) #graph G, list p, branch type a
 end
 # Same like before, here it returns -2 in case the Graph G has a loop. 
 # It detects the loop in the graph. 
-function sgn(G::graphe ,p::Vector,a::Vector) #graph G, list p, branch type a
+function sgnV(G::graphe ,p::Vector,a::Vector) #graph G, list p, branch type a
     ee=Edge.(G.edge)
     b=zeros(Int,length(a))
     for (i, (ai, ev)) in enumerate(zip(a, ee))
@@ -143,7 +143,7 @@ function flip( G::graphe,  a::Vector)
     end
     return b   
 end
-# Flip signature regroup all Orders Ω with the same signature so same Feynman Integral. 
+# Flip signature regroup all Orders with the same signature so same
 function flipV( G::graphe, a::Vector)
 
     ee=Edge.(G.edge)

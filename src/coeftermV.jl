@@ -12,7 +12,7 @@ z^n, {aa} \rightarrow \infty$
 # Examples
 ```jldoctest
 julia> Sfunction(z[1],4)
-1//92897280*z[1]^8 + 1//322560*z[1]^6 + 1//1920*z[1]^4 + 1//24*z[1]^2 + 1
+1//92897280*z[1]^8 + 1//322560*z[1]^6 + 1//1920*z[1]^4 + 1//24*z[1]^2 
 ````
 """
 function Sfunction(z::QQMPolyRingElem,k::Int64)
