@@ -1,15 +1,31 @@
-function Sfunction(x,k)
+###############################################################################
+#                                                                             #
+#    coeftermV.jl : compute differents  function for vertex contributions.    #
+#                                                                             #
+###############################################################################
+@doc raw"""
+Sfunction(z::QQMPolyRingElem,k::Int64)
+**Note**:The function Sfunction(z,k) takes account vertex contributions. 
+$S (z, {aa}) = \sum_{n = 0}^{{aa}} \dfrac{2^{- 1 - n} (1 + (- 1)^n)
+}{(n + 1) !} z^n = \sum_{n = 0}^{{aa}} \dfrac{{2^{- 2 n}} }{(2 n + 1) !}
+z^n, {aa} \rightarrow \infty$
+# Examples
+```jldoctest
+julia> Sfunction(z[1],4)
+1//92897280*z[1]^8 + 1//322560*z[1]^6 + 1//1920*z[1]^4 + 1//24*z[1]^2 + 1
+````
+"""
+function Sfunction(z::QQMPolyRingElem,k::Int64)
     su=0
    for n in 0:k
-       su=su+(1//(2^(2n)))//(factorial(2*n+1))*(x)^(2*n)
-       
+       su=su+(1//(2^(2n)))//(factorial(2*n+1))*(z)^(2*n)
    end
    return su
 end
-function InvSfunction(x,k)
+function InvSfunction(z::QQMPolyRingElem,k::Int64)
     su=0
     for n in 0:k+1
-        su=su-(((1//2^(n))*(-2 + 2^n)*bernoulli(n))//(factorial(n)))*x^n
+        su=su-(((1//2^(n))*(-2 + 2^n)*bernoulli(n))//(factorial(n)))*z^n
         
     end
     return su

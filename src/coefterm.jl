@@ -1,15 +1,49 @@
+###############################################################################
+#                                                                             #
+#     coefterm.jl : compute differents  coefficients of polynomial.           #
+#                                                                             #
+###############################################################################
+
+#  coefterm compute the coefficients term x1^0,...,xn^0, By I(q)=coeff[x1^0,...,xn^0](P(x,q))
+#Where I(q) is the Feynman Integral and P(x,q) the Propagator.
 function coefterm(R::MPolyRing,x::Vector,q::Vector,G::graphe ,p::fmpq_mpoly,d::Integer;l=zeros(Int,nv(G)))
-    ee=Edge.(G.edge)
-    G=DiGraph(Edge.(G.edge))
-    L=zeros(Int,nv(G))
-    for ev in ee
+   #here l is leak vector of the graph G.
+    ee=Edge.(G.edge) 
+    G=DiGraph(Edge.(G.edge)) # convert from graphe to Graph (so we can use nv(G))
+    L=zeros(Int,nv(G)) #  define zeros Vector of length nv(G)
+    for ev in ee  #      for each edge, we add d to incident vertices.
         L[src(ev)]=L[src(ev)]+d
         L[dst(ev)]=L[dst(ev)]+d
-    end
-    L=L .+l
-    p=coeff(p,x,L)
+    end # So L =d*ei where ei is the number of valence of each vertex
+    L=L .+l # adding l to the vector L. 
+    p=coeff(p,x,L) # compute the coefficients of degree x1^l1,...,xn^ln.
     return p
 end 
+@doc raw"""
+partition(k::Integer, n::Integer)    
+
+**Note**:This function returns the number of partitions of $n$ into fixed  $k$ parts. 
+# Examples
+```jldoctest
+julia> partition(3,4)
+15-element Vector{Vector{Int64}}:
+ [4, 0, 0]
+ [3, 1, 0]
+ [3, 0, 1]
+ [2, 2, 0]
+ [2, 1, 1]
+ [2, 0, 2]
+ [1, 3, 0]
+ [1, 2, 1]
+ [1, 1, 2]
+ [1, 0, 3]
+ [0, 4, 0]
+ [0, 3, 1]
+ [0, 2, 2]
+ [0, 1, 3]
+ [0, 0, 4]
+````
+"""
 function partition(n::Integer, k::Integer)
     if k == 1
         return [[n]]
@@ -27,33 +61,37 @@ function partition(n::Integer, k::Integer)
     end
     return result
 end
-function preimg(S::Vector, a::Integer)
-    for (i,s) in enumerate(S)
-        if s==a
-            return i
+#give the position of the vertices xi in the list L. 
+function preimg(L::Vector, xi::Integer)
+    for (i,Li) in enumerate(L)
+        if Li==xi
+            return i # i is then the position of xi in L
             break
         end
     end
 end
 
-function sgn(G::graphe ,p::Vector,a::Vector) #graph G, list p, branch type a  
+# This first signature determine the flip signature. Ω=[x1,...,xn] is a given Order 
+#and a is a branche type. It returns -1 if xi<xj and O else. 
+function sgn(G::graphe ,Ω::Vector,a::Vector) #graph G, list p, branch type a  
     ee=Edge.(G.edge)
     b=zeros(Int,length(a))
     for (i,(ai,ev)) in enumerate(zip(a,ee))
        if ai==0
-           if preimg(p,src(ev))<preimg(p,dst(ev))
+           if preimg(Ω,src(ev))<preimg(Ω,dst(ev))
                     b[i]=-1
                 else 
                     b[i]=0
             end
             else
-                b[i]=ai
+                b[i]=ai # So only O entry of a are affected. 
         end         
     end
             return b
 end
-function sgnV(G::graphe ,p::Vector,a::Vector) #graph G, list p, branch type a
-    
+# Same like before, here it returns -2 in case the Graph G has a loop. 
+# It detects the loop in the graph. 
+function sgn(G::graphe ,p::Vector,a::Vector) #graph G, list p, branch type a
     ee=Edge.(G.edge)
     b=zeros(Int,length(a))
     for (i, (ai, ev)) in enumerate(zip(a, ee))
@@ -64,7 +102,7 @@ function sgnV(G::graphe ,p::Vector,a::Vector) #graph G, list p, branch type a
                 b[i] = 0
             end
         elseif  src(ev) == dst(ev)
-            b[i] = -2
+            b[i] = -2 
         elseif ai != 0 && src(ev) != dst(ev)
             b[i] = ai
         end
@@ -76,7 +114,6 @@ end
 function flip( G::graphe,  a::Vector)
 
     ee=Edge.(G.edge)
-
     p=[]
     b=Vector{Vector{Any}}()
 
@@ -89,12 +126,10 @@ function flip( G::graphe,  a::Vector)
             l[dst(ev)] =1
         end
     end
-
     for (i,li) in enumerate(l)
            if li==1
             push!(p,i)
         end
-
     end   
     p=collect(permutations(p))
 
@@ -108,6 +143,7 @@ function flip( G::graphe,  a::Vector)
     end
     return b   
 end
+# Flip signature regroup all Orders Ω with the same signature so same Feynman Integral. 
 function flipV( G::graphe, a::Vector)
 
     ee=Edge.(G.edge)
