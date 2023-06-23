@@ -32,8 +32,8 @@ julia> ve=[(1, 1), (1, 2), (2, 3), (3, 1)]
 and
 
 ```jldoctest graph
-julia> G=graphe(ve)
-graphe([(1, 1), (1, 2), (2, 3), (3, 1)])
+julia> G=graph(ve)
+graph([(1, 1), (1, 2), (2, 3), (3, 1)])
 ```
 
 We then define the $R,x,q=polynomialring(G)$ from the graph G.  The polynomial ring has $ 5g-5$ variables, consisting of two sets of variables: $x_{1},x_{2},...,x_{2g-2}$ and $q_{1},q_{2},...,q_{3g-3}$.

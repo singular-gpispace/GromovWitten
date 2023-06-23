@@ -1,6 +1,6 @@
 @testset "feynmanint.jl" begin
     ve=[(1, 1), (1, 2), (2, 3), (3, 1)]
-    G=graphe(ve)
+    G=graph(ve)
     R,x,q,z=polynomialring(G,"x","q","z")
     g=[0,0,0]
     a=[2,0,0,1]
