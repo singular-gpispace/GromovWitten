@@ -25,11 +25,11 @@ Once julia opened type this command to install missing packages:
 using tropicalfeynman  #this will load the package 
 ```
 
-then we define a graphe using a list.
+then we define a graph using a list.
 
 ```bash
 ve=[ (1, 2), (2, 3), (3, 1)]  
-G=graphe(ve) #The graphe G.
+G=graph(ve) #The graph G.
 
 ```
 
