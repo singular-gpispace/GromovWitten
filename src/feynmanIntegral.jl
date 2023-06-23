@@ -1,4 +1,4 @@
-function specificFeynmanIntegral(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector, G::graphe ,a::Vector{Int64} ;l=zeros(Int,nv(G)))
+function specificFeynmanIntegral(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector, G::graph ,a::Vector{Int64} ;l=zeros(Int,nv(G)))
     ee = Edge.(G.edge)
     N = sum(a)
     f = flipV(G, a)
@@ -13,16 +13,20 @@ function specificFeynmanIntegral(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector, G:
 
                 elseif f[i][2][j] == 0
                         tmp = tmp * constterm(x[dst(ee[j])], x[src(ee[j])], N)
+                elseif f[i][2][j] == -2
+                        tmp = tmp *looptermV(q[j],a[j])
+
                 else 
                         tmp = tmp * proterm(x[src(ee[j])], x[dst(ee[j])], q[j],f[i][2][j], N)
                 end 
         end
             #p=p+f[i][1]*tm
+
         p=p+f[i][1]*coefterm(R,x,q,G,tmp,N;l)
     end
     return p
 end
-function specificFeynmanIntegral(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z::Vector, G::graphe ,a::Vector{Int64} ;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
+function specificFeynmanIntegral(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z::Vector, G::graph ,a::Vector{Int64} ;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
     ee = Edge.(G.edge)
     N = sum(a)
     f = flipV(G, a)
@@ -59,7 +63,7 @@ function specificFeynmanIntegral(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z::
     end
     return p
 end
-function specificFeynmanIntegralo(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector, G::graphe ,a::Vector{Int64} ,o::Vector{Int64};l=zeros(Int,nv(G)))
+function specificFeynmanIntegralo(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector, G::graph ,a::Vector{Int64} ,o::Vector{Int64};l=zeros(Int,nv(G)))
     ee = Edge.(G.edge)
     N = sum(a)
     f = flipo(G, a,o)
@@ -74,6 +78,9 @@ function specificFeynmanIntegralo(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector, G
 
                 elseif f[i][2][j] == 0
                         tmp = tmp * constterm(x[dst(ee[j])], x[src(ee[j])], N)
+                elseif f[i][2][j] == -2
+                        tmp = tmp *looptermV(q[j],a[j])
+
                 else 
                         tmp = tmp * proterm(x[src(ee[j])], x[dst(ee[j])], q[j],f[i][2][j], N)
                 end 
@@ -83,7 +90,7 @@ function specificFeynmanIntegralo(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector, G
     end
     return p
 end
-function specificFeynmanIntegralo(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z::Vector, G::graphe ,a::Vector{Int64} ,o::Vector{Int64};aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
+function specificFeynmanIntegralo(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z::Vector, G::graph ,a::Vector{Int64} ,o::Vector{Int64};aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
     ee = Edge.(G.edge)
     N = sum(a)
     f = flipo(G, a,o)
@@ -121,7 +128,7 @@ function specificFeynmanIntegralo(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z:
     end
     return p
 end
-function feynmanIntegralo(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector, G::graphe,o::Vector{Int64},d::Integer;aa=0,l=zeros(Int,nv(G)))
+function feynmanIntegralo(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector, G::graph,o::Vector{Int64},d::Integer;aa=0,l=zeros(Int,nv(G)))
     ee=Edge.(G.edge)
     a=partition(length(ee),d) 
     sum=0
@@ -130,7 +137,7 @@ function feynmanIntegralo(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector, G::graphe
     end
     return sum
 end 
-function feynmanIntegralo(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z::Vector, G::graphe,o::Vector{Int64},d::Integer;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
+function feynmanIntegralo(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z::Vector, G::graph,o::Vector{Int64},d::Integer;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
     ee=Edge.(G.edge)
     a=partition(length(ee),d) 
     sum=0
@@ -139,7 +146,7 @@ function feynmanIntegralo(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z::Vector,
     end
     return sum
 end 
-function feynmanIntegral(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector, G::graphe,d::Integer;l=zeros(Int,nv(G)))
+function feynmanIntegral(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector, G::graph,d::Integer;l=zeros(Int,nv(G)))
     ee=Edge.(G.edge)
     a=partition(length(ee),d) 
     sum=0
@@ -148,7 +155,7 @@ function feynmanIntegral(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector, G::graphe,
     end
     return sum
 end 
-function feynmanIntegral(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z::Vector, G::graphe,d::Integer;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
+function feynmanIntegral(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z::Vector, G::graph,d::Integer;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
     ee=Edge.(G.edge)
     a=partition(length(ee),d) 
     sum=0
@@ -157,14 +164,14 @@ function feynmanIntegral(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z::Vector, 
     end
     return sum
 end 
-function feynmanIntegralSum(R::Nemo.FmpqMPolyRing,x::Vector,q::Vector,z::Vector,G::graphe,d::Integer;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
+function feynmanIntegralSum(R::Nemo.FmpqMPolyRing,x::Vector,q::Vector,z::Vector,G::graph,d::Integer;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
     res=0
     for i in 1:d
         res+=feynmanIntegral(R,x,q,z,G,i;aa,l,g)
     end
     return res
 end
-function feynmanIntegralSum(R::Nemo.FmpqMPolyRing,x::Vector,q::Vector,G::graphe,d::Integer;l=zeros(Int,nv(G)))
+function feynmanIntegralSum(R::Nemo.FmpqMPolyRing,x::Vector,q::Vector,G::graph,d::Integer;l=zeros(Int,nv(G)))
     res=0
     for i in 1:d
         res+=feynmanIntegral(R,x,q,G,i;l)

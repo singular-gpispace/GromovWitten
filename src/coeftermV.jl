@@ -30,6 +30,19 @@ function InvSfunction(z::QQMPolyRingElem,k::Int64)
     end
     return su
 end
+function looptermV( q::fmpq_mpoly, a::Integer)
+    p=0
+   if a==0
+       return p
+   else 
+       for w in 1:a
+           if a%w==0
+               p = p + w*q^(a)
+           end
+       end
+   end
+       return p
+end
 function looptermV( z::fmpq_mpoly,q::fmpq_mpoly, aa::Integer, a::Integer)
     p=0
    if a==0
@@ -53,7 +66,7 @@ function coefterm2Z(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z::Vector,hp::fm
     end
     return hp
 end
-function coeftermX(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z::Vector,G::graphe ,p::fmpq_mpoly,d::Integer;l=zeros(Int,nv(G)))
+function coeftermX(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z::Vector,G::graph ,p::fmpq_mpoly,d::Integer;l=zeros(Int,nv(G)))
     r=gens(R)
     m=r[1:nv(G)]
     ee=Edge.(G.edge)

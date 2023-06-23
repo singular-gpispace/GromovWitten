@@ -6,14 +6,18 @@
 
 #  coefterm compute the coefficients term x1^0,...,xn^0, By I(q)=coeff[x1^0,...,xn^0](P(x,q))
 #Where I(q) is the Feynman Integral and P(x,q) the Propagator.
-function coefterm(R::MPolyRing,x::Vector,q::Vector,G::graphe ,p::fmpq_mpoly,d::Integer;l=zeros(Int,nv(G)))
+function coefterm(R::MPolyRing,x::Vector,q::Vector,G::graph ,p::fmpq_mpoly,d::Integer;l=zeros(Int,nv(G)))
    #here l is leak vector of the graph G.
     ee=Edge.(G.edge) 
-    G=DiGraph(Edge.(G.edge)) # convert from graphe to Graph (so we can use nv(G))
+    G=DiGraph(Edge.(G.edge)) # convert from graph to Graph (so we can use nv(G))
     L=zeros(Int,nv(G)) #  define zeros Vector of length nv(G)
-    for ev in ee  #      for each edge, we add d to incident vertices.
-        L[src(ev)]=L[src(ev)]+d
-        L[dst(ev)]=L[dst(ev)]+d
+    for ev in ee
+        if src(ev) == dst(ev) #checking for loop term. 
+
+        else
+            L[src(ev)]=L[src(ev)]+d
+            L[dst(ev)]=L[dst(ev)]+d
+        end
     end # So L =d*ei where ei is the number of valence of each vertex
     L=L .+l # adding l to the vector L. 
     p=coeff(p,x,L) # compute the coefficients of degree x1^l1,...,xn^ln.
@@ -73,7 +77,7 @@ end
 
 # This first signature determine the flip signature. Ω=[x1,...,xn] is a given Order 
 #and a is a branche type. It returns -1 if xi<xj and O else. 
-function sgn(G::graphe ,Ω::Vector,a::Vector) #graph G, list p, branch type a  
+function sgn(G::graph ,Ω::Vector,a::Vector) #graph G, list p, branch type a  
     ee=Edge.(G.edge)
     b=zeros(Int,length(a))
     for (i,(ai,ev)) in enumerate(zip(a,ee))
@@ -91,7 +95,7 @@ function sgn(G::graphe ,Ω::Vector,a::Vector) #graph G, list p, branch type a
 end
 # Same like before, here it returns -2 in case the Graph G has a loop. 
 # It detects the loop in the graph. 
-function sgnV(G::graphe ,p::Vector,a::Vector) #graph G, list p, branch type a
+function sgnV(G::graph ,p::Vector,a::Vector) #graph G, list p, branch type a
     ee=Edge.(G.edge)
     b=zeros(Int,length(a))
     for (i, (ai, ev)) in enumerate(zip(a, ee))
@@ -111,7 +115,7 @@ function sgnV(G::graphe ,p::Vector,a::Vector) #graph G, list p, branch type a
 return b
 end
 
-function flip( G::graphe,  a::Vector)
+function flip( G::graph,  a::Vector)
 
     ee=Edge.(G.edge)
     p=[]
@@ -144,7 +148,7 @@ function flip( G::graphe,  a::Vector)
     return b   
 end
 # Flip signature regroup all Orders with the same signature so same
-function flipV( G::graphe, a::Vector)
+function flipV( G::graph, a::Vector)
 
     ee=Edge.(G.edge)
 
@@ -179,7 +183,7 @@ function flipV( G::graphe, a::Vector)
     end
     return b 
 end
-function flipo(G::graphe, a::Vector,o::Vector)
+function flipo(G::graph, a::Vector,o::Vector)
     b=Vector{Vector{Any}}()
     y=Vector{Any}()
     push!(y,sgnV(G,o,a)) 
