@@ -67,8 +67,6 @@ function coefterm2Z( x::Vector, q::Vector,z::Vector,hp::fmpq_mpoly,g::Vector)
     return hp
 end
 function coeftermX( x::Vector, q::Vector,z::Vector,G::graph ,p::fmpq_mpoly,d::Integer;l=zeros(Int,nv(G)))
-    r=gens(R)
-    m=r[1:nv(G)]
     ee=Edge.(G.edge)
     G=DiGraph(Edge.(G.edge))
     L=zeros(Int,nv(G))
@@ -81,6 +79,6 @@ function coeftermX( x::Vector, q::Vector,z::Vector,G::graph ,p::fmpq_mpoly,d::In
         end
     end
     L=L .+l
-    p=coeff(p,m,L)
+    p=coeff(p,x,L)
     return p
 end

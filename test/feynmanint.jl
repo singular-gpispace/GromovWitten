@@ -2,7 +2,6 @@
     ve=[(1, 1), (1, 2), (2, 3), (3, 1)]
     G=graph(ve)
     R,x,q,z=polynomialring(G,"x","q","z")
-    g=[0,0,0]
     a=[2,0,0,1]
     o=[1,2,3]
     @test specificFeynmanIntegralo(x,q,z,G,a,o)==3*q[1]^2*q[4]
