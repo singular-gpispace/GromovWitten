@@ -71,14 +71,14 @@ We compute the Specific Feynman Integral for the Graph G given a fixed vertex or
 Here we have the defaults values of the leak vector and the genus function  l=[0,0,0], g=[0,0,0] and we set the order of Sfunction $ aa=0$
 
 ```jldoctest graph
-julia>  specificFeynmanIntegralo(R,x,q,z,G,a,o,aa=0,l=[0,0,0],g=[0,0,0])
+julia>  specificFeynmanIntegralo(x,q,z,G,a,o,aa=0,l=[0,0,0],g=[0,0,0])
 3*q[1]^2*q[4]
 ```
 
 In the case l=[0,0,0], g=[0,0,0] and  $ aa=0$ we can write simply write.
 
 ```jldoctest graph
-julia>  specificFeynmanIntegralo(R,x,q,z,G,a,o)
+julia>  specificFeynmanIntegralo(x,q,z,G,a,o)
 3*q[1]^2*q[4]
 ```
 
@@ -86,7 +86,7 @@ We compute the Specific Feynman Integral for the Graph G given a fixed partition
 Here we have the defaults values of the leak vector and the genus function  l=[0,0,0], g=[0,0,0] and we set the order of Sfunction $ aa=0$
 
 ```jldoctest graph
-julia> specificFeynmanIntegral(R,x,q,z,G,a)
+julia> specificFeynmanIntegral(x,q,z,G,a)
 6*q[1]^2*q[4]
 ```
 
@@ -95,7 +95,7 @@ julia> specificFeynmanIntegral(R,x,q,z,G,a)
 We compute the  Feynman Integral of the graph G over all  partitions of the degree d=3  for a fixed ordering $o$.
 
 ```jldoctest graph
-julia> feynmanIntegralo(R,x,q,z,G,o,3) # here d=3
+julia> feynmanIntegralo(x,q,z,G,o,3) # here d=3
 3*q[1]^2*q[4] + q[1]*q[2]*q[3] + q[1]*q[2]*q[4] + q[1]*q[3]*q[4] + 9*q[1]*q[4]^2
 
 ```
@@ -103,13 +103,13 @@ julia> feynmanIntegralo(R,x,q,z,G,o,3) # here d=3
 We compute the Feynman integral over all the partitions of the degree d of graph G for all vertex ordering.
 
 ```jldoctest graph
-julia>  feynmanIntegral(R,x,q,z,G,3) # here d=3
+julia>  feynmanIntegral(x,q,z,G,3) # here d=3
 6*q[1]^2*q[2] + 6*q[1]^2*q[3] + 6*q[1]^2*q[4] + 18*q[1]*q[2]^2 + 6*q[1]*q[2]*q[3] + 6*q[1]*q[2]*q[4] + 18*q[1]*q[3]^2 + 6*q[1]*q[3]*q[4] + 18*q[1]*q[4]^2
 ```
 
 We compute the sum of coefficients.
 
 ```
-julia> subt( feynmanIntegral(R,x,q,z,G,3)
+julia> subt( feynmanIntegral(x,q,z,G,3)
 90
 ```

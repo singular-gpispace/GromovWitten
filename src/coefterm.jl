@@ -6,7 +6,7 @@
 
 #  coefterm compute the coefficients term x1^0,...,xn^0, By I(q)=coeff[x1^0,...,xn^0](P(x,q))
 #Where I(q) is the Feynman Integral and P(x,q) the Propagator.
-function coefterm(R::MPolyRing,x::Vector,q::Vector,G::graph ,p::fmpq_mpoly,d::Integer;l=zeros(Int,nv(G)))
+function coefterm(x::Vector,q::Vector,G::graph ,p::fmpq_mpoly,d::Integer;l=zeros(Int,nv(G)))
    #here l is leak vector of the graph G.
     ee=Edge.(G.edge) 
     G=DiGraph(Edge.(G.edge)) # convert from graph to Graph (so we can use nv(G))

@@ -57,7 +57,7 @@ function looptermV( z::fmpq_mpoly,q::fmpq_mpoly, aa::Integer, a::Integer)
    end
        return p
 end
-function coefterm2Z(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z::Vector,hp::fmpq_mpoly,g::Vector) 
+function coefterm2Z( x::Vector, q::Vector,z::Vector,hp::fmpq_mpoly,g::Vector) 
     g=2 .* g
     if hp==0
         return 0
@@ -66,7 +66,7 @@ function coefterm2Z(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z::Vector,hp::fm
     end
     return hp
 end
-function coeftermX(R::Nemo.FmpqMPolyRing, x::Vector, q::Vector,z::Vector,G::graph ,p::fmpq_mpoly,d::Integer;l=zeros(Int,nv(G)))
+function coeftermX( x::Vector, q::Vector,z::Vector,G::graph ,p::fmpq_mpoly,d::Integer;l=zeros(Int,nv(G)))
     r=gens(R)
     m=r[1:nv(G)]
     ee=Edge.(G.edge)

@@ -3,5 +3,5 @@
     G=graph(ve)
     R, x, q = polynomialring(G,"x","q")
     a=[0,2,1,0,0,1]
-    @test  subt(feynmanIntegral(R,x,q,G ,3))==1792
+    @test  subt(feynmanIntegral(x,q,G ,3))==1792
 end
