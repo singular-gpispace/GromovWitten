@@ -21,11 +21,19 @@ Once julia opened type this command to install missing packages:
  pkg> instantiate 
 ```
 
+
+or 
+
+```bash
+ julia>  import Pkg; Pkg.instantiate()
+```
+
+
 ```bash
 using tropicalfeynman  #this will load the package 
 ```
 
-then we define a graph using a list.
+then we define a graph using a  list
 
 ```bash
 ve=[ (1, 2), (2, 3), (3, 1)]  
@@ -36,7 +44,7 @@ G=graph(ve) #The graph G.
 We then define the Polynomial Ring
 
 ```bash
-R,x,q,z=polynomialring(G,"x","q","z")
+R,x,q,z=polynomial_ring(G,"x","q","z")
  # x represents a vector of vertices, 
  # y represents a vector of edges and 
 # z represents a vector of vertex contributions.
@@ -45,17 +53,17 @@ R,x,q,z=polynomialring(G,"x","q","z")
 To compute the specific Feynman Integral, we define a partition  $a=[0,0,3]$  of degree d=3, a fixed order of vertex $o=[1,2,3]$ and the genus function $g=[1,0,0]$. The leak in G is $L=[0,0,0]$ , $aa=1$ is the order of the Sfunction. We have then
 
 ```bash
- specificFeynmanIntegralo(R,x,q,z,G,a,o,aa=1,l=[0,0,0],g=[1,0,0])
+ feynman_integral_branchtype_order(R,x,q,z,G,a,o,aa=1,l=[0,0,0],g=[1,0,0])
 ```
 
 also we can compute Feynman Integral of degree 4
 
 ```bash
- feynmanIntegral(R,x,q,z,G,3,aa=1,l=[0,0,0],g=[1,0,0])
+ feynman_integral_degree(R,x,q,z,G,3,aa=1,l=[0,0,0],g=[1,0,0])
 ```
 
 Finally we substitute all $q$  variables by $q_{1}$
 
 ```bash
-subt(feynmanIntegral(R,x,q,z,G,3,aa=1,l=[0,0,0],g=[1,0,0]))
+substitute(feynman_integral_degree(R,x,q,z,G,3,aa=1,l=[0,0,0],g=[1,0,0]))
 ```
