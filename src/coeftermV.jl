@@ -15,10 +15,11 @@ julia> Sfunction(z[1],4)
 1//92897280*z[1]^8 + 1//322560*z[1]^6 + 1//1920*z[1]^4 + 1//24*z[1]^2 
 ````
 """
-function Sfunction(z::QQMPolyRingElem,k::Int64)
+function Sfunction(x::QQMPolyRingElem,k::Int64)
     su=0
    for n in 0:k
-       su=su+(1//(2^(2n)))//(factorial(2*n+1))*(z)^(2*n)
+       su=su+(1//BigInt(2^(2n)))//(factorial(BigInt((2*n+1))))*(x)^(2*n)
+       
    end
    return su
 end
@@ -57,7 +58,7 @@ function looptermV( z::fmpq_mpoly,q::fmpq_mpoly, aa::Integer, a::Integer)
    end
        return p
 end
-function coefterm2Z( x::Vector, q::Vector,z::Vector,hp::fmpq_mpoly,g::Vector) 
+#=function coefterm2Z( x::Vector, q::Vector,z::Vector,hp::fmpq_mpoly,g::Vector) 
     g=2 .* g
     if hp==0
         return 0
@@ -81,7 +82,7 @@ function coeftermX( x::Vector, q::Vector,z::Vector,G::graph ,p::fmpq_mpoly,d::In
     L=L .+l
     p=coeff(p,x,L)
     return p
-end
+end =#
 function lis(G::graph,d::Int64,l::Vector{Int64})
     ee = Edge.(G.edge)
     #G=DiGraph(Edge.(G.edge))

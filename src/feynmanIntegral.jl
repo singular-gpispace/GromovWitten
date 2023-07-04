@@ -1,7 +1,7 @@
 function feynman_integral_branchtype( x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem}, G::graph ,a::Vector{Int64} ;l=zeros(Int,nv(G)))
     ee = Edge.(G.edge)
     N = sum(a)
-    f = flipV(G, a)
+    f = signature_and_multiplicities(G, a)
     p=0
     L=lis(G,N,l)
     for i in 1:length(f)
@@ -34,7 +34,7 @@ end
 function feynman_integral_branchtype(x::Vector, q::Vector,z::Vector, G::graph ,a::Vector{Int64} ;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
     ee = Edge.(G.edge)
     N = sum(a)
-    f = flipV(G, a)
+    f = signature_and_multiplicities(G, a)
     L=lis(G,N,l)
     g=2 .* g
     p=0
@@ -73,7 +73,7 @@ end
 function feynman_integral_branchtype_order( x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem}, G::graph ,a::Vector{Int64}  ,o::Vector{Int64};l=zeros(Int,nv(G)))
     ee = Edge.(G.edge)
     N = sum(a)
-    f = flipo(G, a,o)
+    f = signature_and_multiplicities_order(G, a,o)
     p=parent(x[1])(0) 
     L=lis(G,N,l)
     for i in 1:length(f)
@@ -106,7 +106,7 @@ end
 function feynman_integral_branchtype_order(x::Vector, q::Vector,z::Vector, G::graph ,a::Vector{Int64},o::Vector{Int64} ;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
     ee = Edge.(G.edge)
     N = sum(a)
-    f = flipo(G, a,o)
+    f = signature_and_multiplicities_order(G, a,o)
     L=lis(G,N,l)
     g=2 .* g
     p=0
@@ -179,14 +179,14 @@ function feynman_integral_degree( x::Vector, q::Vector,z::Vector, G::graph,d::In
     end
     return sum
 end 
-function feynman_integral_degreeSum(x::Vector,q::Vector,z::Vector,G::graph,d::Integer;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
+function feynman_integral_degree_sum(x::Vector,q::Vector,z::Vector,G::graph,d::Integer;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
     res=0
     for i in 1:d
         res+=feynman_integral_degree(x,q,z,G,i;aa,l,g)
     end
     return res
 end
-function feynman_integral_degreeSum(x::Vector,q::Vector,G::graph,d::Integer;l=zeros(Int,nv(G)))
+function feynman_integral_degree_sum(x::Vector,q::Vector,G::graph,d::Integer;l=zeros(Int,nv(G)))
     res=0
     for i in 1:d
         res+=feynman_integral_degree(x,q,G,i;l)
@@ -197,4 +197,15 @@ function subt(p::fmpq_mpoly)
 coeffs_dict = coefficients(p)
 coeffs_array = collect(values(coeffs_dict))
 return sum(coeffs_array)
+end
+function substitute(q::Vector{QQMPolyRingElem},p::Union{fmpq_mpoly, Int64})
+    T=parent(q[1])
+    if typeof(p)==Int64
+        return 0
+    else
+        r=gens(T)
+        s=findfirst(isequal(q[1]),r)
+        r[s:end] .= q[1]
+    end
+    return evaluate(p,r)
 end
