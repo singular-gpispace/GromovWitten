@@ -39,7 +39,7 @@ graph([(1, 1), (1, 2), (2, 3), (3, 1)])
 We then define the $R,x,q=polynomialring(G)$ from the graph G.  The polynomial ring has $ 5g-5$ variables, consisting of two sets of variables: $x_{1},x_{2},...,x_{2g-2}$ and $q_{1},q_{2},...,q_{3g-3}$.
 
 ```jldoctest graph
-julia>   R,x,q,z=polynomialring(G,"x","q","z")
+julia>   R,x,q,z=polynomial_ring(G,"x","q","z")
 (Multivariate polynomial ring in 10 variables over QQ, Nemo.QQMPolyRingElem[x[1], x[2], x[3]], Nemo.QQMPolyRingElem[q[1], q[2], q[3], q[4]], Nemo.QQMPolyRingElem[z[1], z[2], z[3]])
 ```
 

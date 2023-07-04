@@ -1,7 +1,7 @@
 @testset "feynmanint.jl" begin
     ve=[(1, 1), (1, 2), (2, 3), (3, 1)]
     G=graph(ve)
-    R,x,q,z=polynomialring(G,"x","q","z")
+    R,x,q,z=polynomial_ring(G,"x","q","z")
     a=[2,0,0,1]
     o=[1,2,3]
     @test feynman_integral_branchtype_order(x,q,z,G,a,o)==3*q[1]^2*q[4]
