@@ -82,3 +82,36 @@ function coeftermX( x::Vector, q::Vector,z::Vector,G::graph ,p::fmpq_mpoly,d::In
     p=coeff(p,x,L)
     return p
 end
+function lis(G::graph,d::Int64,l::Vector{Int64})
+    ee = Edge.(G.edge)
+    #G=DiGraph(Edge.(G.edge))
+    L=zeros(Int,nv(G))
+     @inbounds for ev in ee
+        if src(ev) != dst(ev)
+            L[src(ev)] += d
+            L[dst(ev)] += d
+        end
+    end
+               L=L .+l
+   return L
+end
+function filter_term(pols::Union{QQMPolyRingElem, Int64}, variables::Vector{QQMPolyRingElem}, power::Vector{Int64})
+    T = parent(variables[1])
+  
+    gensR = gens(T)
+    position = [findfirst(var -> var == vi, gensR) for vi in variables]
+    result = zero(pols)
+    
+    d = Vector{Int}(undef, length(variables))  # Preallocate d
+    @inbounds for term in terms(T(pols))
+        for j in 1:length(variables)
+            po = position[j]
+            d[j] = degree_fmpz(term, po)
+        end
+        if all(d .<= power)
+            result += term
+        end
+    end
+    
+    return result
+end
