@@ -24,8 +24,8 @@ In the local folder where the package is located, type in the terminal.
 -   G=graph(ve)
 -   R,x,q=polynomialring(G,"x","q")
 -  a=[0,2,1,0,0,1]
--  specificFeynmanIntegral(R,x,q,G,a)
--  feynmanIntegral(R,x,q,G ,4)
--  subt(R,x,q,feynmanIntegral(R,x,q,G ,4))
+-  feynman_integral_branchtype(x,q,G,a)
+-  feynman_integral_degree(x,q,G ,4)
+-  subt(R,x,q,feynman_integral_degree(x,q,G ,4))
 
 ```

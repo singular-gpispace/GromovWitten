@@ -4,9 +4,9 @@
     R,x,q,z=polynomialring(G,"x","q","z")
     a=[2,0,0,1]
     o=[1,2,3]
-    @test specificFeynmanIntegralo(x,q,z,G,a,o)==3*q[1]^2*q[4]
-    @test specificFeynmanIntegral(x,q,z,G,a,aa=1,l=[0,0,0],g=[0,0,0])==6*q[1]^2*q[4]
-    @test feynmanIntegralo(x,q,z,G,o,3)==3*q[1]^2*q[4] + q[1]*q[2]*q[3] + q[1]*q[2]*q[4] + q[1]*q[3]*q[4] + 9*q[1]*q[4]^2
-    @test subt(feynmanIntegralo(x,q,z,G,o,3))==15
-    @test subt(feynmanIntegral(x,q,z,G ,3))==90
+    @test feynman_integral_branchtype_order(x,q,z,G,a,o)==3*q[1]^2*q[4]
+    @test feynman_integral_branchtype(x,q,z,G,a,aa=1,l=[0,0,0],g=[0,0,0])==6*q[1]^2*q[4]
+    @test feynman_integral_degreeo(x,q,z,G,o,3)==3*q[1]^2*q[4] + q[1]*q[2]*q[3] + q[1]*q[2]*q[4] + q[1]*q[3]*q[4] + 9*q[1]*q[4]^2
+    @test subt(feynman_integral_degreeo(x,q,z,G,o,3))==15
+    @test subt(feynman_integral_degree(x,q,z,G ,3))==90
 end

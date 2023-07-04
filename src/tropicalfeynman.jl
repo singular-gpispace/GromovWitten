@@ -8,8 +8,8 @@ using Nemo, Graphs, Combinatorics,StatsBase
 import Graphs: nv,ne,Edge,dst, src
 export graph,nv,ne,PolynomialRing,QQ
 export polynomialring,constterm, proterm, propagator, coefterm, partition, preimg, sgn,flip,flipo,
-specificFeynmanIntegral, feynmanIntegral,feynmanIntegralSum,subt,consttermV, protermV, coefterm2Z, coeftermQ,coeftermX, sgnV,flipV,
-specificFeynmanIntegralo,feynmanIntegralo,lis,filter_term
+feynman_integral_branchtype, feynman_integral_degree,feynman_integral_degreeSum,subt,consttermV, protermV, coefterm2Z, coeftermQ,coeftermX, sgnV,flipV,
+feynman_integral_branchtype_order,feynman_integral_degree_order,lis,filter_term
 
 include("graph.jl")
 include("coeftermV.jl")

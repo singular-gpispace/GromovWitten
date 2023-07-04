@@ -1,4 +1,4 @@
-function specificFeynmanIntegral( x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem}, G::graph ,a::Vector{Int64} ;l=zeros(Int,nv(G)))
+function feynman_integral_branchtype( x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem}, G::graph ,a::Vector{Int64} ;l=zeros(Int,nv(G)))
     ee = Edge.(G.edge)
     N = sum(a)
     f = flipV(G, a)
@@ -31,7 +31,7 @@ function specificFeynmanIntegral( x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyR
     end
     return p
 end
-function specificFeynmanIntegral(x::Vector, q::Vector,z::Vector, G::graph ,a::Vector{Int64} ;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
+function feynman_integral_branchtype(x::Vector, q::Vector,z::Vector, G::graph ,a::Vector{Int64} ;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
     ee = Edge.(G.edge)
     N = sum(a)
     f = flipV(G, a)
@@ -70,11 +70,11 @@ function specificFeynmanIntegral(x::Vector, q::Vector,z::Vector, G::graph ,a::Ve
     end
     return p
 end
-function specificFeynmanIntegralo( x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem}, G::graph ,a::Vector{Int64}  ,o::Vector{Int64};l=zeros(Int,nv(G)))
+function feynman_integral_branchtype_order( x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem}, G::graph ,a::Vector{Int64}  ,o::Vector{Int64};l=zeros(Int,nv(G)))
     ee = Edge.(G.edge)
     N = sum(a)
     f = flipo(G, a,o)
-    p=R(0) 
+    p=parent(x[1])(0) 
     L=lis(G,N,l)
     for i in 1:length(f)
         tmp=1
@@ -103,7 +103,7 @@ function specificFeynmanIntegralo( x::Vector{QQMPolyRingElem}, q::Vector{QQMPoly
     end
     return p
 end
-function specificFeynmanIntegralo(x::Vector, q::Vector,z::Vector, G::graph ,a::Vector{Int64},o::Vector{Int64} ;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
+function feynman_integral_branchtype_order(x::Vector, q::Vector,z::Vector, G::graph ,a::Vector{Int64},o::Vector{Int64} ;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
     ee = Edge.(G.edge)
     N = sum(a)
     f = flipo(G, a,o)
@@ -143,53 +143,53 @@ function specificFeynmanIntegralo(x::Vector, q::Vector,z::Vector, G::graph ,a::V
     return p
 end
 
-function feynmanIntegralo( x::Vector, q::Vector, G::graph,o::Vector{Int64},d::Integer;aa=0,l=zeros(Int,nv(G)))
+function feynman_integral_degree_order( x::Vector, q::Vector, G::graph,o::Vector{Int64},d::Integer;aa=0,l=zeros(Int,nv(G)))
     ee=Edge.(G.edge)
     a=partition(length(ee),d) 
     sum=0
     for ai in a
-         sum=sum+specificFeynmanIntegralo(x,q,G,ai,o;l) 
+         sum=sum+feynman_integral_branchtype_order(x,q,G,ai,o;l) 
     end
     return sum
 end 
-function feynmanIntegralo( x::Vector, q::Vector,z::Vector, G::graph,o::Vector{Int64},d::Integer;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
+function feynman_integral_degree_order( x::Vector, q::Vector,z::Vector, G::graph,o::Vector{Int64},d::Integer;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
     ee=Edge.(G.edge)
     a=partition(length(ee),d) 
     sum=0
     for ai in a
-         sum=sum+specificFeynmanIntegralo(x,q,z,G,ai,o;aa,l,g) 
+         sum=sum+feynman_integral_branchtype_order(x,q,z,G,ai,o;aa,l,g) 
     end
     return sum
 end 
-function feynmanIntegral( x::Vector, q::Vector, G::graph,d::Integer;l=zeros(Int,nv(G)))
+function feynman_integral_degree( x::Vector, q::Vector, G::graph,d::Integer;l=zeros(Int,nv(G)))
     ee=Edge.(G.edge)
     a=partition(length(ee),d) 
     sum=0
     for ai in a
-         sum=sum+specificFeynmanIntegral(x,q,G,ai;l) 
+         sum=sum+feynman_integral_branchtype(x,q,G,ai;l) 
     end
     return sum
 end 
-function feynmanIntegral( x::Vector, q::Vector,z::Vector, G::graph,d::Integer;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
+function feynman_integral_degree( x::Vector, q::Vector,z::Vector, G::graph,d::Integer;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
     ee=Edge.(G.edge)
     a=partition(length(ee),d) 
     sum=0
     for ai in a
-         sum=sum+specificFeynmanIntegral(x,q,z,G,ai;aa,l,g) 
+         sum=sum+feynman_integral_branchtype(x,q,z,G,ai;aa,l,g) 
     end
     return sum
 end 
-function feynmanIntegralSum(x::Vector,q::Vector,z::Vector,G::graph,d::Integer;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
+function feynman_integral_degreeSum(x::Vector,q::Vector,z::Vector,G::graph,d::Integer;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
     res=0
     for i in 1:d
-        res+=feynmanIntegral(x,q,z,G,i;aa,l,g)
+        res+=feynman_integral_degree(x,q,z,G,i;aa,l,g)
     end
     return res
 end
-function feynmanIntegralSum(x::Vector,q::Vector,G::graph,d::Integer;l=zeros(Int,nv(G)))
+function feynman_integral_degreeSum(x::Vector,q::Vector,G::graph,d::Integer;l=zeros(Int,nv(G)))
     res=0
     for i in 1:d
-        res+=feynmanIntegral(x,q,G,i;l)
+        res+=feynman_integral_degree(x,q,G,i;l)
     end
     return res
 end
