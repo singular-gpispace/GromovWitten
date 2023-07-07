@@ -11,14 +11,14 @@ end
 using GromovWitten
 ```
 
-export graph
-export polynomial_ring,constterm, proterm, propagator, coefterm, partition,
+
 
 ## Graph
 
 A Feynman graph is a (non-metrized) graph Γ without ends with n vertices which are labeled $ x_1, . . . , x_n $ and with labeled edges $q_1, . . . , q_r$.
 The graph $G$ is represented as a collection of vertices $V$ and edges $E$. Each edge is a pair $(v,w)$ where both $v$ and $w$ are elements of the set of vertices $V$.
-![Bildschirmfoto vom 2023-06-10 17-06-36](https://github.com/singular-gpispace/tropicalfeynman/assets/46294807/c5b4b792-6d2f-418f-b38a-21b3c0187a92)
+
+<img src="https://github.com/singular-gpispace/tropicalfeynman/assets/46294807/c5b4b792-6d2f-418f-b38a-21b3c0187a92" width="300" />
 
 ```jldoctest graph
 julia> ve=[(1, 1), (1, 2), (2, 3), (3, 1)]
