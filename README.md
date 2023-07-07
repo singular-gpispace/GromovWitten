@@ -32,7 +32,7 @@ import Pkg; Pkg.instantiate()
 and load our package. On the first run this may take some time.
 
 ```bash
-using TropicalFeynman  
+using GromovWitten  
 ```
 
 # Example
