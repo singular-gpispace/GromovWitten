@@ -51,6 +51,16 @@ julia> R, x, q = polynomial_ring(G, "x", "q")
 julia> a = [0, 2, 1, 0, 0, 1];
 ```
 ```bash
+julia> o=[1,3,4,2];
+```
+
+```bash
+
+julia>  feynman_integral_branchtype_order(x,q,G,a,o) 
+128*q[2]^2*q[3]*q[6]
+```
+
+```bash
 julia> feynman_integral_branchtype(x, q, G, a)  
 256*q[2]^2*q[3]*q[6]
 ```
