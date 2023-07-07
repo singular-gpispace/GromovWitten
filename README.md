@@ -14,7 +14,7 @@ The package tropicalfeynman computes generating series for tropical Hurwitz numb
 We assume that Julia is installed in a recent enough version to run OSCAR. Navigate in a terminal to the folder where you want to install the package and pull the package from Github:
 
 ```bash
-git pull 
+git pull https://github.com/singular-gpispace/tropicalfeynman.git
 ```
 
 I the same folder execute the following command:
