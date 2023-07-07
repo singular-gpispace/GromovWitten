@@ -1,4 +1,4 @@
-using tropicalfeynman
+using TropicalFeynman
 using Test
 include("coefterm.jl")
 include("feynmanIntegral.jl")
