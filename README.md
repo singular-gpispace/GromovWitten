@@ -35,7 +35,7 @@ and load our package. On the first run this may take some time.
 using GromovWitten  
 ```
 
-# Example of trivalent graph without vertex contribution and loop.
+# Example of graph without vertex contribution and loop.
 
 <img width="400" alt="image" src="https://github.com/singular-gpispace/GromovWitten/assets/46294807/0b1f5684-3550-41ea-9722-8403cd96ed35">
 
@@ -62,7 +62,7 @@ julia> f = feynman_integral_degree(x, q, G, 3)
 julia>     substitute(q,feynman_integral_degree_sum(x,q,G,8))
 10246144*q[1]^8 + 3294720*q[1]^7 + 886656*q[1]^6 + 182272*q[1]^5 + 25344*q[1]^4 + 1792*q[1]^3 + 32*q[1]^2
 ```
-# Example
+# Example of graph without vertex contribution
 
 <img width="400" alt="image" src="https://github.com/singular-gpispace/GromovWitten/assets/46294807/e5ed2790-64f4-4853-a99c-61b082ddfd73">
 
@@ -97,4 +97,53 @@ Finally we substitute all $q$  variables by $q_{1}$
 
 ```bash
 julia> substitute(feynman_integral_degree(R,x,q,z,G,3,aa=1,l=[0,0,0],g=[1,0,0]))
+```
+# Example of graph with loop.
+<img width="350" alt="image" src="https://github.com/singular-gpispace/GromovWitten/assets/46294807/ac17a579-426c-4d16-b652-19cb393d620e">
+
+```bash
+julia> G=graph([(1, 1), (1, 2), (2, 3), (3, 1)])
+graph([(1, 1), (1, 2), (2, 3), (3, 1)])
+```
+
+```bash
+julia> R,x,q=polynomial_ring(G,"x","q")
+(Multivariate polynomial ring in 7 variables over QQ, QQMPolyRingElem[x[1], x[2], x[3]], QQMPolyRingElem[q[1], q[2], q[3], q[4]])
+```
+
+```bash
+julia> O=[1,2,3]  
+3-element Vector{Int64}:
+ 1
+ 2
+ 3
+```
+
+```bash
+julia> a=[ 2,  0, 0, 1]
+ 4-element Vector{Int64}:
+ 2
+ 0
+ 0
+ 1
+```
+
+```bash
+julia> feynman_integral_branchtype_order(R,x,q,G,a,O)
+3*q[1]^2*q[4]
+```
+
+```bash
+julia> feynman_integral_branchtype(R,x,q,G,a)  
+6*q[1]^2*q[4]
+```
+
+```bash
+julia> feynman_integral_degree(R,x,q,G,3)
+6*q[1]^2*q[2] + 6*q[1]^2*q[3] + 6*q[1]^2*q[4] + 18*q[1]*q[2]^2 + 6*q[1]*q[2]*q[3] + 6*q[1]*q[2]*q[4] + 18*q[1]*q[3]^2 + 6*q[1]*q[3]*q[4] + 18*q[1]*q[4]^2
+```
+
+```bash
+julia> substitute(R,x,q,feynman_integral_sum(R,x,q,G,8))
+20640*q[1]^8 + 9996*q[1]^7 + 4320*q[1]^6 + 1650*q[1]^5 + 456*q[1]^4 + 90*q[1]^3 + 6*q[1]^2
 ```
