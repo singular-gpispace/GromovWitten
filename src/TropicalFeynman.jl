@@ -1,7 +1,7 @@
 @doc raw"""
  tropicalfeynman  is a package for computing Feynman Integral via Gromov-Witten invariant.
 """
-module tropicalfeynman
+module TropicalFeynman
 # Write your package code here.
 using Nemo, Graphs, Combinatorics,StatsBase
 
