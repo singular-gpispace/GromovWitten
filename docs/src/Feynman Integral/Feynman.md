@@ -1,17 +1,17 @@
 # Feynman Integral
 
 ```@meta
-CurrentModule = tropicalfeynman
+CurrentModule = TropicalFeynman
 DocTestSetup = quote
-  using tropicalfeynman
+  using TropicalFeynman
 end
 ```
 
-```@setup tropicalfeynman
-using tropicalfeynman
+```@setup TropicalFeynman
+using TropicalFeynman
 ```
 
-export graphe,Polynomialring
+export graph
 export polynomial_ring,constterm, proterm, propagator, coefterm, partition,
 
 ## Graph
