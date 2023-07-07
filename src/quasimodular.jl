@@ -13,7 +13,7 @@ function express_as_eisenstein_series(max_degree::Int)
     result = Expr(:call, :+, expressions...)
     return expressions
 end
-function filter_term(pols::Union{QQMPolyRingElem, Int64}, variables::Vector{QQMPolyRingElem}, power::Vector{Int64})
+#=function filter_term(pols::Union{QQMPolyRingElem, Int64}, variables::Vector{QQMPolyRingElem}, power::Vector{Int64})
     T = parent(variables[1])
     if typeof(pols) <: Integer
         pols = T(pols)
@@ -34,6 +34,7 @@ function filter_term(pols::Union{QQMPolyRingElem, Int64}, variables::Vector{QQMP
     
     return result
 end
+=#
 function filter_vector(polyvector::Vector{QQMPolyRingElem}, variables::Vector{QQMPolyRingElem}, power::Vector{Int64})
     result = Vector{QQMPolyRingElem}()
     for pols in polyvector

@@ -1,14 +1,14 @@
 # Feynman Integral
 
 ```@meta
-CurrentModule = TropicalFeynman
+CurrentModule = GromovWitten
 DocTestSetup = quote
-  using TropicalFeynman
+  using GromovWitten
 end
 ```
 
 ```@setup TropicalFeynman
-using TropicalFeynman
+using GromovWitten
 ```
 
 export graph
@@ -43,7 +43,7 @@ julia>   R,x,q,z=polynomial_ring(G,"x","q","z")
 (Multivariate polynomial ring in 10 variables over QQ, Nemo.QQMPolyRingElem[x[1], x[2], x[3]], Nemo.QQMPolyRingElem[q[1], q[2], q[3], q[4]], Nemo.QQMPolyRingElem[z[1], z[2], z[3]])
 ```
 
-## specific Feynman Integral
+## Feynman Integral branche type
 
 For a given branch type $a$, we compute the Specific Feynman Integral of the labeled Graph.
 a is a list of partition of degree d=3 of $\Gamma$.

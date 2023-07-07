@@ -1,4 +1,4 @@
-using TropicalFeynman
+using GromovWitten
 using Test
 include("coefterm.jl")
 include("feynmanIntegral.jl")
