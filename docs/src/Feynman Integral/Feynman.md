@@ -12,7 +12,7 @@ using tropicalfeynman
 ```
 
 export graphe,Polynomialring
-export polynomialring,constterm, proterm, propagator, coefterm, partition, preimg, sgn,flip,flipV
+export polynomial_ring,constterm, proterm, propagator, coefterm, partition,
 
 ## Graph
 
