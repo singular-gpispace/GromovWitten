@@ -4,7 +4,7 @@ CurrentModule = GromovWitten
 
 # GromovWitten
 
-Documentation for [tropicalfeynman](https://github.com/singular-gpispace/tropicalfeynman).
+Documentation for [GromovWitten](https://github.com/singular-gpispace/GromovWitten).
 
 ```@index
 
