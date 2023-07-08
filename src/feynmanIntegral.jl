@@ -186,13 +186,37 @@ function feynman_integral_degree_sum(x::Vector,q::Vector,z::Vector,G::graph,d::I
     end
     return res
 end
-function feynman_integral_degree_sum(x::Vector,q::Vector,G::graph,d::Integer;l=zeros(Int,nv(G)))
-    res=0
-    for i in 1:d
-        res+=feynman_integral_degree(x,q,G,i;l)
+function feynman_integral_degree_sum(x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem},z::Vector{QQMPolyRingElem}, G::graph, d::Union{Int64, Vector{Int64}}; aa=0, l=zeros(Int, nv(G)), g=zeros(Int, nv(G)))
+    res = zero(x[1])
+    
+    if typeof(d) <: Integer
+        for i in 1:d
+            res += feynman_integral_degree(x, q,z, G, i; aa, l, g)
+        end
+    else
+        for i in d[1]:d[end]
+            res += feynman_integral_degree(x, q ,z, G, i; aa, l, g)
+        end
     end
+    
     return res
 end
+function feynman_integral_degree_sum(x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem}, G::graph, d::Union{Int64, Vector{Int64}}; l=zeros(Int, nv(G)))
+    res = zero(x[1])
+    
+    if typeof(d) <: Integer
+        for i in 1:d
+            res += feynman_integral_degree(x, q, G, i; l)
+        end
+    else
+        for i in d[1]:d[end]
+            res += feynman_integral_degree(x, q, G, i; l)
+        end
+    end
+    
+    return res
+end
+
 function subt(p::fmpq_mpoly)
 coeffs_dict = coefficients(p)
 coeffs_array = collect(values(coeffs_dict))
