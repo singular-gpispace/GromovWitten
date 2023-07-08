@@ -1,13 +1,13 @@
 # GromovWitten
 
-[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://github.com/singular-gpispace/tropicalfeynman/stable/)
-[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://github.com/singular-gpispace/tropicalfeynman/dev/)
-[![Build Status](https://github.com/singular-gpispace/tropicalfeynman/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/singular-gpispace/tropicalfeynman/actions/workflows/CI.yml?query=branch%3Amain)
-[![Coverage](https://codecov.io/gh/singular-gpispace/tropicalfeynman.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/singular-gpispace/tropicalfeynman.jl)
+[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://github.com/singular-gpispace/GromovWitten/stable/)
+[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://github.com/singular-gpispace/GromovWitten/dev/)
+[![Build Status](https://github.com/singular-gpispace/GromovWitten/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/singular-gpispace/GromovWitten/actions/workflows/CI.yml?query=branch%3Amain)
+[![Coverage](https://codecov.io/gh/singular-gpispace/GromovWitten.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/singular-gpispace/GromovWitten.jl)
 
 # GromovWitten
 
-The package tropicalfeynman computes generating series for tropical Hurwitz numbers of elliptic curves via mirror symmetry and Feynman integrals, and thus, by a correspondence theorem, Hurwitz numbers in the sense algebraic geometry. Generalizations of the method also allow for the computation of Gromov-Witten invariants for ellptic curves, and are also implemented in the package. TropicalFeynman is based on the computeralgebra system OSCAR and is provided as a package for the Julia programming language.
+The package GromovWitten computes generating series for tropical Hurwitz numbers of elliptic curves via mirror symmetry and Feynman integrals, and thus, by a correspondence theorem, Hurwitz numbers in the sense algebraic geometry. Generalizations of the method also allow for the computation of Gromov-Witten invariants for ellptic curves, and are also implemented in the package. GromovWitten is based on the computeralgebra system OSCAR and is provided as a package for the Julia programming language.
 
 # Installation
 
