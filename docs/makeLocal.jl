@@ -20,18 +20,18 @@ push!(LOAD_PATH,"../src/")
 
 #
 
-using Documenter, tropicalfeynman
+using Documenter, GromovWitten
 
 makedocs(;
-    modules=[tropicalfeynman],
+    modules=[GromovWitten],
 	format = Documenter.HTML(
         prettyurls = prettyurls = get(ENV, "CI", nothing) == "true",
     ),
     pages=[
         "Home" => "index.md",
     ],
-    repo="https://github.com/singular-gpispace/tropicalfeynman.jl/blob/{commit}{path}#{line}",
-    sitename="tropicalfeynman",
+    repo="https://github.com/singular-gpispace/GromovWitten.jl/blob/{commit}{path}#{line}",
+    sitename="GromovWitten",
     authors="Ali Traore",
 )
 
