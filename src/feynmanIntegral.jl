@@ -218,9 +218,9 @@ function feynman_integral_degree_sum(x::Vector{QQMPolyRingElem}, q::Vector{QQMPo
 end
 
 function subt(p::fmpq_mpoly)
-coeffs_dict = coefficients(p)
-coeffs_array = collect(values(coeffs_dict))
-return sum(coeffs_array)
+    coeffs_dict = coefficients(p)
+    coeffs_array = collect(values(coeffs_dict))
+    return sum(coeffs_array)
 end
 function substitute(q::Vector{QQMPolyRingElem},p::Union{fmpq_mpoly, Int64})
     T=parent(q[1])

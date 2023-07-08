@@ -48,23 +48,17 @@ julia> partition(3,4)
  [0, 0, 4]
 ````
 """
-function partition(n::Integer, k::Integer)
-    if k == 1
-        return [[n]]
+function partition(n::Integer,k::Integer)
+    if(k==0)
+        return [[0]]
     end
-    if n == 0
-        return [[0] * k]
+    if(n==0)
+        return [[0] *k]
     end
-    result = Array{Int64}[]
-    for A in with_replacement_combinations(1:n, k)
-        item = zeros(Int64, n)
-        for a in A
-            item[a] += 1
-        end
-        push!(result, item)
-    end
-    return result
-end
+    p=with_replacement_combinations(1:n,k)
+    return map(A -> [sum(A .== i) for i in 1:n],p)
+   end
+   
 #give the position of the vertices xi in the list L. 
 function preimg(L::Vector{Int64}, xi::Int64)
     for (i,Li) in enumerate(L)
