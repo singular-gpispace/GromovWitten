@@ -1,5 +1,5 @@
 @doc raw"""
-GromovWitten  is a package for computing Feynman Integral via Gromov-Witten invariant.
+GromovWitten  is a package for computing Gromov-Witten invariant via Feynman Integral  .
 """
 module GromovWitten
 # Write your package code here.
