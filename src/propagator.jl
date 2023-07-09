@@ -1,11 +1,33 @@
-function constterm( x1::fmpq_mpoly, x2::fmpq_mpoly, N::Integer)
+@doc raw"""
+ constterm( x1::QQMPolyRingElem, x2::QQMPolyRingElem, N::Integer)
+ returns the constant term of the propagator
+
+ # Examples (without vertex contribution)
+ julia> constterm(x[1],x[2],3)
+
+3*x[1]^6 + 2*x[1]^5*x[2] + x[1]^4*x[2]^2
+ 
+
+ constterm(x1::QQMPolyRingElem, x2::QQMPolyRingElem, z1::QQMPolyRingElem, z2::QQMPolyRingElem,aa::Integer, N::Integer)
+ 
+ # Examples (without vertex contribution)
+ here `aa=1 ` is the order for sfunction series and `` N=\sum_{n=1}^{3g-3} a_i`` where `a=\[a_1,…,a_{3g-3}\]` is a branche type.
+
+    julia> constterm(x[1],x[2],z[1],z[2],1,2)
+
+ 1//18*x[1]^4*z[1]^2*z[2]^2 + 1//3*x[1]^4*z[1]^2 + 1//3*x[1]^4*z[2]^2 + 2*x[1]^4 
+
+ \+ 1//576*x[1]^3*x[2]*z[1]^2*z[2]^2 + 1//24*x[1]^3*x[2]*z[1]^2 + 1//24*x[1]^3*x[2]*z[2]^2 + x[1]^3*x[2]
+
+"""
+function constterm( x1::QQMPolyRingElem, x2::QQMPolyRingElem, N::Integer)
     p=0
     for i in 1:N
         p=p+i*x1^(N+i)*x2^(N-i)
     end
     return p
 end
-function proterm( x1::fmpq_mpoly, x2::fmpq_mpoly, q::fmpq_mpoly, a::Integer, N::Integer)
+function proterm( x1::QQMPolyRingElem, x2::QQMPolyRingElem, q::QQMPolyRingElem, a::Integer, N::Integer)
     p=0
     for w in 1:a
         if a%w==0
@@ -14,29 +36,41 @@ function proterm( x1::fmpq_mpoly, x2::fmpq_mpoly, q::fmpq_mpoly, a::Integer, N::
     end
     return p
 end
-
-function propagator( x1::fmpq_mpoly, x2::fmpq_mpoly,q::fmpq_mpoly, N::Integer)
-    p=constterm(x1,x2,N)
-    for i in 1:N
-        p=p+proterm(x1,x2,q,i,N)
-    end
-    return p
-end
-function consttermV(x1::fmpq_mpoly, x2::fmpq_mpoly, z1::fmpq_mpoly, z2::fmpq_mpoly,aa::Integer, N::Integer)
+function constterm(x1::QQMPolyRingElem, x2::QQMPolyRingElem, z1::QQMPolyRingElem, z2::QQMPolyRingElem,aa::Integer, N::Integer)
     p=0
     for i in 1:N
-        S1=Sfunction(i*z1,aa)
-        S2=Sfunction(i*z2,aa)
+        S1=sfunction(i*z1,aa)
+        S2=sfunction(i*z2,aa)
         p=p+S1*S2*i*x1^(N+i)*x2^(N-i)
     end
     return p
 end
-function protermV( x1::fmpq_mpoly, x2::fmpq_mpoly,z1::fmpq_mpoly, z2::fmpq_mpoly, q::fmpq_mpoly, a::Integer,aa::Integer, N::Integer)
+@doc raw"""
+proterm( x1::QQMPolyRingElem, x2::QQMPolyRingElem, q::QQMPolyRingElem, a::Integer, N::Integer)
+
+returns the non constant term of the propagator
+
+# Examples (without vertex contribution)
+julia> proterm(x[1],x[2],q[1],1,2)
+
+x[1]^3*x[2]*q[1] + x[1]*x[2]^3*q[1]
+
+# Examples (with vertex contribution)
+
+ proterm( x1::QQMPolyRingElem, x2::QQMPolyRingElem,z1::QQMPolyRingElem, z2::QQMPolyRingElem, q::QQMPolyRingElem, a::Integer,aa::Integer, N::Integer)
+ julia> proterm(x[1],x[2],z[1],z[2],q[1],1,1,2)
+
+ 1//576*x[1]^3*x[2]*q[1]*z[1]^2*z[2]^2 + 1//24*x[1]^3*x[2]*q[1]*z[1]^2 
+ + 1//24*x[1]^3*x[2]*q[1]*z[2]^2 + x[1]^3*x[2]*q[1] + 1//576*x[1]*x[2]^3*q[1]*z[1]^2*z[2]^2 
+ + 1//24*x[1]*x[2]^3*q[1]*z[1]^2 + 1//24*x[1]*x[2]^3*q[1]*z[2]^2 + x[1]*x[2]^3*q[1]
+
+"""
+function proterm( x1::QQMPolyRingElem, x2::QQMPolyRingElem,z1::QQMPolyRingElem, z2::QQMPolyRingElem, q::QQMPolyRingElem, a::Integer,aa::Integer, N::Integer)
     p=0
     for w in 1:a
         if a%w==0
-            S1=Sfunction(w*z1,aa)
-            S2=Sfunction(w*z2,aa)
+            S1=sfunction(w*z1,aa)
+            S2=sfunction(w*z2,aa)
             p = p + S1*S2*w*( x1^( N + w )*x2 ^( N - w ) + x1 ^( N-w )*x2^( N + w ) ) *q^(a)
         end
     end

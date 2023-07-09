@@ -6,7 +6,7 @@
 
 #  coefterm compute the coefficients term x1^0,...,xn^0, By I(q)=coeff[x1^0,...,xn^0](P(x,q))
 #Where I(q) is the Feynman Integral and P(x,q) the Propagator.
-#=function coefterm(x::Vector,q::Vector,G::graph ,p::fmpq_mpoly,d::Integer;l=zeros(Int,nv(G)))
+#=function coefterm(x::Vector,q::Vector,G::graph ,p::QQMPolyRingElem,d::Integer;l=zeros(Int,nv(G)))
    #here l is leak vector of the graph G.
     ee=Edge.(G.edge) 
     G=DiGraph(Edge.(G.edge)) # convert from graph to Graph (so we can use nv(G))
@@ -28,9 +28,10 @@ partition(k::Integer, n::Integer)
 
 **Note**:This function returns the number of partitions of $n$ into fixed  $k$ parts. 
 # Examples
-```jldoctest
 julia> partition(3,4)
+
 15-element Vector{Vector{Int64}}:
+
  [4, 0, 0]
  [3, 1, 0]
  [3, 0, 1]
@@ -46,7 +47,6 @@ julia> partition(3,4)
  [0, 2, 2]
  [0, 1, 3]
  [0, 0, 4]
-````
 """
 function partition(n::Integer,k::Integer)
     if(k==0)
@@ -69,12 +69,13 @@ function preimg(L::Vector{Int64}, xi::Int64)
     end
 end
 
-# This first signature determine the flip_signature. Ω=[x1,...,xn] is a given Order 
-#and a is a branche type. It returns -1 if xi<xj and O else. 
-#returns -2 in case the Graph G has a loop. 
-# It detects the loop in the graph. 
+@doc raw"""
+    flip_signature(G::graph ,p::Vector{Int64},a::Vector{Int64})
+
+ Let   Ω=[x1,...,xn] be  a given Order and $a$  a branche type,flip_signature  returns -1 if xi<xj and O else. 
+ It will return -2 in case the Graph G has a loop. 
+"""
 function flip_signature(G::graph ,p::Vector{Int64},a::Vector{Int64}) #graph G, list p, branch type a
-    
     ee=Edge.(G.edge)
     b=zeros(Int,length(a))
     for (i, (ai, ev)) in enumerate(zip(a, ee))
@@ -99,7 +100,26 @@ function signature_and_multiplicities_order(G::graph, a::Vector{Int64},o::Vector
 return b
 end
 # flip_signature regroup all Orders with the same signature so same
+@doc raw"""
+signature\_and_multiplicities( G::graph, a::Vector{Int64})
 
+ returns flip_signature and their multiplicities.
+ # Examples
+ julia> G=graph(ve)
+
+ graph([(1, 1), (1, 2), (2, 3), (3, 1)])
+
+ a=[2,0,0,1]
+
+ julia> signature\_and_multiplicities(G,a)
+
+4-element Vector{Tuple{Int64, Vector{Int64}}}:
+
+ (1, [-2, 0, 0, 1])
+ (2, [-2, -1, 0, 1])
+ (2, [-2, 0, -1, 1])
+ (1, [-2, -1, -1, 1])
+"""
 function signature_and_multiplicities( G::graph, a::Vector{Int64})
     ee=Edge.(G.edge)
     p=Vector{Int64}()
@@ -115,7 +135,7 @@ function signature_and_multiplicities( G::graph, a::Vector{Int64})
     for (i,li) in enumerate(l)
         if li==1
             push!(p,i)
-    end
+        end
     end 
     p=collect(permutations(p))
 
