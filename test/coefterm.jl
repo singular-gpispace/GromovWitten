@@ -3,5 +3,5 @@
     G=graph(ve)
     R, x, q = polynomial_ring(G,"x","q")
     a=[0,2,1,0,0,1]
-    @test  subt(feynman_integral_degree(x,q,G ,3))==1792
+    @test  sum_of_coeff(feynman_integral_degree(x,q,G ,3))==1792
 end
