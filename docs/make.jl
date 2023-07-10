@@ -7,8 +7,10 @@ DocMeta.setdocmeta!(GromovWitten, :DocTestSetup, :(using GromovWitten); recursiv
 
 makedocs(;
     modules=[GromovWitten],
-    authors="Ali Traore",
-    repo="https://github.com/singular-gpispace/GromovWitten.jl/blob/{commit}{path}#{line}",
+    clean = true,
+    checkdocs = :none,
+    doctest = true,
+    strict = true,
     sitename="GromovWitten.jl",
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
