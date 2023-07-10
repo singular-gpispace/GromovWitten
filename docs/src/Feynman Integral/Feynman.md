@@ -11,8 +11,6 @@ end
 using GromovWitten
 ```
 
-
-
 ## Graph
 
 A Feynman graph is a (non-metrized) graph Γ without ends with n vertices which are labeled $x_1, . . . , x_n$ and with labeled edges $q_1, . . . , q_r$.
@@ -110,6 +108,6 @@ julia>  feynman_integral_degree(x,q,z,G,3) # here d=3
 We compute the sum of coefficients.
 
 ```
-julia> subt( feynman_integral_degree(x,q,z,G,3)
+julia> sum_of_coeff( feynman_integral_degree(x,q,z,G,3)
 90
 ```

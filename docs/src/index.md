@@ -26,6 +26,6 @@ In the local folder where the package is located, type in the terminal.
 -  a=[0,2,1,0,0,1]
 -  feynman_integral_branchtype(x,q,G,a)
 -  feynman_integral_degree(x,q,G ,4)
--  subt(R,x,q,feynman_integral_degree(x,q,G ,4))
+-  sum_of_coeff(feynman_integral_degree(x,q,G ,4))
 
 ```
