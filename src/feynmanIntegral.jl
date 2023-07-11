@@ -122,9 +122,7 @@ end
 
  128*q[2]^2*q[3]*q[6]
   ```
-"""
-@doc raw"""
-    feynman_integral_branch_type_order(x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem},z::Vector{QQMPolyRingElem}, G::graph ,a::Vector{Int64}, Ω::Vector{Int64};aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
+     feynman_integral_branch_type_order(x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem},z::Vector{QQMPolyRingElem}, G::graph ,a::Vector{Int64}, Ω::Vector{Int64};aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
 
     # Examples (with vertex contribution)
 
@@ -232,8 +230,7 @@ end
 
  4*q[1]^2*q[2]*q[3] + 4*q[1]*q[2]^2*q[5] + 4*q[1]*q[2]^2*q[6] + 4*q[1]*q[3]^2*q[5] + 4*q[1]*q[3]^2*q[6] + 176*q[2]^4 + 496*q[2]^3*q[3] + 60*q[2]^3*q[5] + 60*q[2]^3*q[6] + 788*q[2]^2*q[3]^2 + 128*q[2]^2*q[3]*q[5] + 128*q[2]^2*q[3]*q[6] + 4*q[2]^2*q[4]*q[5] + 4*q[2]^2*q[4]*q[6] + 16*q[2]^2*q[5]^2 + 16*q[2]^2*q[6]^2 + 496*q[2]*q[3]^3 + 128*q[2]*q[3]^2*q[5] + 128*q[2]*q[3]^2*q[6] + 4*q[2]*q[3]*q[4]^2 + 48*q[2]*q[3]*q[5]^2 + 4*q[2]*q[3]*q[5]*q[6] + 48*q[2]*q[3]*q[6]^2 + 176*q[3]^4 + 60*q[3]^3*q[5] + 60*q[3]^3*q[6] + 4*q[3]^2*q[4]*q[5] + 4*q[3]^2*q[4]*q[6] + 16*q[3]^2*q[5]^2 + 16*q[3]^2*q[6]^2
  ````
- """
-@doc raw"""
+ 
     feynman_integral_degree_order( x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem},z::Vector{QQMPolyRingElem}, G::graph,o::Vector{Int64},d::Integer;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
  
     # Examples (with vertex contribution)
