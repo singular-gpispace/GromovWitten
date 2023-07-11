@@ -23,12 +23,13 @@
     p=coeff(p,x,L) # compute the coefficients of degree x1^l1,...,xn^ln.
     return p
 end =#
-```@docs
+@doc raw"""
    partition(k::Integer, n::Integer)    
 # Examples
 
 This function returns the number of partitions of $n$ into fixed  $k$ parts. 
-```
+"""
+
 
 ```julia
 julia> partition(3,4)
