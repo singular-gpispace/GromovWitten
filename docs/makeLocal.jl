@@ -30,7 +30,7 @@ makedocs(;
     pages=[
         "Home" => "index.md",
     ],
-    repo="https://github.com/singular-gpispace/GromovWitten.jl/blob/{commit}{path}#{line}",
+    repo="https://github.com/singular-gpispace/GromovWitten.jl/{commit}{path}#{line}",
     sitename="GromovWitten",
     authors="Ali Traore",
 )
