@@ -31,7 +31,7 @@ This function returns the number of partitions of $n$ into fixed  $k$ parts.
 
 
 
-```julia
+```jldoctest
 julia> partition(3,4)
 15-element Vector{Vector{Int64}}:
  [4, 0, 0]
