@@ -28,7 +28,7 @@ end =#
 # Examples
 
 This function returns the number of partitions of $n$ into fixed  $k$ parts. 
-"""
+
 
 
 ```julia
@@ -50,6 +50,7 @@ julia> partition(3,4)
  [0, 1, 3]
  [0, 0, 4]
 ```
+"""
 function partition(n::Integer,k::Integer)
     if(k==0)
         return [[0]]
