@@ -5,7 +5,7 @@
     
  # Examples (without vertex contribution)
  
- ```julia
+```jldoctest
  julia> G=graph(ve)
 
  graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
@@ -19,12 +19,11 @@
  --------------------------
 """
 @doc raw"""
-
     feynman_integral_branch_type(x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem},z::Vector{QQMPolyRingElem}, G::graph ,a::Vector{Int64} ;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
 
  # Examples (with vertex contribution)
 
- ```julia
+ ```jldoctest
  julia> G=graph(ve)
  graph([(1, 2), (2, 3), (1, 3)])
 
@@ -113,7 +112,7 @@ end
  compute the Feynman Integral for a specified branch type `a` for a fixed ordering `Ω`
     
  # Examples (without vertex contribution)
- ```julia
+ ```jldoctest
  julia> G=graph(ve)
 
  graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
@@ -132,7 +131,7 @@ end
 
     # Examples (with vertex contribution)
 
- ```julia
+ ```jldoctest
  julia> G=graph(ve)
  graph([(1, 2), (2, 3), (1, 3)])
 
@@ -223,7 +222,7 @@ end
  compute the Feynman Integral for  over all the partitions of the degree d  for a fixed ordering `Ω`
     
  # Examples (without vertex contribution)
- ```julia
+ ```jldoctest
  julia> G=graph(ve)
 
  graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
