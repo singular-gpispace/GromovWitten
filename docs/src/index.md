@@ -42,7 +42,9 @@ using GromovWitten
 
 # Example of graph with vertex contribution
 
-<img width="400" alt="image" src="https://github.com/singular-gpispace/GromovWitten/assets/46294807/01eefb54-3db4-49cf-93a5-4ec2218ba9ce">
+![alt text](img/graph_with_vertex1.png)
+
+
 
 To provide an example on how to use our package, we define a graph G from a list of edges:
 
@@ -71,8 +73,6 @@ The Feynman Integral branch type for all ordering with genus function $g$  is
 julia> feynman_integral_branchtype(x,q,z,G,a,aa=1,g=[1,0,0])
 ```
 
-
-
 also we can compute Feynman Integral of degree 4
 
 ```julia
@@ -84,7 +84,6 @@ Finally we substitute all $q$  variables by $q_{1}$
 ```julia
 julia> substitute(feynman_integral_degree(x,q,z,G,3,aa=1,l=[0,0,0],g=[1,0,0]))
 ```
-
 
 # Example of graph without vertex contribution and loop.
 
@@ -128,7 +127,6 @@ julia> f = feynman_integral_degree(x, q, G, 3)
 julia>     substitute(q,feynman_integral_degree_sum(x,q,G,8))
 10246144*q[1]^8 + 3294720*q[1]^7 + 886656*q[1]^6 + 182272*q[1]^5 + 25344*q[1]^4 + 1792*q[1]^3 + 32*q[1]^2
 ```
-
 
 # Example of graph with loop.
 
