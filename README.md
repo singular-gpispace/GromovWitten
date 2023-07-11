@@ -36,8 +36,7 @@ using GromovWitten
 ```
 
 # Example of graph with vertex contribution
-
-<img width="400" alt="image" src="https://github.com/singular-gpispace/GromovWitten/assets/46294807/e5ed2790-64f4-4853-a99c-61b082ddfd73">
+![image](https://github.com/singular-gpispace/GromovWitten/assets/46294807/01eefb54-3db4-49cf-93a5-4ec2218ba9ce)
 
 To provide an example on how to use our package, we define a graph G from a list of edges:
 
