@@ -6,10 +6,6 @@ CurrentModule = GromovWitten
 
 Documentation for [GromovWitten](https://github.com/singular-gpispace/GromovWitten).
 
-```@index
-
-```
-
 ```@autodocs
 Modules = [GromovWitten]
 ```
