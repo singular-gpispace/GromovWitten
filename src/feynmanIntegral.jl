@@ -16,10 +16,8 @@
 
  256*q[2]^2*q[3]*q[6]
  ````
- --------------------------
-"""
-@doc raw"""
-    feynman_integral_branch_type(x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem},z::Vector{QQMPolyRingElem}, G::graph ,a::Vector{Int64} ;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
+
+     feynman_integral_branch_type(x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem},z::Vector{QQMPolyRingElem}, G::graph ,a::Vector{Int64} ;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
 
  # Examples (with vertex contribution)
 
@@ -33,7 +31,6 @@
 
  115//3*q[3]^3
  ````
-
 """
 function feynman_integral_branch_type( x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem}, G::graph ,a::Vector{Int64} ;l=zeros(Int,nv(G)))
     ee = Edge.(G.edge)
