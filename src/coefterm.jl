@@ -23,11 +23,14 @@
     p=coeff(p,x,L) # compute the coefficients of degree x1^l1,...,xn^ln.
     return p
 end =#
-@doc raw"""
+```@docs
    partition(k::Integer, n::Integer)    
 
 This function returns the number of partitions of $n$ into fixed  $k$ parts. 
 # Examples
+```
+**Examples**
+
 ```julia
 julia> partition(3,4)
 15-element Vector{Vector{Int64}}:
@@ -47,7 +50,6 @@ julia> partition(3,4)
  [0, 1, 3]
  [0, 0, 4]
 ```
-"""
 function partition(n::Integer,k::Integer)
     if(k==0)
         return [[0]]
