@@ -39,41 +39,41 @@ using GromovWitten
 
 <img width="400" alt="image" src="https://github.com/singular-gpispace/GromovWitten/assets/46294807/0b1f5684-3550-41ea-9722-8403cd96ed35">
 
-```bash
+```julia
 julia> G = graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3,4)] )
 graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
 ```
 
-```bash
+```julia
 julia> R, x, q = polynomial_ring(G, "x", "q")
 (Multivariate polynomial ring in 10 variables over QQ, QQMPolyRingElem[x[1], x[2], x[3],x[4]], QQMPolyRingElem[q[1], q[2],q[3], q[4], q[5], q[6]])
 ```
 
-```bash
+```julia
 julia> a = [0, 2, 1, 0, 0, 1];
 ```
 
-```bash
+```julia
 julia> o=[1,3,4,2];
 ```
 
-```bash
+```julia
 
 julia>  feynman_integral_branchtype_order(x,q,G,a,o) 
 128*q[2]^2*q[3]*q[6]
 ```
 
-```bash
+```julia
 julia> feynman_integral_branchtype(x, q, G, a)  
 256*q[2]^2*q[3]*q[6]
 ```
 
-```bash
+```julia
 julia> f = feynman_integral_degree(x, q, G, 3)
 288*q[1]^3 + 32*q[1]^2*q[2] + 32*q[1]^2*q[3] + 32*q[1]^2*q[5] + 32*q[1]^2*q[6] + 8*q[1]*q[2]*q[5] + 8*q[1]*q[2]*q[6] + 8*q[1]*q[3]*q[5] + 8*q[1]*q[3]*q[6] + 24*q[2]^3 + 152*q[2]^2*q[3] + 8*q[2]^2*q[5] + 8*q[2]^2*q[6] + 152*q[2]*q[3]^2 + 32*q[2]*q[3]*q[5] + 32*q[2]*q[3]*q[6] + 32*q[2]*q[4]^2 + 8*q[2]*q[4]*q[5] + 8*q[2]*q[4]*q[6] + 8*q[2]*q[5]^2 + 32*q[2]*q[5]*q[6] + 8*q[2]*q[6]^2 + 24*q[3]^3 + 8*q[3]^2*q[5] + 8*q[3]^2*q[6] + 32*q[3]*q[4]^2 + 8*q[3]*q[4]*q[5] + 8*q[3]*q[4]*q[6] + 8*q[3]*q[5]^2 + 32*q[3]*q[5]*q[6] + 8*q[3]*q[6]^2 + 288*q[4]^3 + 32*q[4]^2*q[5] + 32*q[4]^2*q[6] + 24*q[5]^3 + 152*q[5]^2*q[6] + 152*q[5]*q[6]^2 + 24*q[6]^3
 ```
 
-```bash
+```julia
 julia>     substitute(q,feynman_integral_degree_sum(x,q,G,8))
 10246144*q[1]^8 + 3294720*q[1]^7 + 886656*q[1]^6 + 182272*q[1]^5 + 25344*q[1]^4 + 1792*q[1]^3 + 32*q[1]^2
 ```
@@ -82,16 +82,16 @@ julia>     substitute(q,feynman_integral_degree_sum(x,q,G,8))
 
 <img width="400" alt="image" src="https://github.com/singular-gpispace/GromovWitten/assets/46294807/e5ed2790-64f4-4853-a99c-61b082ddfd73">
 
-To provide an example on how to use our package, we efine a graph G from a list of edges:
+To provide an example on how to use our package, we define a graph G from a list of edges:
 
-```bash
+```julia
 julia> ve = [ (1, 2), (2, 3), (3, 1)]  
 julia> G = graph(ve)
 ```
 
 We then define a polynomial ring with all variables required by our implementation:
 
-```bash
+```julia
 julia> R,x,q,z=polynomial_ring(G,"x","q","z")
 ```
 
@@ -99,13 +99,13 @@ Here, the indexed variables x correspond to the vertices of the graph, the index
 
 To compute a Feynman iuntegral, we define a partition  $a=[0,0,3]$  of degree d=3, a fixed order of vertex $o=[1,2,3]$ and the genus function $g=[1,0,0]$. The leak in G is $L=[0,0,0]$ , $aa=1$ is the order of the sfunction. We have then
 
-```bash
+```julia
  julia> feynman_integral_branchtype_order(x,q,z,G,a,o,aa=1,g=[1,0,0])
 ```
 
 The Feynman Integral branch type for all ordering with genus function $g$  is
 
-```bash
+```julia
 julia> feynman_integral_branchtype(x,q,z,G,a,aa=1,g=[1,0,0])
 ```
 
@@ -113,13 +113,13 @@ julia> feynman_integral_branchtype(x,q,z,G,a,aa=1,g=[1,0,0])
 
 also we can compute Feynman Integral of degree 4
 
-```bash
+```julia
  julia> feynman_integral_degree(x,q,z,G,3,aa=1,l=[0,0,0],g=[1,0,0])
 ```
 
 Finally we substitute all $q$  variables by $q_{1}$
 
-```bash
+```julia
 julia> substitute(feynman_integral_degree(x,q,z,G,3,aa=1,l=[0,0,0],g=[1,0,0]))
 ```
 
@@ -127,17 +127,17 @@ julia> substitute(feynman_integral_degree(x,q,z,G,3,aa=1,l=[0,0,0],g=[1,0,0]))
 
 <img width="350" alt="image" src="https://github.com/singular-gpispace/GromovWitten/assets/46294807/ac17a579-426c-4d16-b652-19cb393d620e">
 
-```bash
+```julia
 julia> G=graph([(1, 1), (1, 2), (2, 3), (3, 1)])
 graph([(1, 1), (1, 2), (2, 3), (3, 1)])
 ```
 
-```bash
+```julia
 julia> R,x,q=polynomial_ring(G,"x","q")
 (Multivariate polynomial ring in 7 variables over QQ, QQMPolyRingElem[x[1], x[2], x[3]], QQMPolyRingElem[q[1], q[2], q[3], q[4]])
 ```
 
-```bash
+```julia
 julia> O=[1,2,3]  
 3-element Vector{Int64}:
  1
@@ -145,7 +145,7 @@ julia> O=[1,2,3]
  3
 ```
 
-```bash
+```julia
 julia> a=[ 2,  0, 0, 1]
  4-element Vector{Int64}:
  2
@@ -154,22 +154,22 @@ julia> a=[ 2,  0, 0, 1]
  1
 ```
 
-```bash
+```julia
 julia> feynman_integral_branchtype_order(x,q,G,a,O)
 3*q[1]^2*q[4]
 ```
 
-```bash
+```julia
 julia> feynman_integral_branchtype(x,q,G,a)  
 6*q[1]^2*q[4]
 ```
 
-```bash
+```julia
 julia> feynman_integral_degree(x,q,G,3)
 6*q[1]^2*q[2] + 6*q[1]^2*q[3] + 6*q[1]^2*q[4] + 18*q[1]*q[2]^2 + 6*q[1]*q[2]*q[3] + 6*q[1]*q[2]*q[4] + 18*q[1]*q[3]^2 + 6*q[1]*q[3]*q[4] + 18*q[1]*q[4]^2
 ```
 
-```bash
+```julia
 julia> substitute(R,x,q,feynman_integral_sum(x,q,G,8))
 20640*q[1]^8 + 9996*q[1]^7 + 4320*q[1]^6 + 1650*q[1]^5 + 456*q[1]^4 + 90*q[1]^3 + 6*q[1]^2
 ```
