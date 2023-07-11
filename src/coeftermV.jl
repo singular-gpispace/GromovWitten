@@ -4,7 +4,7 @@
 #                                                                             #
 ###############################################################################
 @doc raw"""
-sfunction(z::QQMPolyRingElem,k::Int64)
+    sfunction(z::QQMPolyRingElem,k::Int64)
 
 **Note**:The function sfunction(z,k) takes account vertex contributions. 
 ```math
@@ -28,7 +28,8 @@ function sfunction(x::QQMPolyRingElem,k::Int64)
 end
 
 @doc raw"""
-inv_sfunction(z::QQMPolyRingElem,aa::Int64)
+    inv_sfunction(z::QQMPolyRingElem,aa::Int64)
+
 returns the inverse sfunction
 ```math
  \frac{1}{S(z,aa)}=\frac{z}{2 Sinh(z/2)}= 
@@ -53,7 +54,8 @@ function inv_sfunction(z::QQMPolyRingElem,k::Int64)
     return su
 end
 @doc raw"""
-loopterm( q::QQMPolyRingElem, a::Integer)
+    loopterm( q::QQMPolyRingElem, a::Integer)
+
 returns loop contribution with zero genus gi at a vertex i. 
 """
 
@@ -71,7 +73,7 @@ function loopterm( q::QQMPolyRingElem, a::Integer)
        return p
 end
 @doc raw"""
-loopterm( z::QQMPolyRingElem, q::QQMPolyRingElem, aa::Integer, a::Integer)
+    loopterm( z::QQMPolyRingElem, q::QQMPolyRingElem, aa::Integer, a::Integer)
 
 returns loop contribution with nonzero genus gi at a vertex i. 
 """
@@ -128,10 +130,11 @@ function lis(G::graph,d::Int64,l::Vector{Int64})
    return L
 end
 @doc raw"""
- filter_term(p::Union{QQMPolyRingElem, Int64}, variables::Vector{QQMPolyRingElem}, s::Vector{Int64})
+     filter_term(p::Union{QQMPolyRingElem, Int64}, variables::Vector{QQMPolyRingElem}, s::Vector{Int64})
  
  replaces all terms of the polynomial p with zero whenever the variables raised to a power of s1 exceed the specified power s.
-  # Examples
+  
+# Examples
   julia> p=feynman_integral_degree(x,q,G,4)
 
  8*q[1]^3*q[2] + 8*q[1]^3*q[3] + 8*q[1]^3*q[4] + 54*q[1]^2*q[2]^2 + 18*q[1]^2*q[2]*q[3] 
