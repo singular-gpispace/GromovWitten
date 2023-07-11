@@ -35,49 +35,6 @@ and load our package. On the first run this may take some time.
 using GromovWitten  
 ```
 
-# Example of graph without vertex contribution and loop.
-
-<img width="400" alt="image" src="https://github.com/singular-gpispace/GromovWitten/assets/46294807/0b1f5684-3550-41ea-9722-8403cd96ed35">
-
-```julia
-julia> G = graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3,4)] )
-graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
-```
-
-```julia
-julia> R, x, q = polynomial_ring(G, "x", "q")
-(Multivariate polynomial ring in 10 variables over QQ, QQMPolyRingElem[x[1], x[2], x[3],x[4]], QQMPolyRingElem[q[1], q[2],q[3], q[4], q[5], q[6]])
-```
-
-```julia
-julia> a = [0, 2, 1, 0, 0, 1];
-```
-
-```julia
-julia> o=[1,3,4,2];
-```
-
-```julia
-
-julia>  feynman_integral_branchtype_order(x,q,G,a,o) 
-128*q[2]^2*q[3]*q[6]
-```
-
-```julia
-julia> feynman_integral_branchtype(x, q, G, a)  
-256*q[2]^2*q[3]*q[6]
-```
-
-```julia
-julia> f = feynman_integral_degree(x, q, G, 3)
-288*q[1]^3 + 32*q[1]^2*q[2] + 32*q[1]^2*q[3] + 32*q[1]^2*q[5] + 32*q[1]^2*q[6] + 8*q[1]*q[2]*q[5] + 8*q[1]*q[2]*q[6] + 8*q[1]*q[3]*q[5] + 8*q[1]*q[3]*q[6] + 24*q[2]^3 + 152*q[2]^2*q[3] + 8*q[2]^2*q[5] + 8*q[2]^2*q[6] + 152*q[2]*q[3]^2 + 32*q[2]*q[3]*q[5] + 32*q[2]*q[3]*q[6] + 32*q[2]*q[4]^2 + 8*q[2]*q[4]*q[5] + 8*q[2]*q[4]*q[6] + 8*q[2]*q[5]^2 + 32*q[2]*q[5]*q[6] + 8*q[2]*q[6]^2 + 24*q[3]^3 + 8*q[3]^2*q[5] + 8*q[3]^2*q[6] + 32*q[3]*q[4]^2 + 8*q[3]*q[4]*q[5] + 8*q[3]*q[4]*q[6] + 8*q[3]*q[5]^2 + 32*q[3]*q[5]*q[6] + 8*q[3]*q[6]^2 + 288*q[4]^3 + 32*q[4]^2*q[5] + 32*q[4]^2*q[6] + 24*q[5]^3 + 152*q[5]^2*q[6] + 152*q[5]*q[6]^2 + 24*q[6]^3
-```
-
-```julia
-julia>     substitute(q,feynman_integral_degree_sum(x,q,G,8))
-10246144*q[1]^8 + 3294720*q[1]^7 + 886656*q[1]^6 + 182272*q[1]^5 + 25344*q[1]^4 + 1792*q[1]^3 + 32*q[1]^2
-```
-
 # Example of graph with vertex contribution
 
 <img width="400" alt="image" src="https://github.com/singular-gpispace/GromovWitten/assets/46294807/e5ed2790-64f4-4853-a99c-61b082ddfd73">
@@ -122,6 +79,51 @@ Finally we substitute all $q$  variables by $q_{1}$
 ```julia
 julia> substitute(feynman_integral_degree(x,q,z,G,3,aa=1,l=[0,0,0],g=[1,0,0]))
 ```
+
+
+# Example of graph without vertex contribution and loop.
+
+<img width="400" alt="image" src="https://github.com/singular-gpispace/GromovWitten/assets/46294807/0b1f5684-3550-41ea-9722-8403cd96ed35">
+
+```julia
+julia> G = graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3,4)] )
+graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
+```
+
+```julia
+julia> R, x, q = polynomial_ring(G, "x", "q")
+(Multivariate polynomial ring in 10 variables over QQ, QQMPolyRingElem[x[1], x[2], x[3],x[4]], QQMPolyRingElem[q[1], q[2],q[3], q[4], q[5], q[6]])
+```
+
+```julia
+julia> a = [0, 2, 1, 0, 0, 1];
+```
+
+```julia
+julia> o=[1,3,4,2];
+```
+
+```julia
+
+julia>  feynman_integral_branchtype_order(x,q,G,a,o) 
+128*q[2]^2*q[3]*q[6]
+```
+
+```julia
+julia> feynman_integral_branchtype(x, q, G, a)  
+256*q[2]^2*q[3]*q[6]
+```
+
+```julia
+julia> f = feynman_integral_degree(x, q, G, 3)
+288*q[1]^3 + 32*q[1]^2*q[2] + 32*q[1]^2*q[3] + 32*q[1]^2*q[5] + 32*q[1]^2*q[6] + 8*q[1]*q[2]*q[5] + 8*q[1]*q[2]*q[6] + 8*q[1]*q[3]*q[5] + 8*q[1]*q[3]*q[6] + 24*q[2]^3 + 152*q[2]^2*q[3] + 8*q[2]^2*q[5] + 8*q[2]^2*q[6] + 152*q[2]*q[3]^2 + 32*q[2]*q[3]*q[5] + 32*q[2]*q[3]*q[6] + 32*q[2]*q[4]^2 + 8*q[2]*q[4]*q[5] + 8*q[2]*q[4]*q[6] + 8*q[2]*q[5]^2 + 32*q[2]*q[5]*q[6] + 8*q[2]*q[6]^2 + 24*q[3]^3 + 8*q[3]^2*q[5] + 8*q[3]^2*q[6] + 32*q[3]*q[4]^2 + 8*q[3]*q[4]*q[5] + 8*q[3]*q[4]*q[6] + 8*q[3]*q[5]^2 + 32*q[3]*q[5]*q[6] + 8*q[3]*q[6]^2 + 288*q[4]^3 + 32*q[4]^2*q[5] + 32*q[4]^2*q[6] + 24*q[5]^3 + 152*q[5]^2*q[6] + 152*q[5]*q[6]^2 + 24*q[6]^3
+```
+
+```julia
+julia>     substitute(q,feynman_integral_degree_sum(x,q,G,8))
+10246144*q[1]^8 + 3294720*q[1]^7 + 886656*q[1]^6 + 182272*q[1]^5 + 25344*q[1]^4 + 1792*q[1]^3 + 32*q[1]^2
+```
+
 
 # Example of graph with loop.
 
