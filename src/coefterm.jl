@@ -110,7 +110,7 @@ end
 
  returns flip_signature and their multiplicities.
  # Examples
-```julia-repl
+```julia
 julia> G=graph(ve)
  graph([(1, 1), (1, 2), (2, 3), (3, 1)])
 
