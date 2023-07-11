@@ -16,7 +16,6 @@ using GromovWitten
 A Feynman graph is a (non-metrized) graph Γ without ends with n vertices which are labeled $x_1, . . . , x_n$ and with labeled edges $q_1, . . . , q_r$.
 The graph $G$ is represented as a collection of vertices $V$ and edges $E$. Each edge is a pair $(v,w)$ where both $v$ and $w$ are elements of the set of vertices $V$.
 
-<img src="https://github.com/singular-gpispace/tropicalfeynman/assets/46294807/c5b4b792-6d2f-418f-b38a-21b3c0187a92" width="300" />
 
 ```jldoctest graph
 julia> ve=[(1, 1), (1, 2), (2, 3), (3, 1)]
@@ -69,14 +68,14 @@ We compute the Specific Feynman Integral for the Graph G given a fixed vertex or
 Here we have the defaults values of the leak vector and the genus function  l=[0,0,0], g=[0,0,0] and we set the order of Sfunction $ aa=0$
 
 ```jldoctest graph
-julia>  feynman_integral_branchtype_order(x,q,z,G,a,o,aa=0,l=[0,0,0],g=[0,0,0])
+julia>  feynman_integral_branch_type_order(x,q,z,G,a,o,aa=0,l=[0,0,0],g=[0,0,0])
 3*q[1]^2*q[4]
 ```
 
 In the case l=[0,0,0], g=[0,0,0] and  $ aa=0$ we can write simply write.
 
 ```jldoctest graph
-julia>  feynman_integral_branchtype_order(x,q,z,G,a,o)
+julia>  feynman_integral_branch_type_order(x,q,z,G,a,o)
 3*q[1]^2*q[4]
 ```
 
@@ -84,7 +83,7 @@ We compute the Specific Feynman Integral for the Graph G given a fixed partition
 Here we have the defaults values of the leak vector and the genus function  l=[0,0,0], g=[0,0,0] and we set the order of Sfunction $ aa=0$
 
 ```jldoctest graph
-julia> feynman_integral_branchtype(x,q,z,G,a)
+julia> feynman_integral_branch_type(x,q,z,G,a)
 6*q[1]^2*q[4]
 ```
 
