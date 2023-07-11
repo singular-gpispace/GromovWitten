@@ -100,7 +100,7 @@ julia> R, x, q = polynomial_ring(G, "x", "q")
 (Multivariate polynomial ring in 10 variables over QQ, QQMPolyRingElem[x[1], x[2], x[3],x[4]], QQMPolyRingElem[q[1], q[2],q[3], q[4], q[5], q[6]])
 ```
 
-```julia
+```example
 julia> a = [0, 2, 1, 0, 0, 1];
 ```
 
@@ -144,15 +144,11 @@ julia> R,x,q=polynomial_ring(G,"x","q")
 (Multivariate polynomial ring in 7 variables over QQ, QQMPolyRingElem[x[1], x[2], x[3]], QQMPolyRingElem[q[1], q[2], q[3], q[4]])
 ```
 
-```julia
+```@example
 julia> O=[1,2,3]  
-3-element Vector{Int64}:
- 1
- 2
- 3
 ```
 
-```julia
+```@example
 julia> a=[ 2,  0, 0, 1]
  4-element Vector{Int64}:
  2
