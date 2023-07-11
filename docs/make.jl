@@ -20,6 +20,7 @@ makedocs(;
     ),
     pages=[
         "Home" => "index.md",
+        "Function" =>"Feynman Integral/Feynman.md"
     ],
 )
 
