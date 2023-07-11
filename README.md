@@ -1,5 +1,5 @@
 # GromovWitten
-[![Docs: stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://singular-gpispace.github.io/GromovWitten.jl/)
+[![Docs: stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://singular-gpispace.github.io/GromovWitten/)
 [![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://github.com/singular-gpispace/GromovWitten/stable/)
 [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://github.com/singular-gpispace/GromovWitten/dev/)
 [![Build Status](https://github.com/singular-gpispace/GromovWitten/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/singular-gpispace/GromovWitten/actions/workflows/CI.yml?query=branch%3Amain)
