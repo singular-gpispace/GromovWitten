@@ -1,5 +1,5 @@
 @doc raw"""
- feynman_integral_branchtype( x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem}, G::graph ,a::Vector{Int64} ;l=zeros(Int,nv(G)))
+ feynman_integral_branch_type( x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem}, G::graph ,a::Vector{Int64} ;l=zeros(Int,nv(G)))
 
  compute the Feynman Integral for a specified branch type `a` for all ordering `Ω`
     
@@ -10,13 +10,13 @@ graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
 
 julia> a=[0,2,1,0,0,1];
 
-julia> feynman_integral_branchtype(x,q,G,a)
+julia> feynman_integral_branch_type(x,q,G,a)
 
 256*q[2]^2*q[3]*q[6]
 
 --------------------------
 
-feynman_integral_branchtype(x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem},z::Vector{QQMPolyRingElem}, G::graph ,a::Vector{Int64} ;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
+feynman_integral_branch_type(x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem},z::Vector{QQMPolyRingElem}, G::graph ,a::Vector{Int64} ;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
 # Examples (with vertex contribution)
 
 julia> G=graph(ve)
@@ -24,12 +24,12 @@ graph([(1, 2), (2, 3), (1, 3)])
 
 julia> a=[0,0,3];
 
-julia> feynman_integral_branchtype(x,q,z,G,a,aa=1,g=[1,0,0])
+julia> feynman_integral_branch_type(x,q,z,G,a,aa=1,g=[1,0,0])
 
 115//3*q[3]^3
 
 """
-function feynman_integral_branchtype( x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem}, G::graph ,a::Vector{Int64} ;l=zeros(Int,nv(G)))
+function feynman_integral_branch_type( x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem}, G::graph ,a::Vector{Int64} ;l=zeros(Int,nv(G)))
     ee = Edge.(G.edge)
     N = sum(a)
     f = signature_and_multiplicities(G, a)
@@ -61,7 +61,7 @@ function feynman_integral_branchtype( x::Vector{QQMPolyRingElem}, q::Vector{QQMP
     end
     return p
 end
-function feynman_integral_branchtype(x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem},z::Vector{QQMPolyRingElem}, G::graph ,a::Vector{Int64} ;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
+function feynman_integral_branch_type(x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem},z::Vector{QQMPolyRingElem}, G::graph ,a::Vector{Int64} ;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
     ee = Edge.(G.edge)
     N = sum(a)
     f = signature_and_multiplicities(G, a)
@@ -101,7 +101,7 @@ function feynman_integral_branchtype(x::Vector{QQMPolyRingElem}, q::Vector{QQMPo
     return p
 end
 @doc raw"""
- feynman_integral_branchtype_order( x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem}, G::graph ,a::Vector{Int64}  ,Ω::Vector{Int64};l=zeros(Int,nv(G)))
+ feynman_integral_branch_type_order( x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem}, G::graph ,a::Vector{Int64}  ,Ω::Vector{Int64};l=zeros(Int,nv(G)))
 
  compute the Feynman Integral for a specified branch type `a` for a fixed ordering `Ω`
     
@@ -114,12 +114,12 @@ julia> a=[0,2,1,0,0,1];
 
 julia> Ω=[1,3,4,2];
 
-julia> feynman_integral_branchtype_order(x,q,G,a,Ω)
+julia> feynman_integral_branch_type_order(x,q,G,a,Ω)
 
 128*q[2]^2*q[3]*q[6]
 --------------------------
 
-feynman_integral_branchtype_order(x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem},z::Vector{QQMPolyRingElem}, G::graph ,a::Vector{Int64}, Ω::Vector{Int64};aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
+feynman_integral_branch_type_order(x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem},z::Vector{QQMPolyRingElem}, G::graph ,a::Vector{Int64}, Ω::Vector{Int64};aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
 # Examples (with vertex contribution)
 
 julia> G=graph(ve)
@@ -129,12 +129,12 @@ julia> a=[0,0,3];
 
 julia> Ω=[1,2,3];
 
-julia> feynman_integral_branchtype_order(x,q,z,G,a,Ω,aa=1,g=[1,0,0])
+julia> feynman_integral_branch_type_order(x,q,z,G,a,Ω,aa=1,g=[1,0,0])
 
 115//6*q[3]^3
 
 """
-function feynman_integral_branchtype_order( x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem}, G::graph ,a::Vector{Int64}  ,o::Vector{Int64};l=zeros(Int,nv(G)))
+function feynman_integral_branch_type_order( x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem}, G::graph ,a::Vector{Int64}  ,o::Vector{Int64};l=zeros(Int,nv(G)))
     ee = Edge.(G.edge)
     N = sum(a)
     f = signature_and_multiplicities_order(G, a,o)
@@ -167,7 +167,7 @@ function feynman_integral_branchtype_order( x::Vector{QQMPolyRingElem}, q::Vecto
     end
     return p
 end
-function feynman_integral_branchtype_order(x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem},z::Vector{QQMPolyRingElem}, G::graph ,a::Vector{Int64},o::Vector{Int64} ;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
+function feynman_integral_branch_type_order(x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem},z::Vector{QQMPolyRingElem}, G::graph ,a::Vector{Int64},o::Vector{Int64} ;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
     ee = Edge.(G.edge)
     N = sum(a)
     f = signature_and_multiplicities_order(G, a,o)
@@ -245,7 +245,7 @@ function feynman_integral_degree_order( x::Vector{QQMPolyRingElem}, q::Vector{QQ
     a=partition(length(ee),d) 
     sum=0
     for ai in a
-         sum=sum+feynman_integral_branchtype_order(x,q,G,ai,o;l) 
+         sum=sum+feynman_integral_branch_type_order(x,q,G,ai,o;l) 
     end
     return sum
 end 
@@ -254,7 +254,7 @@ function feynman_integral_degree_order( x::Vector{QQMPolyRingElem}, q::Vector{QQ
     a=partition(length(ee),d) 
     sum=0
     for ai in a
-         sum=sum+feynman_integral_branchtype_order(x,q,z,G,ai,o;aa,l,g) 
+         sum=sum+feynman_integral_branch_type_order(x,q,z,G,ai,o;aa,l,g) 
     end
     return sum
 end 
@@ -294,7 +294,7 @@ function feynman_integral_degree(x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRi
     a=partition(length(ee),d) 
     sum=0
     for ai in a
-         sum=sum+feynman_integral_branchtype(x,q,G,ai;l) 
+         sum=sum+feynman_integral_branch_type(x,q,G,ai;l) 
     end
     return sum
 end 
@@ -303,7 +303,7 @@ function feynman_integral_degree( x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyR
     a=partition(length(ee),d) 
     sum=0
     for ai in a
-         sum=sum+feynman_integral_branchtype(x,q,z,G,ai;aa,l,g) 
+         sum=sum+feynman_integral_branch_type(x,q,z,G,ai;aa,l,g) 
     end
     return sum
 end 

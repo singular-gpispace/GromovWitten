@@ -64,13 +64,13 @@ Here, the indexed variables x correspond to the vertices of the graph, the index
 To compute a Feynman iuntegral, we define a partition  $a=[0,0,3]$  of degree d=3, a fixed order of vertex $o=[1,2,3]$ and the genus function $g=[1,0,0]$. The leak in G is $L=[0,0,0]$ , $aa=1$ is the order of the sfunction. We have then
 
 ```julia
- julia> feynman_integral_branchtype_order(x,q,z,G,a,o,aa=1,g=[1,0,0])
+ julia> feynman_integral_branch_type_order(x,q,z,G,a,o,aa=1,g=[1,0,0])
 ```
 
 The Feynman Integral branch type for all ordering with genus function $g$  is
 
 ```julia
-julia> feynman_integral_branchtype(x,q,z,G,a,aa=1,g=[1,0,0])
+julia> feynman_integral_branch_type(x,q,z,G,a,aa=1,g=[1,0,0])
 ```
 
 also we can compute Feynman Integral of degree 4
@@ -82,12 +82,12 @@ also we can compute Feynman Integral of degree 4
 Finally we substitute all $q$  variables by $q_{1}$
 
 ```julia
-julia> substitute(feynman_integral_degree(x,q,z,G,3,aa=1,l=[0,0,0],g=[1,0,0]))
+julia> substitute(q,feynman_integral_degree(x,q,z,G,3,aa=1,l=[0,0,0],g=[1,0,0]))
 ```
 
 # Example of graph without vertex contribution and loop.
 
-<img width="400" alt="image" src="https://github.com/singular-gpispace/GromovWitten/assets/46294807/1b45577b-3c92-464f-81f5-57766dcd189e">
+![alt text](img/Cartepillar3.png)
 
 ```julia
 julia> G = graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3,4)] )
@@ -109,12 +109,12 @@ julia> o=[1,3,4,2];
 
 ```julia
 
-julia>  feynman_integral_branchtype_order(x,q,G,a,o) 
+julia>  feynman_integral_branch_type_order(x,q,G,a,o) 
 128*q[2]^2*q[3]*q[6]
 ```
 
 ```julia
-julia> feynman_integral_branchtype(x, q, G, a)  
+julia> feynman_integral_branch_type(x, q, G, a)  
 256*q[2]^2*q[3]*q[6]
 ```
 
@@ -130,7 +130,7 @@ julia>     substitute(q,feynman_integral_degree_sum(x,q,G,8))
 
 # Example of graph with loop.
 
-<img width="350" alt="image" src="https://github.com/singular-gpispace/GromovWitten/assets/46294807/c94574b9-eaed-47ca-afb0-a53fdd0b64b3">
+![alt text](img/graph_loop.png)
 
 ```julia
 julia> G=graph([(1, 1), (1, 2), (2, 3), (3, 1)])
@@ -156,12 +156,12 @@ julia> a=[ 2,  0, 0, 1]
 ```
 
 ```julia
-julia> feynman_integral_branchtype_order(x,q,G,a,O)
+julia> feynman_integral_branch_type_order(x,q,G,a,O)
 3*q[1]^2*q[4]
 ```
 
 ```julia
-julia> feynman_integral_branchtype(x,q,G,a)  
+julia> feynman_integral_branch_type(x,q,G,a)  
 6*q[1]^2*q[4]
 ```
 
@@ -171,6 +171,6 @@ julia> feynman_integral_degree(x,q,G,3)
 ```
 
 ```julia
-julia> substitute(R,x,q,feynman_integral_sum(x,q,G,8))
+julia> substitute(q,feynman_integral_sum(x,q,G,8))
 20640*q[1]^8 + 9996*q[1]^7 + 4320*q[1]^6 + 1650*q[1]^5 + 456*q[1]^4 + 90*q[1]^3 + 6*q[1]^2
 ```
