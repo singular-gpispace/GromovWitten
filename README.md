@@ -36,7 +36,8 @@ using GromovWitten
 ```
 
 # Example of graph with vertex contribution
-![image](https://github.com/singular-gpispace/GromovWitten/assets/46294807/01eefb54-3db4-49cf-93a5-4ec2218ba9ce)
+
+<img width="400" alt="image" src="https://github.com/singular-gpispace/GromovWitten/assets/46294807/01eefb54-3db4-49cf-93a5-4ec2218ba9ce">
 
 To provide an example on how to use our package, we define a graph G from a list of edges:
 
@@ -82,7 +83,7 @@ julia> substitute(feynman_integral_degree(x,q,z,G,3,aa=1,l=[0,0,0],g=[1,0,0]))
 
 # Example of graph without vertex contribution and loop.
 
-<img width="400" alt="image" src="https://github.com/singular-gpispace/GromovWitten/assets/46294807/0b1f5684-3550-41ea-9722-8403cd96ed35">
+<img width="400" alt="image" src="https://github.com/singular-gpispace/GromovWitten/assets/46294807/1b45577b-3c92-464f-81f5-57766dcd189e">
 
 ```julia
 julia> G = graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3,4)] )
@@ -126,7 +127,7 @@ julia>     substitute(q,feynman_integral_degree_sum(x,q,G,8))
 
 # Example of graph with loop.
 
-<img width="350" alt="image" src="https://github.com/singular-gpispace/GromovWitten/assets/46294807/ac17a579-426c-4d16-b652-19cb393d620e">
+<img width="350" alt="image" src="https://github.com/singular-gpispace/GromovWitten/assets/46294807/c94574b9-eaed-47ca-afb0-a53fdd0b64b3">
 
 ```julia
 julia> G=graph([(1, 1), (1, 2), (2, 3), (3, 1)])
