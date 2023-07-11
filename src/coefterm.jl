@@ -24,7 +24,9 @@
     return p
 end =#
 @doc raw"""
-   partition(k::Integer, n::Integer)    
+   partition(k::Integer, n::Integer) 
+
+
 # Examples
 
 This function returns the number of partitions of $n$ into fixed  $k$ parts. 
