@@ -3,34 +3,31 @@
 
  compute the Feynman Integral for a specified branch type `a` for all ordering `Ω`
     
- # Examples (without vertex contribution)
+# Examples (without vertex contribution)
  
 ```jldoctest
- julia> G=graph(ve)
+julia> G=graph(ve)
+graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
 
- graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
+julia> a=[0,2,1,0,0,1];
 
- julia> a=[0,2,1,0,0,1];
-
- julia> feynman_integral_branch_type(x,q,G,a)
-
- 256*q[2]^2*q[3]*q[6]
- ````
+julia> feynman_integral_branch_type(x,q,G,a)
+256*q[2]^2*q[3]*q[6]
+````
 
      feynman_integral_branch_type(x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem},z::Vector{QQMPolyRingElem}, G::graph ,a::Vector{Int64} ;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
 
- # Examples (with vertex contribution)
+# Examples (with vertex contribution)
 
- ```jldoctest
- julia> G=graph(ve)
+```jldoctest
+julia> G=graph(ve)
  graph([(1, 2), (2, 3), (1, 3)])
 
- julia> a=[0,0,3];
+julia> a=[0,0,3];
 
- julia> feynman_integral_branch_type(x,q,z,G,a,aa=1,g=[1,0,0])
-
+julia> feynman_integral_branch_type(x,q,z,G,a,aa=1,g=[1,0,0])
  115//3*q[3]^3
- ````
+````
 """
 function feynman_integral_branch_type( x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem}, G::graph ,a::Vector{Int64} ;l=zeros(Int,nv(G)))
     ee = Edge.(G.edge)
@@ -108,20 +105,18 @@ end
 
  compute the Feynman Integral for a specified branch type `a` for a fixed ordering `Ω`
     
- # Examples (without vertex contribution)
- ```jldoctest
- julia> G=graph(ve)
+# Examples (without vertex contribution)
+```jldoctest
+julia> G=graph(ve)
+graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
 
- graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
+julia> a=[0,2,1,0,0,1];
 
- julia> a=[0,2,1,0,0,1];
+julia> Ω=[1,3,4,2];
 
- julia> Ω=[1,3,4,2];
-
- julia> feynman_integral_branch_type_order(x,q,G,a,Ω)
-
- 128*q[2]^2*q[3]*q[6]
-  ```
+julia> feynman_integral_branch_type_order(x,q,G,a,Ω)
+128*q[2]^2*q[3]*q[6]
+```
      feynman_integral_branch_type_order(x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem},z::Vector{QQMPolyRingElem}, G::graph ,a::Vector{Int64}, Ω::Vector{Int64};aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
 
     # Examples (with vertex contribution)

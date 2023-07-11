@@ -14,9 +14,11 @@ z^n, {aa} \rightarrow \infty
 ```
 # Examples
 
+```julia
 julia> sfunction(x[1],4)
 
 1//92897280*z[1]^8 + 1//322560*z[1]^6 + 1//1920*z[1]^4 + 1//24*z[1]^2 
+````
 """
 function sfunction(x::QQMPolyRingElem,k::Int64)
     su=0
@@ -34,16 +36,18 @@ returns the inverse sfunction
 ```math
  \frac{1}{S(z,aa)}=\frac{z}{2 Sinh(z/2)}= 
  \sum_{n =  0}^{aa} \left( \left\{\begin{array}{ll}
-     1 & if && n = 1\\
+     1 & \text{if} && n = 1\\
      - \frac{- 2^n (- 2 + 2^n)}{n!} B_n & (n > = 1 && (- 1
      + n)\mod 2 = 1)
    \end{array}\right. \right) z^n 
 ```
    Where $B_n$ is Bernoulli number and ${aa} \rightarrow \infty$.
 # Examples
+```julia
 julia> inv_sfunction(x[1],4)
 
 7//5760*x[1]^4 - 1//24*x[1]^2 + 1
+```
 """
 function inv_sfunction(z::QQMPolyRingElem,k::Int64)
     su=0
@@ -135,19 +139,20 @@ end
  replaces all terms of the polynomial p with zero whenever the variables raised to a power of s1 exceed the specified power s.
   
 # Examples
-  julia> p=feynman_integral_degree(x,q,G,4)
-
+```julia  
+julia> p=feynman_integral_degree(x,q,G,4)
  8*q[1]^3*q[2] + 8*q[1]^3*q[3] + 8*q[1]^3*q[4] + 54*q[1]^2*q[2]^2 + 18*q[1]^2*q[2]*q[3] 
 + 18*q[1]^2*q[2]*q[4] + 54*q[1]^2*q[3]^2 + 18*q[1]^2*q[3]*q[4] + 54*q[1]^2*q[4]^2 
 + 56*q[1]*q[2]^3 + 6*q[1]*q[2]^2*q[3] + 6*q[1]*q[2]^2*q[4] + 6*q[1]*q[2]*q[3]^2 
 + 12*q[1]*q[2]*q[3]*q[4] + 6*q[1]*q[2]*q[4]^2 + 56*q[1]*q[3]^3 + 6*q[1]*q[3]^2*q[4] 
 + 6*q[1]*q[3]*q[4]^2 + 56*q[1]*q[4]^3
-
+````
 we replace all term in $p$  with `q[1]^a*q[2]^b*q[3]^c > q[1]*q[2]*q[3]` by zero,this means all power $(a,b,c)>(1,1,1)$
+```julia  
 
 julia> filter_term(p,[q[1],q[2],q[3]],[1,1,1])
-
 12*q[1]*q[2]*q[3]*q[4] + 6*q[1]*q[2]*q[4]^2 + 6*q[1]*q[3]*q[4]^2 + 56*q[1]*q[4]^3
+````
  """
 function filter_term(p::Union{QQMPolyRingElem, Int64}, variables::Vector{QQMPolyRingElem}, s::Vector{Int64})
     T = parent(variables[1])

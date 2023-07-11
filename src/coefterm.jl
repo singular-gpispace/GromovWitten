@@ -77,7 +77,7 @@ end
 @doc raw"""
     flip_signature(G::graph ,p::Vector{Int64},a::Vector{Int64})
 
-Let   Ω=[x1,...,xn] be  a given Order and $a$  a branche type,flip_signature  returns -1 if xi<xj and O else. 
+Let   Ω=[x1,...,xn] be  a given Order and $a$  a branche type,flip_signature  returns -1 if $x_i<x_j$ and O else. 
 It will return -2 in case the Graph G has a loop. 
 """
 function flip_signature(G::graph ,p::Vector{Int64},a::Vector{Int64}) #graph G, list p, branch type a
@@ -106,7 +106,7 @@ return b
 end
 # flip_signature regroup all Orders with the same signature so same
 @doc raw"""
-    signature\_and_multiplicities( G::graph, a::Vector{Int64})
+    signature_and_multiplicities( G::graph, a::Vector{Int64})
 
  returns flip_signature and their multiplicities.
  # Examples
@@ -114,9 +114,9 @@ end
 julia> G=graph(ve)
  graph([(1, 1), (1, 2), (2, 3), (3, 1)])
 
-julia> a=[2,0,0,1]
+julia> a=[2,0,0,1];
 
- julia> signature\_and_multiplicities(G,a)
+julia> signature\_and_multiplicities(G,a)
  4-element Vector{Tuple{Int64, Vector{Int64}}}:
  (1, [-2, 0, 0, 1])
  (2, [-2, -1, 0, 1])
