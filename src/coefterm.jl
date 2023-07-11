@@ -25,9 +25,9 @@
 end =#
 ```@docs
    partition(k::Integer, n::Integer)    
+# Examples
 
 This function returns the number of partitions of $n$ into fixed  $k$ parts. 
-# Examples
 ```
 
 ```julia
