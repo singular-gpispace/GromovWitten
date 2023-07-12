@@ -1,4 +1,6 @@
 @testset "quasimod.jl" begin
+    import Nemo: QQFieldElem
+
     ve=[(1, 2), (1,2),(2, 4), (1, 3) ,(3, 4),(3,4)]
     G=graph(ve)
     R, x, q = polynomial_ring(G,"x","q")
