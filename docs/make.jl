@@ -11,8 +11,8 @@ makedocs(;
     checkdocs = :none,
     doctest = true,
     strict = true,
-    expandfirst = ["index.md"],
     sitename="GromovWitten.jl",
+    expandfirst = ["index.md"],
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
         canonical="https://singular-gpispace.github.io/GromovWitten.git",
