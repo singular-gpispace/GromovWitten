@@ -1,9 +1,20 @@
 # GromovWitten
 
-[![Docs: stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://singular-gpispace.github.io/GromovWitten/)
-[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://singular-gpispace.github.io/GromovWitten/dev/)
-[![Build Status](https://github.com/singular-gpispace/GromovWitten/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/singular-gpispace/GromovWitten/actions/workflows/CI.yml?query=branch%3Amain)
-[![Coverage](https://codecov.io/gh/singular-gpispace.github.io/GromovWitten.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/singular-gpispace.github.io/GromovWitten.jl)
+[docs-dev-img]: https://img.shields.io/badge/docs-dev-blue.svg
+[docs-dev-url]: https://singular-gpispace.github.io/GromovWitten/dev/
+
+[docs-stable-img]: https://img.shields.io/badge/docs-stable-blue.svg
+[docs-stable-url]: https://singular-gpispace.github.io/GromovWitten/
+
+[ga-img]: https://github.com/singular-gpispace/GromovWitten/actions/workflows/CI.yml/badge.svg?branch=main
+[ga-url]: https://github.com/singular-gpispace/GromovWitten/actions/workflows/CI.yml?query=branch%3Amain
+
+[codecov-img]: https://codecov.io/gh/singular-gpispace.github.io/GromovWitten.jl/branch/main/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/singular-gpispace.github.io/GromovWitten.jl
+
+| **Documentation**                                                         | **Build Status**                                      |
+|:-------------------------------------------------------------------------:|:-----------------------------------------------------:|
+| [![][docs-stable-img]][docs-stable-url] [![][docs-dev-img]][docs-dev-url] | [![][ga-img]][ga-url] [![][codecov-img]][codecov-url] |
 
 # GromovWitten
 
