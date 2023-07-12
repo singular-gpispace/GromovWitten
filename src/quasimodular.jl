@@ -88,15 +88,15 @@ function polynomial_to_matrix(vect::Vector{QQMPolyRingElem})
     return A
 end
 function matrix_of_integral(Iq::fmpq_mpoly) 
-# Obtain the coefficients of Iq
-Q = coefficients_of_univariate(Iq)
-    
-# Convert Q to a matrix representation
-Q_matrix = Matrix(transpose(reduce(hcat, Q)))
+    # Obtain the coefficients of Iq
+    Q = coefficients_of_univariate(Iq)
+        
+    # Convert Q to a matrix representation
+    Q_matrix = Matrix(transpose(reduce(hcat, Q)))
 
-# Convert the matrix to the QQ type so we can call can_with_solution.
-Q = matrix(QQ, Q_matrix)
-    return Q
+    # Convert the matrix to the QQ type so we can call can_with_solution.
+    Q = matrix(QQ, Q_matrix)
+        return Q
 end
 function solve_polynomial_system(A::QQMatrix, Q::QQMatrix)
     m, n = size(A)
