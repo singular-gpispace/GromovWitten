@@ -32,15 +32,7 @@ function constterm( x1::QQMPolyRingElem, x2::QQMPolyRingElem, N::Integer)
     end
     return p
 end
-function proterm( x1::QQMPolyRingElem, x2::QQMPolyRingElem, q::QQMPolyRingElem, a::Integer, N::Integer)
-    p=0
-    for w in 1:a
-        if a%w==0
-            p = p + w*( x1^( N + w )*x2 ^( N - w ) + x1 ^( N-w )*x2^( N + w ) ) *q^(a)
-        end
-    end
-    return p
-end
+
 function constterm(x1::QQMPolyRingElem, x2::QQMPolyRingElem, z1::QQMPolyRingElem, z2::QQMPolyRingElem,aa::Integer, N::Integer)
     p=0
     for i in 1:N
@@ -60,7 +52,7 @@ returns the non constant term of the propagator
 ```julia
 julia> R,x,q=@polynomial_ring(QQ,x[1:2],q[1:1]); # using Nemo.
 julia> proterm(x[1],x[2],q[1],1,2)
-x[1]^3*x[2]*q[1] + x[1]*x[2]^3*q[1]
+x[1]^3*x[2]*q[1]^2 + x[1]*x[2]^3*q[1]^2
 ```
 # Examples (with vertex contribution)
      proterm( x1::QQMPolyRingElem, x2::QQMPolyRingElem,z1::QQMPolyRingElem, z2::QQMPolyRingElem, q::QQMPolyRingElem, a::Integer,aa::Integer, N::Integer)
@@ -68,18 +60,25 @@ x[1]^3*x[2]*q[1] + x[1]*x[2]^3*q[1]
 ```julia
 julia> R,x,q,z=@polynomial_ring(QQ,x[1:2],q[1:1],z[1:2]); # using Nemo.
 julia> proterm(x[1],x[2],z[1],z[2],q[1],1,1,2)
- 1//576*x[1]^3*x[2]*q[1]*z[1]^2*z[2]^2 + 1//24*x[1]^3*x[2]*q[1]*z[1]^2 
- + 1//24*x[1]^3*x[2]*q[1]*z[2]^2 + x[1]^3*x[2]*q[1] + 1//576*x[1]*x[2]^3*q[1]*z[1]^2*z[2]^2 
- + 1//24*x[1]*x[2]^3*q[1]*z[1]^2 + 1//24*x[1]*x[2]^3*q[1]*z[2]^2 + x[1]*x[2]^3*q[1]
+1//576*x[1]^3*x[2]*q[1]^2*z[1]^2*z[2]^2 + 1//24*x[1]^3*x[2]*q[1]^2*z[1]^2 + 1//24*x[1]^3*x[2]*q[1]^2*z[2]^2 + x[1]^3*x[2]*q[1]^2 + 1//576*x[1]*x[2]^3*q[1]^2*z[1]^2*z[2]^2 + 1//24*x[1]*x[2]^3*q[1]^2*z[1]^2 + 1//24*x[1]*x[2]^3*q[1]^2*z[2]^2 + x[1]*x[2]^3*q[1]^2
 ```
 """
+function proterm( x1::QQMPolyRingElem, x2::QQMPolyRingElem, q::QQMPolyRingElem, a::Integer, N::Integer)
+    p=0
+    for w in 1:a
+        if a%w==0
+            p = p + w*( x1^( N + w )*x2 ^( N - w ) + x1 ^( N-w )*x2^( N + w ) ) *q^(2*a)
+        end
+    end
+    return p
+end
 function proterm( x1::QQMPolyRingElem, x2::QQMPolyRingElem,z1::QQMPolyRingElem, z2::QQMPolyRingElem, q::QQMPolyRingElem, a::Integer,aa::Integer, N::Integer)
     p=0
     for w in 1:a
         if a%w==0
             S1=sfunction(w*z1,aa)
             S2=sfunction(w*z2,aa)
-            p = p + S1*S2*w*( x1^( N + w )*x2 ^( N - w ) + x1 ^( N-w )*x2^( N + w ) ) *q^(a)
+            p = p + S1*S2*w*( x1^( N + w )*x2 ^( N - w ) + x1 ^( N-w )*x2^( N + w ) ) *q^(2*a)
         end
     end
     return p

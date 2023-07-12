@@ -16,7 +16,6 @@ using GromovWitten
 A Feynman graph is a (non-metrized) graph Γ without ends with n vertices which are labeled $x_1, . . . , x_n$ and with labeled edges $q_1, . . . , q_r$.
 The graph $G$ is represented as a collection of vertices $V$ and edges $E$. Each edge is a pair $(v,w)$ where both $v$ and $w$ are elements of the set of vertices $V$.
 
-
 ```jldoctest graph
 julia> ve=[(1, 1), (1, 2), (2, 3), (3, 1)]
 4-element Vector{Tuple{Int64, Int64}}:
@@ -69,14 +68,14 @@ Here we have the defaults values of the leak vector and the genus function  l=[0
 
 ```jldoctest graph
 julia>  feynman_integral_branch_type_order(x,q,z,G,a,o,aa=0,l=[0,0,0],g=[0,0,0])
-3*q[1]^2*q[4]
+3*q[1]^4*q[4]^2
 ```
 
 In the case l=[0,0,0], g=[0,0,0] and  $ aa=0$ we can write simply write.
 
 ```jldoctest graph
 julia>  feynman_integral_branch_type_order(x,q,z,G,a,o)
-3*q[1]^2*q[4]
+3*q[1]^4*q[4]^2
 ```
 
 We compute the Specific Feynman Integral for the Graph G given a fixed partition of degree $a$ for all vertex ordering $o$.
@@ -84,7 +83,7 @@ Here we have the defaults values of the leak vector and the genus function  l=[0
 
 ```jldoctest graph
 julia> feynman_integral_branch_type(x,q,z,G,a)
-6*q[1]^2*q[4]
+6*q[1]^4*q[4]^2
 ```
 
 ## Feynman Integral
@@ -93,7 +92,7 @@ We compute the  Feynman Integral of the graph G over all  partitions of the degr
 
 ```jldoctest graph
 julia> feynman_integral_degree_order(x,q,z,G,o,3) # here d=3
-3*q[1]^2*q[4] + q[1]*q[2]*q[3] + q[1]*q[2]*q[4] + q[1]*q[3]*q[4] + 9*q[1]*q[4]^2
+3*q[1]^4*q[4]^2 + q[1]^2*q[2]^2*q[3]^2 + q[1]^2*q[2]^2*q[4]^2 + q[1]^2*q[3]^2*q[4]^2 + 9*q[1]^2*q[4]^4
 
 ```
 
@@ -101,12 +100,12 @@ We compute the Feynman integral over all the partitions of the degree d of graph
 
 ```jldoctest graph
 julia>  feynman_integral_degree(x,q,z,G,3) # here d=3
-6*q[1]^2*q[2] + 6*q[1]^2*q[3] + 6*q[1]^2*q[4] + 18*q[1]*q[2]^2 + 6*q[1]*q[2]*q[3] + 6*q[1]*q[2]*q[4] + 18*q[1]*q[3]^2 + 6*q[1]*q[3]*q[4] + 18*q[1]*q[4]^2
+6*q[1]^4*q[2]^2 + 6*q[1]^4*q[3]^2 + 6*q[1]^4*q[4]^2 + 18*q[1]^2*q[2]^4 + 6*q[1]^2*q[2]^2*q[3]^2 + 6*q[1]^2*q[2]^2*q[4]^2 + 18*q[1]^2*q[3]^4 + 6*q[1]^2*q[3]^2*q[4]^2 + 18*q[1]^2*q[4]^4
 ```
 
 We compute the sum of coefficients.
 
 ```
-julia> sum_of_coeff( feynman_integral_degree(x,q,z,G,3)
+julia> sum_of_coeff( feynman_integral_degree(x,q,z,G,3))
 90
 ```

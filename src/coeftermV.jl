@@ -71,7 +71,7 @@ function loopterm( q::QQMPolyRingElem, a::Integer)
    else 
        for w in 1:a
            if a%w==0
-               p = p + w*q^(a)
+               p = p + w*q^(2*a)
            end
        end
    end
@@ -90,7 +90,7 @@ function loopterm( z::QQMPolyRingElem,q::QQMPolyRingElem, aa::Integer, a::Intege
        for w in 1:a
            if a%w==0
                S1=sfunction(w*z,aa)
-               p = p + S1*S1*w*q^(a)
+               p = p + S1*S1*w*q^(2*a)
            end
        end
    end
@@ -142,18 +142,16 @@ end
 # Examples
 ```julia  
 julia> p=feynman_integral_degree(x,q,G,4)
- 8*q[1]^3*q[2] + 8*q[1]^3*q[3] + 8*q[1]^3*q[4] + 54*q[1]^2*q[2]^2 + 18*q[1]^2*q[2]*q[3] 
- + 18*q[1]^2*q[2]*q[4] + 54*q[1]^2*q[3]^2 + 18*q[1]^2*q[3]*q[4] + 54*q[1]^2*q[4]^2 
- + 56*q[1]*q[2]^3 + 6*q[1]*q[2]^2*q[3] + 6*q[1]*q[2]^2*q[4] + 6*q[1]*q[2]*q[3]^2 
- + 12*q[1]*q[2]*q[3]*q[4] + 6*q[1]*q[2]*q[4]^2 + 56*q[1]*q[3]^3 + 6*q[1]*q[3]^2*q[4] 
- + 6*q[1]*q[3]*q[4]^2 + 56*q[1]*q[4]^3
+8*q[1]^6*q[2]^2 + 8*q[1]^6*q[3]^2 + 8*q[1]^6*q[4]^2 + 54*q[1]^4*q[2]^4 + 18*q[1]^4*q[2]^2*q[3]^2 + 18*q[1]^4*q[2]^2*q[4]^2 
++ 54*q[1]^4*q[3]^4 + 18*q[1]^4*q[3]^2*q[4]^2 + 54*q[1]^4*q[4]^4 + 56*q[1]^2*q[2]^6 + 6*q[1]^2*q[2]^4*q[3]^2 + 6*q[1]^2*q[2]^4*q[4]^2 
++ 6*q[1]^2*q[2]^2*q[3]^4 + 12*q[1]^2*q[2]^2*q[3]^2*q[4]^2 + 6*q[1]^2*q[2]^2*q[4]^4 + 56*q[1]^2*q[3]^6 + 6*q[1]^2*q[3]^4*q[4]^2 + 6*q[1]^2*q[3]^2*q[4]^4 + 56*q[1]^2*q[4]^6
 ```
 
-we replace all term in $p$  with `q[1]^a*q[2]^b*q[3]^c > q[1]*q[2]*q[3]` by zero,this means all power $(a,b,c)>(1,1,1)$
+we replace all term in $p$  with `q[1]^a*q[2]^b*q[3]^c > q[1]*q[2]*q[3]` by zero,this means all power $(a,b,c)>(2,2,2)$
 
 ```julia  
-julia> filter_term(p,[q[1],q[2],q[3]],[1,1,1])
- 12*q[1]*q[2]*q[3]*q[4] + 6*q[1]*q[2]*q[4]^2 + 6*q[1]*q[3]*q[4]^2 + 56*q[1]*q[4]^3
+julia> filter_term(p,[q[1],q[2],q[3]],[2,2,2])
+12*q[1]^2*q[2]^2*q[3]^2*q[4]^2 + 6*q[1]^2*q[2]^2*q[4]^4 + 6*q[1]^2*q[3]^2*q[4]^4 + 56*q[1]^2*q[4]^6
 ```
  """
 function filter_term(p::Union{QQMPolyRingElem, Int64}, variables::Vector{QQMPolyRingElem}, s::Vector{Int64})
