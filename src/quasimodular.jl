@@ -43,17 +43,26 @@ function filter_vector(polyvector::Vector{QQMPolyRingElem}, variables::Vector{QQ
     return result
 end
 function sum_of_divisor_powers(n::Int, k::Int)
+    if n==0
+        error(" First Argument must be non-zero")
+    end
     divs = divisors(n)
     div_sum = sum(div^k for div in divs)
     return div_sum
 end
 # Compute the Eisenstein series E2(q[1]) up to a specified number of terms
-function eisenstein_series(q, num_terms,k)   
-    e2 = 1 - ((((2*k)// bernoulli(k))) )* sum(sum_of_divisor_powers(d, k-1) * q^(2*d) for d in 1:num_terms)
-    return e2
-end  
+function eisenstein_series(q::Union{QQMPolyRingElem, Vector{QQMPolyRingElem}}, num_terms::Int,k::Int)                  
+    if k % 2 != 0
+        error("input k must be even in eisenstein_series(q, num_terms,k)")
+    end
+    if typeof(q) == Vector{QQMPolyRingElem}
+            return  e2 = 1 - ((((2*k)// bernoulli(k))) )* sum(sum_of_divisor_powers(d, k-1) * q[1]^(2*d) for d in 1:num_terms)
+    else
+            return  e2 = 1 - ((((2*k)// bernoulli(k))) )* sum(sum_of_divisor_powers(d, k-1) * q^(2*d) for d in 1:num_terms)
+    end
+end
 
-function express_as_powers(q::Union{QQMPolyRingElem, Vector{QQMPolyRingElem}}, max_degree)
+function express_as_powers(q::Union{QQMPolyRingElem, Vector{QQMPolyRingElem}}, max_degree::Int)
     if max_degree % 2 != 0
         error("input must be even")
     end

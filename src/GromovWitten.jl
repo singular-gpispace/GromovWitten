@@ -12,6 +12,7 @@ feynman_integral_branch_type, feynman_integral_degree,feynman_integral_degree_su
 feynman_integral_branch_type_order,feynman_integral_degree_order,lis,filter_term,filter_vector,
 sum_of_divisor_powers,express_as_eisenstein_series,express_as_powers,polynomial_to_matrix,matrix_of_integral,
 solve_polynomial_system, quasi_matrix,sfunction,inv_sfunction
+export eisenstein_series
 
 include("graph.jl")
 include("coeftermV.jl")
