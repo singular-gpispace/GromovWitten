@@ -116,7 +116,7 @@ julia> G=graph(ve)
 
 julia> a=[2,0,0,1];
 
-julia> signature\_and_multiplicities(G,a)
+julia> signature_and_multiplicities(G,a)
  4-element Vector{Tuple{Int64, Vector{Int64}}}:
  (1, [-2, 0, 0, 1])
  (2, [-2, -1, 0, 1])
