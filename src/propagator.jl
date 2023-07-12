@@ -1,24 +1,27 @@
 @doc raw"""
- constterm( x1::QQMPolyRingElem, x2::QQMPolyRingElem, N::Integer)
- returns the constant term of the propagator
-
- # Examples (without vertex contribution)
- julia> constterm(x[1],x[2],3)
-
-3*x[1]^6 + 2*x[1]^5*x[2] + x[1]^4*x[2]^2
+    constterm( x1::QQMPolyRingElem, x2::QQMPolyRingElem, N::Integer)
  
+returns the constant term of the propagator
 
- constterm(x1::QQMPolyRingElem, x2::QQMPolyRingElem, z1::QQMPolyRingElem, z2::QQMPolyRingElem,aa::Integer, N::Integer)
+# Examples (without vertex contribution)
  
- # Examples (without vertex contribution)
- here `aa=1 ` is the order for sfunction series and `` N=\sum_{n=1}^{3g-3} a_i`` where `a=\[a_1,…,a_{3g-3}\]` is a branche type.
+```julia
+julia> constterm(x[1],x[2],3)
+ 3*x[1]^6 + 2*x[1]^5*x[2] + x[1]^4*x[2]^2
+```
 
-    julia> constterm(x[1],x[2],z[1],z[2],1,2)
 
+    constterm(x1::QQMPolyRingElem, x2::QQMPolyRingElem, z1::QQMPolyRingElem, z2::QQMPolyRingElem,aa::Integer, N::Integer)
+    
+here `aa=1 ` is the order for sfunction series and `` N=\sum_{n=1}^{3g-3} a_i`` where `a=\[a_1,…,a_{3g-3}\]` is a branche type.
+
+# Examples (without vertex contribution)
+
+```julia
+julia> constterm(x[1],x[2],z[1],z[2],1,2)
  1//18*x[1]^4*z[1]^2*z[2]^2 + 1//3*x[1]^4*z[1]^2 + 1//3*x[1]^4*z[2]^2 + 2*x[1]^4 
-
- \+ 1//576*x[1]^3*x[2]*z[1]^2*z[2]^2 + 1//24*x[1]^3*x[2]*z[1]^2 + 1//24*x[1]^3*x[2]*z[2]^2 + x[1]^3*x[2]
-
+ + 1//576*x[1]^3*x[2]*z[1]^2*z[2]^2 + 1//24*x[1]^3*x[2]*z[1]^2 + 1//24*x[1]^3*x[2]*z[2]^2 + x[1]^3*x[2]
+ ```
 """
 function constterm( x1::QQMPolyRingElem, x2::QQMPolyRingElem, N::Integer)
     p=0
@@ -46,24 +49,25 @@ function constterm(x1::QQMPolyRingElem, x2::QQMPolyRingElem, z1::QQMPolyRingElem
     return p
 end
 @doc raw"""
-proterm( x1::QQMPolyRingElem, x2::QQMPolyRingElem, q::QQMPolyRingElem, a::Integer, N::Integer)
+     proterm( x1::QQMPolyRingElem, x2::QQMPolyRingElem, q::QQMPolyRingElem, a::Integer, N::Integer)
 
 returns the non constant term of the propagator
 
 # Examples (without vertex contribution)
+
+```julia
 julia> proterm(x[1],x[2],q[1],1,2)
-
 x[1]^3*x[2]*q[1] + x[1]*x[2]^3*q[1]
-
+```
 # Examples (with vertex contribution)
+     proterm( x1::QQMPolyRingElem, x2::QQMPolyRingElem,z1::QQMPolyRingElem, z2::QQMPolyRingElem, q::QQMPolyRingElem, a::Integer,aa::Integer, N::Integer)
 
- proterm( x1::QQMPolyRingElem, x2::QQMPolyRingElem,z1::QQMPolyRingElem, z2::QQMPolyRingElem, q::QQMPolyRingElem, a::Integer,aa::Integer, N::Integer)
+```julia
  julia> proterm(x[1],x[2],z[1],z[2],q[1],1,1,2)
-
  1//576*x[1]^3*x[2]*q[1]*z[1]^2*z[2]^2 + 1//24*x[1]^3*x[2]*q[1]*z[1]^2 
  + 1//24*x[1]^3*x[2]*q[1]*z[2]^2 + x[1]^3*x[2]*q[1] + 1//576*x[1]*x[2]^3*q[1]*z[1]^2*z[2]^2 
  + 1//24*x[1]*x[2]^3*q[1]*z[1]^2 + 1//24*x[1]*x[2]^3*q[1]*z[2]^2 + x[1]*x[2]^3*q[1]
-
+ ```
 """
 function proterm( x1::QQMPolyRingElem, x2::QQMPolyRingElem,z1::QQMPolyRingElem, z2::QQMPolyRingElem, q::QQMPolyRingElem, a::Integer,aa::Integer, N::Integer)
     p=0

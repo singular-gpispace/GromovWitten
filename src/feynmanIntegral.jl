@@ -106,6 +106,7 @@ end
  compute the Feynman Integral for a specified branch type `a` for a fixed ordering `Ω`
     
 # Examples (without vertex contribution)
+
 ```julia
 julia> G=graph(ve)
 graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
@@ -121,7 +122,7 @@ julia> feynman_integral_branch_type_order(x,q,G,a,Ω)
 
 # Examples (with vertex contribution)
 
- ```julia
+```julia
 julia> G=graph(ve)
  graph([(1, 2), (2, 3), (1, 3)])
 
@@ -208,7 +209,7 @@ end
 @doc raw"""
     feynman_integral_degree_order( x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem}, G::graph,o::Vector{Int64},d::Integer;aa=0,l=zeros(Int,nv(G)))
 
- compute the Feynman Integral for  over all the partitions of the degree d  for a fixed ordering `Ω`
+ compute the Feynman Integral for  all the partitions of the degree d  for a fixed ordering `Ω`
     
 # Examples (without vertex contribution)
  ```julia
@@ -227,8 +228,9 @@ julia> feynman_integral_degree_order(x,q,G,Ω,4)
  
     feynman_integral_degree_order( x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem},z::Vector{QQMPolyRingElem}, G::graph,o::Vector{Int64},d::Integer;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
  
-    # Examples (with vertex contribution)
+# Examples (with vertex contribution)
 
+```julia
 julia> G=graph(ve)
  graph([(1, 2), (2, 3), (1, 3)])
 
@@ -237,9 +239,8 @@ julia> a=[0,0,3];
 julia> Ω=[1,2,3];
 
 julia> feynman_integral_degree_order(x,q,z,G,o,3,aa=1,g=[1,0,0])
-
  1//24*q[1]^2*q[2] + 1//24*q[1]^2*q[3] + 1//24*q[1]*q[2]^2 + 1//12*q[1]*q[2]*q[3] + 1//24*q[1]*q[3]^2 + 1//24*q[2]^2*q[3] + 1//24*q[2]*q[3]^2 + 115//6*q[3]^3
-
+ ```
 """
 function feynman_integral_degree_order( x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem}, G::graph,o::Vector{Int64},d::Integer;aa=0,l=zeros(Int,nv(G)))
     ee=Edge.(G.edge)
@@ -261,11 +262,13 @@ function feynman_integral_degree_order( x::Vector{QQMPolyRingElem}, q::Vector{QQ
 end 
 
 @doc raw"""
-    feynman_integral_degree(x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem}, G::graph,d::Integer;l=zeros(Int,nv(G)))
+     feynman_integral_degree(x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem}, G::graph,d::Integer;l=zeros(Int,nv(G)))
 
  compute the Feynman Integral for  over all the partitions of the degree d  for all  ordering `Ω`
     
- # Examples (without vertex contribution)
+# Examples (without vertex contribution)
+
+```julia
 julia> G=graph(ve)
 
  graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
@@ -275,22 +278,22 @@ julia> a=[0,2,1,0,0,1];
 julia> feynman_integral_degree(x,q,G,3)
 
  288*q[1]^3 + 32*q[1]^2*q[2] + 32*q[1]^2*q[3] + 32*q[1]^2*q[5] + 32*q[1]^2*q[6] + 8*q[1]*q[2]*q[5] + 8*q[1]*q[2]*q[6] + 8*q[1]*q[3]*q[5] + 8*q[1]*q[3]*q[6] + 24*q[2]^3 + 152*q[2]^2*q[3] + 8*q[2]^2*q[5] + 8*q[2]^2*q[6] + 152*q[2]*q[3]^2 + 32*q[2]*q[3]*q[5] + 32*q[2]*q[3]*q[6] + 32*q[2]*q[4]^2 + 8*q[2]*q[4]*q[5] + 8*q[2]*q[4]*q[6] + 8*q[2]*q[5]^2 + 32*q[2]*q[5]*q[6] + 8*q[2]*q[6]^2 + 24*q[3]^3 + 8*q[3]^2*q[5] + 8*q[3]^2*q[6] + 32*q[3]*q[4]^2 + 8*q[3]*q[4]*q[5] + 8*q[3]*q[4]*q[6] + 8*q[3]*q[5]^2 + 32*q[3]*q[5]*q[6] + 8*q[3]*q[6]^2 + 288*q[4]^3 + 32*q[4]^2*q[5] + 32*q[4]^2*q[6] + 24*q[5]^3 + 152*q[5]^2*q[6] + 152*q[5]*q[6]^2 + 24*q[6]^3
+```
  --------------------------
 
-    feynman_integral_degree( x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem},z::Vector{QQMPolyRingElem}, G::graph,d::Integer;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
+     feynman_integral_degree( x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem},z::Vector{QQMPolyRingElem}, G::graph,d::Integer;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
  
- # Examples (with vertex contribution)
-
+# Examples (with vertex contribution)
+```julia
 julia> G=graph(ve)
  graph([(1, 2), (2, 3), (1, 3)])
 
 julia> a=[0,0,3];
 
-
 julia> feynman_integral_degree(x,q,z,G,3,aa=1,g=[1,0,0])
-
  115//3*q[1]^3 + 1//4*q[1]^2*q[2] + 1//4*q[1]^2*q[3] + 1//4*q[1]*q[2]^2 + 1//2*q[1]*q[2]*q[3] + 1//4*q[1]*q[3]^2 + 115//3*q[2]^3 + 1//4*q[2]^2*q[3] + 1//4*q[2]*q[3]^2 + 115//3*q[3]^3
-"""
+```
+ """
 function feynman_integral_degree(x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem}, G::graph,d::Integer;l=zeros(Int,nv(G)))
     ee=Edge.(G.edge)
     a=partition(length(ee),d) 
@@ -311,13 +314,14 @@ function feynman_integral_degree( x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyR
 end 
 
 @doc raw"""
-    feynman_integral_degree_sum_order(x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem}, G::graph,o::Vector{Int64}, d::Union{Int64, Vector{Int64}}; aa=0, l=zeros(Int, nv(G)), g=zeros(Int, nv(G)))
+     feynman_integral_degree_sum_order(x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem}, G::graph,o::Vector{Int64}, d::Union{Int64, Vector{Int64}}; aa=0, l=zeros(Int, nv(G)), g=zeros(Int, nv(G)))
 
- compute the sum of all Feynman Integrals up to a certain degree d with a fixed ordering Ω
+compute the sum of all Feynman Integrals up to a certain degree d with a fixed ordering Ω
 
- # Examples (without vertex contribution)
+# Examples (without vertex contribution)
+
+```julia
 julia> G=graph(ve)
-
  graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
 
 julia> a=[0,2,1,0,0,1];
@@ -326,12 +330,14 @@ julia> Ω=[1,3,4,2];
 
 julia> feynman_integral_degree_sum_order(x,q,G,Ω,3)
  12*q[2]^3 + 76*q[2]^2*q[3] + 4*q[2]^2*q[5] + 4*q[2]^2*q[6] + 76*q[2]*q[3]^2 + 16*q[2]*q[3]*q[5] + 16*q[2]*q[3]*q[6] + 4*q[2]*q[3] + 12*q[3]^3 + 4*q[3]^2*q[5] + 4*q[3]^2*q[6]
- --------------------------
+```
+--------------------------
 
-    feynman_integral_degree_sum_order(x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem},z::Vector{QQMPolyRingElem}, G::graph,o::Vector{Int64}, d::Union{Int64, Vector{Int64}}; aa=0, l=zeros(Int, nv(G)), g=zeros(Int, nv(G)))
+     feynman_integral_degree_sum_order(x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem},z::Vector{QQMPolyRingElem}, G::graph,o::Vector{Int64}, d::Union{Int64, Vector{Int64}}; aa=0, l=zeros(Int, nv(G)), g=zeros(Int, nv(G)))
  # Examples (with vertex contribution)
 
-julia> G=graph(ve)
+ ```julia
+ julia> G=graph(ve)
  graph([(1, 2), (2, 3), (1, 3)])
 
 julia> a=[0,0,3];
@@ -341,7 +347,8 @@ julia> Ω=[1,2,3];
 julia> feynman_integral_degree_sum_order(x,q,z,G,o,3,aa=1,g=[1,0,0])
 
  1//24*q[1]^2*q[2] + 1//24*q[1]^2*q[3] + 1//24*q[1]*q[2]^2 + 1//12*q[1]*q[2]*q[3] + 1//24*q[1]*q[2] + 1//24*q[1]*q[3]^2 + 1//24*q[1]*q[3] + 1//24*q[2]^2*q[3] + 1//24*q[2]*q[3]^2 + 1//24*q[2]*q[3] + 115//6*q[3]^3 + 19//8*q[3]^2 + 1//24*q[3]
-"""
+```
+ """
 function feynman_integral_degree_sum_order(x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem}, G::graph,o::Vector{Int64}, d::Union{Int64, Vector{Int64}}; aa=0, l=zeros(Int, nv(G)), g=zeros(Int, nv(G)))
     res = zero(x[1])
     
@@ -373,30 +380,34 @@ function feynman_integral_degree_sum_order(x::Vector{QQMPolyRingElem}, q::Vector
     return res
 end
 @doc raw"""
-    feynman_integral_degree_sum(x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem}, G::graph, d::Union{Int64, Vector{Int64}}; l=zeros(Int, nv(G)))
+     feynman_integral_degree_sum(x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem}, G::graph, d::Union{Int64, Vector{Int64}}; l=zeros(Int, nv(G)))
 
  compute the sum of all Feynman Integrals up to a certain degree d for all  ordering Ω
     
- # Examples (without vertex contribution)
+# Examples (without vertex contribution)
+```julia
 julia> G=graph(ve)
+graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
 
- graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
-
-julia> feynman_integral_degree_sum(x,q,G,3)
+ julia> feynman_integral_degree_sum(x,q,G,3)
 
  288*q[1]^3 + 32*q[1]^2*q[2] + 32*q[1]^2*q[3] + 32*q[1]^2*q[5] + 32*q[1]^2*q[6] + 8*q[1]^2 + 8*q[1]*q[2]*q[5] + 8*q[1]*q[2]*q[6] + 8*q[1]*q[3]*q[5] + 8*q[1]*q[3]*q[6] + 24*q[2]^3 + 152*q[2]^2*q[3] + 8*q[2]^2*q[5] + 8*q[2]^2*q[6] + 152*q[2]*q[3]^2 + 32*q[2]*q[3]*q[5] + 32*q[2]*q[3]*q[6] + 8*q[2]*q[3] + 32*q[2]*q[4]^2 + 8*q[2]*q[4]*q[5] + 8*q[2]*q[4]*q[6] + 8*q[2]*q[5]^2 + 32*q[2]*q[5]*q[6] + 8*q[2]*q[6]^2 + 24*q[3]^3 + 8*q[3]^2*q[5] + 8*q[3]^2*q[6] + 32*q[3]*q[4]^2 + 8*q[3]*q[4]*q[5] + 8*q[3]*q[4]*q[6] + 8*q[3]*q[5]^2 + 32*q[3]*q[5]*q[6] + 8*q[3]*q[6]^2 + 288*q[4]^3 + 32*q[4]^2*q[5] + 32*q[4]^2*q[6] + 8*q[4]^2 + 24*q[5]^3 + 152*q[5]^2*q[6] + 152*q[5]*q[6]^2 + 8*q[5]*q[6] + 24*q[6]^3
+```
  --------------------------
+ 
+     feynman_integral_degree_sum(x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem},z::Vector{QQMPolyRingElem}, G::graph, d::Union{Int64, Vector{Int64}}; aa=0, l=zeros(Int, nv(G)), g=zeros(Int, nv(G)))
+ 
+# Examples (with vertex contribution)
 
- feynman_integral_degree_sum(x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem},z::Vector{QQMPolyRingElem}, G::graph, d::Union{Int64, Vector{Int64}}; aa=0, l=zeros(Int, nv(G)), g=zeros(Int, nv(G)))
- # Examples (with vertex contribution)
-
+```julia
 julia> G=graph(ve)
  graph([(1, 2), (2, 3), (1, 3)])
 
 julia> feynman_integral_degree_sum(x,q,z,G,3,aa=1,g=[1,0,0])
 
  115//3*q[1]^3 + 1//4*q[1]^2*q[2] + 1//4*q[1]^2*q[3] + 19//4*q[1]^2 + 1//4*q[1]*q[2]^2 + 1//2*q[1]*q[2]*q[3] + 1//4*q[1]*q[2] + 1//4*q[1]*q[3]^2 + 1//4*q[1]*q[3] + 1//12*q[1] + 115//3*q[2]^3 + 1//4*q[2]^2*q[3] + 19//4*q[2]^2 + 1//4*q[2]*q[3]^2 + 1//4*q[2]*q[3] + 1//12*q[2] + 115//3*q[3]^3 + 19//4*q[3]^2 + 1//12*q[3]
-"""
+```
+ """
 function feynman_integral_degree_sum(x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem}, G::graph, d::Union{Int64, Vector{Int64}}; l=zeros(Int, nv(G)))
     res = zero(x[1])
     
@@ -429,34 +440,36 @@ function feynman_integral_degree_sum(x::Vector{QQMPolyRingElem}, q::Vector{QQMPo
     return res
 end
 @doc raw"""
-    sum_of_coeff(p::QQMPolyRingElem)
+     sum_of_coeff(p::QQMPolyRingElem)
 
- compute the sum of coefficient of the polynomial p. 
+compute the sum of coefficient of the polynomial p. 
 
+```julia
 julia> f=3*x[1]^6 + 2*x[1]^5*x[2] + x[1]^4*x[2]^2
 
 julia> sum_of_coeff(f)
-
  6
-"""
+```
+ """
 function sum_of_coeff(p::QQMPolyRingElem)
     coeffs_dict = coefficients(p)
     coeffs_array = collect(values(coeffs_dict))
     return sum(coeffs_array)
 end
 @doc raw"""
-    substitute(q::Vector{QQMPolyRingElem},p::Union{QQMPolyRingElem, Int64})
+     substitute(q::Vector{QQMPolyRingElem},p::Union{QQMPolyRingElem, Int64})
 
  replace all the variables by the first variable of p. 
  With `x=\[x_1,x2,x3 \]` and `p(x_1,x2,x3)`, `substitute(x,p)` returns `p(x1,x_1,x_1)`
 
+```julia
 julia> f=x[1]*x[2]+x[1]^3*x[2]+5x[1]^6-2x[3]*x[2]
- 5*x[1]^6 + x[1]^3*x[2] + x[1]*x[2] - 2*x[2]*x[3]
+  5*x[1]^6 + x[1]^3*x[2] + x[1]*x[2] - 2*x[2]*x[3]
 
 julia> substitute(x,f)
-
  5*x[1]^6 + x[1]^4 - x[1]^2
-"""
+```
+ """
 function substitute(q::Vector{QQMPolyRingElem},p::Union{QQMPolyRingElem, Int64})
     T=parent(q[1])
     if typeof(p)==Int64

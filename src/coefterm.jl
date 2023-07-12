@@ -109,7 +109,7 @@ end
     signature_and_multiplicities( G::graph, a::Vector{Int64})
 
  returns flip_signature and their multiplicities.
- # Examples
+# Examples
 ```julia
 julia> G=graph(ve)
  graph([(1, 1), (1, 2), (2, 3), (3, 1)])
