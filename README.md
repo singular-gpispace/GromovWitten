@@ -1,11 +1,8 @@
 # GromovWitten
 
 [![Docs: stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://singular-gpispace.github.io/GromovWitten/)
-[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://singular-gpispace.github.io/GromovWitten/stable/)
 [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://singular-gpispace.github.io/GromovWitten/dev/)
 [![Build Status](https://github.com/singular-gpispace/GromovWitten/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/singular-gpispace/GromovWitten/actions/workflows/CI.yml?query=branch%3Amain)
-[![Build Status](https://singular-gpispace/GromovWitten/actions/workflows/CI.yml/badge.svg?branch=main)](https://singular-gpispace/GromovWitten/actions/workflows/CI.yml?query=branch%3Amain)
-
 [![Coverage](https://codecov.io/gh/singular-gpispace.github.io/GromovWitten.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/singular-gpispace.github.io/GromovWitten.jl)
 
 # GromovWitten
