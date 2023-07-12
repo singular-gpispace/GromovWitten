@@ -9,8 +9,8 @@
 [ga-img]: https://github.com/singular-gpispace/GromovWitten/actions/workflows/CI.yml/badge.svg?branch=main
 [ga-url]: https://github.com/singular-gpispace/GromovWitten/actions/workflows/CI.yml?query=branch%3Amain
 
-[codecov-img]: https://codecov.io/gh/singular-gpispace.github.io/GromovWitten.jl/branch/main/graph/badge.svg
-[codecov-url]: https://codecov.io/gh/singular-gpispace.github.io/GromovWitten.jl
+[codecov-img]: https://codecov.io/gh/singular-gpispace/GromovWitten/branch/main/graph/badge.svg
+[codecov-url]: https://codecov.io/gh/singular-gpispace/GromovWitten
 
 | **Documentation**                                                         | **Build Status**                                      |
 |:-------------------------------------------------------------------------:|:-----------------------------------------------------:|
