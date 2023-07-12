@@ -212,7 +212,7 @@ end
  compute the Feynman Integral for  all the partitions of the degree d  for a fixed ordering `Ω`
     
 # Examples (without vertex contribution)
- ```julia
+```julia
 julia> G=graph(ve)
 
  graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
@@ -224,9 +224,9 @@ julia> Ω=[1,3,4,2];
 julia> feynman_integral_degree_order(x,q,G,Ω,4)
 
  4*q[1]^2*q[2]*q[3] + 4*q[1]*q[2]^2*q[5] + 4*q[1]*q[2]^2*q[6] + 4*q[1]*q[3]^2*q[5] + 4*q[1]*q[3]^2*q[6] + 176*q[2]^4 + 496*q[2]^3*q[3] + 60*q[2]^3*q[5] + 60*q[2]^3*q[6] + 788*q[2]^2*q[3]^2 + 128*q[2]^2*q[3]*q[5] + 128*q[2]^2*q[3]*q[6] + 4*q[2]^2*q[4]*q[5] + 4*q[2]^2*q[4]*q[6] + 16*q[2]^2*q[5]^2 + 16*q[2]^2*q[6]^2 + 496*q[2]*q[3]^3 + 128*q[2]*q[3]^2*q[5] + 128*q[2]*q[3]^2*q[6] + 4*q[2]*q[3]*q[4]^2 + 48*q[2]*q[3]*q[5]^2 + 4*q[2]*q[3]*q[5]*q[6] + 48*q[2]*q[3]*q[6]^2 + 176*q[3]^4 + 60*q[3]^3*q[5] + 60*q[3]^3*q[6] + 4*q[3]^2*q[4]*q[5] + 4*q[3]^2*q[4]*q[6] + 16*q[3]^2*q[5]^2 + 16*q[3]^2*q[6]^2
- ```
+```
  
-    feynman_integral_degree_order( x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem},z::Vector{QQMPolyRingElem}, G::graph,o::Vector{Int64},d::Integer;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
+     feynman_integral_degree_order( x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem},z::Vector{QQMPolyRingElem}, G::graph,o::Vector{Int64},d::Integer;aa=0,l=zeros(Int,nv(G)),g=zeros(Int,nv(G)))
  
 # Examples (with vertex contribution)
 
@@ -240,7 +240,7 @@ julia> Ω=[1,2,3];
 
 julia> feynman_integral_degree_order(x,q,z,G,o,3,aa=1,g=[1,0,0])
  1//24*q[1]^2*q[2] + 1//24*q[1]^2*q[3] + 1//24*q[1]*q[2]^2 + 1//12*q[1]*q[2]*q[3] + 1//24*q[1]*q[3]^2 + 1//24*q[2]^2*q[3] + 1//24*q[2]*q[3]^2 + 115//6*q[3]^3
- ```
+```
 """
 function feynman_integral_degree_order( x::Vector{QQMPolyRingElem}, q::Vector{QQMPolyRingElem}, G::graph,o::Vector{Int64},d::Integer;aa=0,l=zeros(Int,nv(G)))
     ee=Edge.(G.edge)
