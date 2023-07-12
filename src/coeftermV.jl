@@ -15,6 +15,7 @@ z^n, {aa} \rightarrow \infty
 # Examples
 
 ```julia
+julia> R,x=@polynomial_ring(QQ,x[1:1]); # using Nemo
 julia> sfunction(x[1],4)
 
 1//92897280*z[1]^8 + 1//322560*z[1]^6 + 1//1920*z[1]^4 + 1//24*z[1]^2 
@@ -44,6 +45,7 @@ returns the inverse sfunction
    Where $B_n$ is Bernoulli number and ${aa} \rightarrow \infty$.
 # Examples
 ```julia
+julia> R,x=@polynomial_ring(QQ,x[1:1]); # using Nemo
 julia> inv_sfunction(x[1],4)
 7//5760*x[1]^4 - 1//24*x[1]^2 + 1
 ```

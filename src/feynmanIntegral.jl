@@ -6,11 +6,11 @@
 # Examples (without vertex contribution)
  
 ```julia
-julia> G=graph(ve)
+julia> G=graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
 graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
 
 julia> a=[0,2,1,0,0,1];
-
+julia>R,x,q=polynomialring(G,"x","q");
 julia> feynman_integral_branch_type(x,q,G,a)
 256*q[2]^2*q[3]*q[6]
 ```
@@ -20,10 +20,11 @@ julia> feynman_integral_branch_type(x,q,G,a)
 # Examples (with vertex contribution)
 
 ```julia
-julia> G=graph(ve)
+julia> G=graph([(1, 2), (2, 3), (1, 3)])
  graph([(1, 2), (2, 3), (1, 3)])
 
 julia> a=[0,0,3];
+julia>R,x,q,z=polynomialring(G,"x","q","z")
 
 julia> feynman_integral_branch_type(x,q,z,G,a,aa=1,g=[1,0,0])
  115//3*q[3]^3
@@ -108,13 +109,13 @@ end
 # Examples (without vertex contribution)
 
 ```julia
-julia> G=graph(ve)
+julia> G=graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
 graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
 
 julia> a=[0,2,1,0,0,1];
 
 julia> Ω=[1,3,4,2];
-
+julia>R,x,q=polynomialring(G,"x","q");
 julia> feynman_integral_branch_type_order(x,q,G,a,Ω)
 128*q[2]^2*q[3]*q[6]
 ```
@@ -123,12 +124,13 @@ julia> feynman_integral_branch_type_order(x,q,G,a,Ω)
 # Examples (with vertex contribution)
 
 ```julia
-julia> G=graph(ve)
+julia> G=graph([(1, 2), (2, 3), (1, 3)])
  graph([(1, 2), (2, 3), (1, 3)])
 
 julia> a=[0,0,3];
 
 julia> Ω=[1,2,3];
+julia>R,x,q,z=polynomialring(G,"x","q","z")
 
 julia> feynman_integral_branch_type_order(x,q,z,G,a,Ω,aa=1,g=[1,0,0])
  115//6*q[3]^3
@@ -213,14 +215,14 @@ end
     
 # Examples (without vertex contribution)
 ```julia
-julia> G=graph(ve)
+julia> G=graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
 
  graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
 
 julia> a=[0,2,1,0,0,1];
 
 julia> Ω=[1,3,4,2];
-
+julia>R,x,q=polynomialring(G,"x","q");
 julia> feynman_integral_degree_order(x,q,G,Ω,4)
 
  4*q[1]^2*q[2]*q[3] + 4*q[1]*q[2]^2*q[5] + 4*q[1]*q[2]^2*q[6] + 4*q[1]*q[3]^2*q[5] + 4*q[1]*q[3]^2*q[6] + 176*q[2]^4 + 496*q[2]^3*q[3] + 60*q[2]^3*q[5] + 60*q[2]^3*q[6] + 788*q[2]^2*q[3]^2 + 128*q[2]^2*q[3]*q[5] + 128*q[2]^2*q[3]*q[6] + 4*q[2]^2*q[4]*q[5] + 4*q[2]^2*q[4]*q[6] + 16*q[2]^2*q[5]^2 + 16*q[2]^2*q[6]^2 + 496*q[2]*q[3]^3 + 128*q[2]*q[3]^2*q[5] + 128*q[2]*q[3]^2*q[6] + 4*q[2]*q[3]*q[4]^2 + 48*q[2]*q[3]*q[5]^2 + 4*q[2]*q[3]*q[5]*q[6] + 48*q[2]*q[3]*q[6]^2 + 176*q[3]^4 + 60*q[3]^3*q[5] + 60*q[3]^3*q[6] + 4*q[3]^2*q[4]*q[5] + 4*q[3]^2*q[4]*q[6] + 16*q[3]^2*q[5]^2 + 16*q[3]^2*q[6]^2
@@ -231,13 +233,13 @@ julia> feynman_integral_degree_order(x,q,G,Ω,4)
 # Examples (with vertex contribution)
 
 ```julia
-julia> G=graph(ve)
+julia> G=graph([(1, 2), (2, 3), (1, 3)])
  graph([(1, 2), (2, 3), (1, 3)])
 
 julia> a=[0,0,3];
 
 julia> Ω=[1,2,3];
-
+julia>R,x,q,z=polynomialring(G,"x","q","z")
 julia> feynman_integral_degree_order(x,q,z,G,o,3,aa=1,g=[1,0,0])
  1//24*q[1]^2*q[2] + 1//24*q[1]^2*q[3] + 1//24*q[1]*q[2]^2 + 1//12*q[1]*q[2]*q[3] + 1//24*q[1]*q[3]^2 + 1//24*q[2]^2*q[3] + 1//24*q[2]*q[3]^2 + 115//6*q[3]^3
 ```
@@ -269,12 +271,11 @@ end
 # Examples (without vertex contribution)
 
 ```julia
-julia> G=graph(ve)
-
+julia> G=graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
  graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
 
 julia> a=[0,2,1,0,0,1];
-
+julia>R,x,q=polynomialring(G,"x","q");
 julia> feynman_integral_degree(x,q,G,3)
 
  288*q[1]^3 + 32*q[1]^2*q[2] + 32*q[1]^2*q[3] + 32*q[1]^2*q[5] + 32*q[1]^2*q[6] + 8*q[1]*q[2]*q[5] + 8*q[1]*q[2]*q[6] + 8*q[1]*q[3]*q[5] + 8*q[1]*q[3]*q[6] + 24*q[2]^3 + 152*q[2]^2*q[3] + 8*q[2]^2*q[5] + 8*q[2]^2*q[6] + 152*q[2]*q[3]^2 + 32*q[2]*q[3]*q[5] + 32*q[2]*q[3]*q[6] + 32*q[2]*q[4]^2 + 8*q[2]*q[4]*q[5] + 8*q[2]*q[4]*q[6] + 8*q[2]*q[5]^2 + 32*q[2]*q[5]*q[6] + 8*q[2]*q[6]^2 + 24*q[3]^3 + 8*q[3]^2*q[5] + 8*q[3]^2*q[6] + 32*q[3]*q[4]^2 + 8*q[3]*q[4]*q[5] + 8*q[3]*q[4]*q[6] + 8*q[3]*q[5]^2 + 32*q[3]*q[5]*q[6] + 8*q[3]*q[6]^2 + 288*q[4]^3 + 32*q[4]^2*q[5] + 32*q[4]^2*q[6] + 24*q[5]^3 + 152*q[5]^2*q[6] + 152*q[5]*q[6]^2 + 24*q[6]^3
@@ -285,10 +286,11 @@ julia> feynman_integral_degree(x,q,G,3)
  
 # Examples (with vertex contribution)
 ```julia
-julia> G=graph(ve)
+julia> G=graph([(1, 2), (2, 3), (1, 3)])
  graph([(1, 2), (2, 3), (1, 3)])
 
 julia> a=[0,0,3];
+julia>R,x,q,z=polynomialring(G,"x","q","z")
 
 julia> feynman_integral_degree(x,q,z,G,3,aa=1,g=[1,0,0])
  115//3*q[1]^3 + 1//4*q[1]^2*q[2] + 1//4*q[1]^2*q[3] + 1//4*q[1]*q[2]^2 + 1//2*q[1]*q[2]*q[3] + 1//4*q[1]*q[3]^2 + 115//3*q[2]^3 + 1//4*q[2]^2*q[3] + 1//4*q[2]*q[3]^2 + 115//3*q[3]^3
@@ -321,12 +323,13 @@ compute the sum of all Feynman Integrals up to a certain degree d with a fixed o
 # Examples (without vertex contribution)
 
 ```julia
-julia> G=graph(ve)
+julia> G=graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
  graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
 
 julia> a=[0,2,1,0,0,1];
 
 julia> Ω=[1,3,4,2];
+julia>R,x,q=polynomialring(G,"x","q");
 
 julia> feynman_integral_degree_sum_order(x,q,G,Ω,3)
  12*q[2]^3 + 76*q[2]^2*q[3] + 4*q[2]^2*q[5] + 4*q[2]^2*q[6] + 76*q[2]*q[3]^2 + 16*q[2]*q[3]*q[5] + 16*q[2]*q[3]*q[6] + 4*q[2]*q[3] + 12*q[3]^3 + 4*q[3]^2*q[5] + 4*q[3]^2*q[6]
@@ -337,12 +340,13 @@ julia> feynman_integral_degree_sum_order(x,q,G,Ω,3)
  # Examples (with vertex contribution)
 
  ```julia
- julia> G=graph(ve)
+ julia> G=graph([(1, 2), (2, 3), (1, 3)])
  graph([(1, 2), (2, 3), (1, 3)])
 
 julia> a=[0,0,3];
 
 julia> Ω=[1,2,3];
+julia>R,x,q,z=polynomialring(G,"x","q","z")
 
 julia> feynman_integral_degree_sum_order(x,q,z,G,o,3,aa=1,g=[1,0,0])
 
@@ -386,11 +390,11 @@ end
     
 # Examples (without vertex contribution)
 ```julia
-julia> G=graph(ve)
+julia> G=graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
 graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
 
- julia> feynman_integral_degree_sum(x,q,G,3)
-
+julia>R,x,q=polynomialring(G,"x","q");
+julia> feynman_integral_degree_sum(x,q,G,3)
  288*q[1]^3 + 32*q[1]^2*q[2] + 32*q[1]^2*q[3] + 32*q[1]^2*q[5] + 32*q[1]^2*q[6] + 8*q[1]^2 + 8*q[1]*q[2]*q[5] + 8*q[1]*q[2]*q[6] + 8*q[1]*q[3]*q[5] + 8*q[1]*q[3]*q[6] + 24*q[2]^3 + 152*q[2]^2*q[3] + 8*q[2]^2*q[5] + 8*q[2]^2*q[6] + 152*q[2]*q[3]^2 + 32*q[2]*q[3]*q[5] + 32*q[2]*q[3]*q[6] + 8*q[2]*q[3] + 32*q[2]*q[4]^2 + 8*q[2]*q[4]*q[5] + 8*q[2]*q[4]*q[6] + 8*q[2]*q[5]^2 + 32*q[2]*q[5]*q[6] + 8*q[2]*q[6]^2 + 24*q[3]^3 + 8*q[3]^2*q[5] + 8*q[3]^2*q[6] + 32*q[3]*q[4]^2 + 8*q[3]*q[4]*q[5] + 8*q[3]*q[4]*q[6] + 8*q[3]*q[5]^2 + 32*q[3]*q[5]*q[6] + 8*q[3]*q[6]^2 + 288*q[4]^3 + 32*q[4]^2*q[5] + 32*q[4]^2*q[6] + 8*q[4]^2 + 24*q[5]^3 + 152*q[5]^2*q[6] + 152*q[5]*q[6]^2 + 8*q[5]*q[6] + 24*q[6]^3
 ```
  --------------------------
@@ -400,8 +404,9 @@ graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
 # Examples (with vertex contribution)
 
 ```julia
-julia> G=graph(ve)
+julia> G=graph([(1, 2), (2, 3), (1, 3)])
  graph([(1, 2), (2, 3), (1, 3)])
+julia>R,x,q,z=polynomialring(G,"x","q","z")
 
 julia> feynman_integral_degree_sum(x,q,z,G,3,aa=1,g=[1,0,0])
 
