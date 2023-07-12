@@ -11,7 +11,7 @@ makedocs(;
     checkdocs = :none,
     doctest = true,
     strict = true,
-    expandfirst = ["index.md"]
+    expandfirst = ["index.md"],
     sitename="GromovWitten.jl",
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
