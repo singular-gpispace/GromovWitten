@@ -1,5 +1,5 @@
-# Examples Gromov-Witten invariants with vertex contribution
-
+# Examples Gromov-Witten invariants 
+## Graph with vertex contribution
 ![alt text](img/graph_with_vertex1.png)
 
 To provide an example on how to use our package, we define a graph G from a list of edges:
@@ -38,7 +38,7 @@ Finally we substitute all $q$  variables by $q_{1}$
 ```julia
 julia> substitute(q,feynman_integral_degree(x,q,z,G,3,aa=1,l=[0,0,0],g=[1,0,0]))
 ```
-# Examples Gromov-Witten invariants with loop.
+## Graph with loops. 
 
 ![alt text](img/graph_loop.png)
 We have a here a loop at (1,1).
