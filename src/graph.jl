@@ -7,7 +7,7 @@
 struct graph
     edge::Vector
 end
-edge(G::graph)=Edge.(G.edge)
+#edge(G::graph)=Edge.(G.edge)
 nv(G::graph)=nv(DiGraph(Edge.(G.edge)))
 ne(G::graph)=length(Edge.(G.edge))
 
