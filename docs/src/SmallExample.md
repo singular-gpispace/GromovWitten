@@ -2,7 +2,7 @@
 CurrentModule = GromovWitten
 ```
 
-# Examples Hurwitz numbers.
+# First example.
 
 ![alt text](img/caterpillar2.png)
 
