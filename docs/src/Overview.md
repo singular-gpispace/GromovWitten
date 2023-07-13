@@ -1,9 +1,9 @@
 # Overview
-
+```@index
+Modules = [GromovWitten]
+```
 ```@autodocs
 Modules = [GromovWitten]
 ```
 
-```@index
-Modules = [GromovWitten]
-```
+
