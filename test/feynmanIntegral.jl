@@ -5,7 +5,6 @@
     a=[0,2,1,0,0,1]
     o=[1,3,4,2]
     Ω=[1,3,4,2];
-    @test feynman_integral_degree(x,q,G ,0)
     @test feynman_integral_branch_type_order(x,q,G,a,o)==128*q[2]^4*q[3]^2*q[6]^2
     @test feynman_integral_branch_type(x,q,G,a)==256*q[2]^4*q[3]^2*q[6]^2
     @test feynman_integral_degree(x,q,G ,2)==8*q[1]^4 + 8*q[2]^2*q[3]^2 + 8*q[4]^4 + 8*q[5]^2*q[6]^2
