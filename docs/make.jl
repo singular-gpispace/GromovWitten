@@ -20,14 +20,19 @@ makedocs(;
         assets=String[],
     ),
     pages=[
-        "Overview.md",
-        "Function" =>[
-            "Quick.md",
+        "Home" =>[
             "index.md",
+            "SmallExample.md",
         ],
-        "Home" => "Feynman Integral/Feynman.md",
+        
+        "Examples" =>[
+            "Hurwitz.md",
+            "Gromov.md",
+            "Feynman Integral/Feynman.md",
+        ],
+        "Function" => "Overview.md",
         #"Quasimodular" =>"Feynman Integral/Feynman.md"
-        "Quasimodular" =>"quasimodular.md"
+        #"Quasimodular" =>"quasimodular.md"
     ],
 )
 

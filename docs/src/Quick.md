@@ -1,4 +1,0 @@
-#  Overview
-```@autodocs
-Modules = [GromovWitten]
-```
