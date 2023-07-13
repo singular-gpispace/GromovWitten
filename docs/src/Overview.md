@@ -1,14 +1,8 @@
-```@meta
-CurrentModule = GromovWitten
-```
 
 # GromovWitten
 
 Documentation for [GromovWitten](https://github.com/singular-gpispace/GromovWitten).
 
-```@autodocs
-Modules = [GromovWitten]
-```
 
 # GromovWitten
 
