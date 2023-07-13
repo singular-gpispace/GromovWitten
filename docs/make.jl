@@ -21,7 +21,10 @@ makedocs(;
     ),
     pages=[
         "Overview.md",
-        "index.md",
+        "Function" =>[
+            "Quick.md",
+            "index.md",
+        ],
         "Home" => "Feynman Integral/Feynman.md",
         #"Quasimodular" =>"Feynman Integral/Feynman.md"
         "Quasimodular" =>"quasimodular.md"
