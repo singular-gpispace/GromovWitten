@@ -69,7 +69,6 @@ function preimg(L::Vector{Int64}, xi::Int64)
     for (i,Li) in enumerate(L)
         if Li==xi
             return i # i is then the position of xi in L
-            break
         end
     end
 end
