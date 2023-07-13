@@ -22,7 +22,19 @@
     end
     
     @test sum_of_divisor_powers(1,1)==1
+    @testset "sum_of_divisor_powers test" begin
+        @test_throws ErrorException sum_of_divisor_powers(0, 1)
+    end    
+    @testset "eisenstein_series even" begin
+        @test_throws ErrorException eisenstein_series(q[1],6,3)
+    end  
+
     @test eisenstein_series(q[1],6,2)==-288*q[1]^12 - 144*q[1]^10 - 168*q[1]^8 - 96*q[1]^6 - 72*q[1]^4 - 24*q[1]^2 + 1
+    
+    @testset "express_as_powers even" begin
+        @test_throws ErrorException express_as_powers(q,3)
+    end  
+
     @testset "express_as_powers test" begin
         expected_result = [
             -122976*q[1]^6 - 16632*q[1]^4 - 504*q[1]^2 + 1
@@ -80,11 +92,22 @@
             @test result[i, j] == QQFieldElem(expected_result[i, j])
         end
     end
-    max_degree=12
-    d=6
+     
+
+    @testset "solve_polynomial_system Error" begin
+        max_degree=8
+        d=4
+        A = polynomial_to_matrix(filter_vector(express_as_powers(q, max_degree), q, [max_degree]))
+        Q = matrix_of_integral(substitute(q, feynman_integral_degree_sum(x, q, G, d)))
+        expected_result = "The system has no solution"
     
+        result = solve_polynomial_system(A, Q)
+        @test result == expected_result
+    end
 
     @testset "solve_polynomial_system" begin
+        max_degree=12
+        d=6
         A = polynomial_to_matrix(filter_vector(express_as_powers(q, max_degree), q, [max_degree]))
         Q = matrix_of_integral(substitute(q, feynman_integral_degree_sum(x, q, G, d)))
         expected_result = (QQFieldElem(1//93312),QQFieldElem[4
@@ -102,8 +125,25 @@
             @test result[2][i] == expected_result[2][i]
         end
     end
+
+    @testset "quasi_matrix case QQFieldElem " begin
+        expected_result = (QQFieldElem(1//93312),QQFieldElem[4
+        4
+        -12
+        -3
+        4
+        6
+        -3] )
     
-    @testset "quasi_matrix" begin
+        result = quasi_matrix(q[1],Iq,12)
+        @test result[1] == expected_result[1]
+
+        for i in size(expected_result[2],1)
+            @test result[2][i] == expected_result[2][i]
+        end
+    end
+    
+    @testset "quasi_matrix case Vector{QQMPolyRingElem}" begin
         expected_result = (QQFieldElem(1//93312),QQFieldElem[4
         4
         -12

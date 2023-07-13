@@ -110,7 +110,7 @@ function solve_polynomial_system(A::QQMatrix, Q::QQMatrix)
         coeff_vector = [val // common_factor for val in x]
         return  common_factor, coeff_vector
     else
-        return can_solve,x
+        return "The system has no solution"
     end
 end
     function quasi_matrix(q::Union{QQMPolyRingElem, Vector{QQMPolyRingElem}},Iq::QQMPolyRingElem, max_degree::Int64)
