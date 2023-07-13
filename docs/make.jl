@@ -12,7 +12,7 @@ makedocs(;
     doctest = true,
     strict = true,
     sitename="GromovWitten.jl",
-    expandfirst = ["index.md"],
+    expandfirst = ["Overview.md"],
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
         canonical="https://singular-gpispace.github.io/GromovWitten.git",
