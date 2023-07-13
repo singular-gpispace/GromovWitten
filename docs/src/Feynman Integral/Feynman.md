@@ -32,7 +32,7 @@ julia> G=graph(ve)
 graph([(1, 1), (1, 2), (2, 3), (3, 1)])
 ```
 
-We then define the $R,x,q=polynomialring(G)$ from the graph G.  The polynomial ring has $ 5g-5$ variables, consisting of two sets of variables: $x_{1},x_{2},...,x_{2g-2}$ and $q_{1},q_{2},...,q_{3g-3}$.
+We then define the $R,x,q=$``polynomia_lring(G)`` from the graph G.  The polynomial ring has $ 5g-5$ variables, consisting of two sets of variables: $x_{1},x_{2},...,x_{2g-2}$ and $q_{1},q_{2},...,q_{3g-3}$.
 
 ```jldoctest graph
 julia>   R,x,q,z=polynomial_ring(G,"x","q","z")
@@ -71,7 +71,7 @@ julia>  feynman_integral_branch_type_order(x,q,z,G,a,o,aa=0,l=[0,0,0],g=[0,0,0])
 3*q[1]^4*q[4]^2
 ```
 
-In the case l=[0,0,0], g=[0,0,0] and  $ aa=0$ we can write simply write.
+In the case `l=[0,0,0]`, `g=[0,0,0]` and  $ aa=0$ we can write simply write.
 
 ```jldoctest graph
 julia>  feynman_integral_branch_type_order(x,q,z,G,a,o)
