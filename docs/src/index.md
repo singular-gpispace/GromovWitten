@@ -2,10 +2,6 @@
 CurrentModule = GromovWitten
 ```
 
-```@autodocs
-Modules = [GromovWitten]
-```
-
 # Examples Hurwitz numbers.
 
 ![alt text](img/Cartepillar3.png)
