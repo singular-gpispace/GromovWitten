@@ -107,6 +107,7 @@ julia> substitute(q,feynman_integral_degree(x,q,z,G,3,aa=1,l=[0,0,0],g=[1,0,0]))
 #Examples Gromov-Witten invariants with loop.
 
 ![alt text](img/graph_loop.png)
+We have a here a loop at (1,1).
 
 ```julia
 julia> G=graph([(1, 1), (1, 2), (2, 3), (3, 1)])
