@@ -10,7 +10,7 @@ CurrentModule = GromovWitten
 To provide an example on how to use our package, we define a graph G from a list of edges:
 
 ```julia
-julia> v=[(1, 2), (1,2),(1,2)]
+julia> G=graph([(1, 2), (1,2),(1,2)])
 ```
 
 ```julia
