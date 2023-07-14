@@ -28,7 +28,7 @@ makedocs(;
         "Examples" =>[
             "Hurwitz.md",
             "Gromov.md",
-            "Feynman Integral/Feynman.md",
+            #"Feynman Integral/Feynman.md",
         ],
         "Function" => "Overview.md",
         #"Quasimodular" =>"Feynman Integral/Feynman.md"
