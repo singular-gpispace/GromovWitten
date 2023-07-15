@@ -30,7 +30,7 @@ makedocs(;
             "Gromov.md",
             #"Feynman Integral/Feynman.md",
         ],
-        "Function" => "Overview.md",
+        "Functions" => "Overview.md",
         #"Quasimodular" =>"Feynman Integral/Feynman.md"
         #"Quasimodular" =>"quasimodular.md"
     ],
