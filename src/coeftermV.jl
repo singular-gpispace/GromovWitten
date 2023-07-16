@@ -155,6 +155,9 @@ also
 ```julia  
 julia>  filter_term(p,[q[1],q[2]],[2,2])
 6*q[1]^2*q[2]^2*q[3]^4 + 12*q[1]^2*q[2]^2*q[3]^2*q[4]^2 + 6*q[1]^2*q[2]^2*q[4]^4 + 56*q[1]^2*q[3]^6 + 6*q[1]^2*q[3]^4*q[4]^2 + 6*q[1]^2*q[3]^2*q[4]^4 + 56*q[1]^2*q[4]^6 + q[1]
+
+julia> filter_term(p,q[1],1)
+q[1]
 ```
  """
  function filter_term(pols::Union{QQMPolyRingElem, Int64}, variables::Union{Vector{QQMPolyRingElem}, QQMPolyRingElem}, power::Union{Vector{Int64}, Int64})

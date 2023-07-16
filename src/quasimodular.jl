@@ -63,7 +63,7 @@ end
     sum_of_divisor_powers(n::Int, k::Int)
 
 $σ_k(n)$  returns the sum of the $k^{th}$ powers of divisors of $n$.
-        returns also the number of divisors $d(n)$  of $n$ for $k=0$. 
+        it returns also the number of divisors $d(n)$  of $n$ for $k=0$. 
 ```julia
 julia>sum_of_divisor_powers(6,0) # number of divisors of 6 $d(6)$
 4
@@ -87,12 +87,12 @@ end
      eisenstein_series(q::Union{QQMPolyRingElem, Vector{QQMPolyRingElem}}, order::Int,k::Int)                  
 
 Return the expansion of the  weight  Eisenstein series k with fixed order.
-For a fixed order $m$, we compute $E_k = 1 - \frac{2*k}{ B_k}  \sum_{d=1}^{m} (σ_{k-1}(d) q^{2 d}$
+For a fixed order $m$, we compute $E_k = 1 - \frac{2*k}{ B_k}  \sum_{d=1}^{m} σ_{k-1}(d) q^{2 d}$
 ```julia
-julia> eisenstein_series(q,5,2)  #$E_2$
+julia> eisenstein_series(q,5,2)  #E2
 -144*q^10 - 168*q^8 - 96*q^6 - 72*q^4 - 24*q^2 + 1
 
-julia> eisenstein_series(q,5,4) #$E_4$
+julia> eisenstein_series(q,5,4) #E4
 30240*q^10 + 17520*q^8 + 6720*q^6 + 2160*q^4 + 240*q^2 + 1
 ```
 """
@@ -200,10 +200,11 @@ end
 @doc raw"""
      quasi_matrix(q::Union{QQMPolyRingElem, Vector{QQMPolyRingElem}},Iq::QQMPolyRingElem, max_degree::Int64)
 
-returns solution of the system $Ax=b$, where A is a matrix from homogeneous Eisenstein series $E_2, E_4, E_6$.
+returns solution of the system $Ax=b$, where A is a matrix from homogeneous Eisenstein series $E_2, E_4, E_6$ and $b$ by the 
+from the Feynman Integral $I(q)$
 The solution is of the form (factor, coefficients) where coefficients is a vector of rationals numbers.
-Given a Feynman Integral $I(q)=\sum_{n=1}{d} a_i q^{d}$, we compute the coefficients $b_{i,j,k}$ such that 
-$I(q)=\sum_{i,j,k} b_{i,j,k} E_2^i E_4^j E_6^k$
+Given a Feynman Integral $$I(q)=\sum_{n=1}^{d} a_i q^{d}$$, we compute the coefficients $b_{i,j,k}$ such that 
+$$I(q)=\sum_{i,j,k} b_{i,j,k} E_2^i E_4^j E_6^k$$
 
 ```julia
 julia> Iq=886656*q^12 + 182272*q^10 + 25344*q^8 + 1792*q^6 +32q^4
