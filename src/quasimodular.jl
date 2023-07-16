@@ -35,11 +35,12 @@ end
     return result
 end
 =#
-function filter_vector(polyvector::Vector{QQMPolyRingElem}, variables::Vector{QQMPolyRingElem}, power::Vector{Int64})
+function filter_vector(polyvector::Vector{QQMPolyRingElem}, variables::Union{Vector{QQMPolyRingElem}, QQMPolyRingElem}, power::Union{Vector{Int64}, Int64})
     result = Vector{QQMPolyRingElem}()
     for pols in polyvector
-        push!(result,filter_term(pols, variables::Vector{QQMPolyRingElem}, power::Vector{Int64}))
+        push!(result, filter_term(pols, variables, power))
     end
+
     return result
 end
 function sum_of_divisor_powers(n::Int, k::Int)
