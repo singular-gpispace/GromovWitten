@@ -22,7 +22,7 @@ makedocs(;
     pages=[
         "Home" =>[
             "index.md",
-            "installation.md",
+            "Installation.md", 
             "SmallExample.md",
         ],
         

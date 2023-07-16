@@ -141,36 +141,60 @@ end
   
 # Examples
 ```julia  
-julia> p=feynman_integral_degree(x,q,G,4)
-8*q[1]^6*q[2]^2 + 8*q[1]^6*q[3]^2 + 8*q[1]^6*q[4]^2 + 54*q[1]^4*q[2]^4 + 18*q[1]^4*q[2]^2*q[3]^2 + 18*q[1]^4*q[2]^2*q[4]^2 
+julia> p=8*q[1]^6*q[2]^2 + 8*q[1]^6*q[3]^2 + 8*q[1]^6*q[4]^2 + 54*q[1]^4*q[2]^4 + 18*q[1]^4*q[2]^2*q[3]^2 + 18*q[1]^4*q[2]^2*q[4]^2 
 + 54*q[1]^4*q[3]^4 + 18*q[1]^4*q[3]^2*q[4]^2 + 54*q[1]^4*q[4]^4 + 56*q[1]^2*q[2]^6 + 6*q[1]^2*q[2]^4*q[3]^2 + 6*q[1]^2*q[2]^4*q[4]^2 
 + 6*q[1]^2*q[2]^2*q[3]^4 + 12*q[1]^2*q[2]^2*q[3]^2*q[4]^2 + 6*q[1]^2*q[2]^2*q[4]^4 + 56*q[1]^2*q[3]^6 + 6*q[1]^2*q[3]^4*q[4]^2 + 6*q[1]^2*q[3]^2*q[4]^4 + 56*q[1]^2*q[4]^6
 ```
-
 we replace all term in $p$  with `q[1]^a*q[2]^b*q[3]^c > q[1]*q[2]*q[3]` by zero,this means all power $(a,b,c)>(2,2,2)$
 
 ```julia  
 julia> filter_term(p,[q[1],q[2],q[3]],[2,2,2])
 12*q[1]^2*q[2]^2*q[3]^2*q[4]^2 + 6*q[1]^2*q[2]^2*q[4]^4 + 6*q[1]^2*q[3]^2*q[4]^4 + 56*q[1]^2*q[4]^6
 ```
+also
+```julia  
+julia>  filter_term(p,[q[1],q[2]],[2,2])
+6*q[1]^2*q[2]^2*q[3]^4 + 12*q[1]^2*q[2]^2*q[3]^2*q[4]^2 + 6*q[1]^2*q[2]^2*q[4]^4 + 56*q[1]^2*q[3]^6 + 6*q[1]^2*q[3]^4*q[4]^2 + 6*q[1]^2*q[3]^2*q[4]^4 + 56*q[1]^2*q[4]^6 + q[1]
+```
  """
-function filter_term(p::Union{QQMPolyRingElem, Int64}, variables::Vector{QQMPolyRingElem}, s::Vector{Int64})
-    T = parent(variables[1])
-  
-    gensR = gens(T)
-    position = [findfirst(var -> var == vi, gensR) for vi in variables]
-    result = zero(p)
-    
-    d = Vector{Int}(undef, length(variables))  # Preallocate d
-    @inbounds for term in terms(T(p))
-        for j in 1:length(variables)
-            po = position[j]
-            d[j] = degree_fmpz(term, po)
+ function filter_term(pols::Union{QQMPolyRingElem, Int64}, variables::Union{Vector{QQMPolyRingElem}, QQMPolyRingElem}, power::Union{Vector{Int64}, Int64})
+    if typeof(variables) <: QQMPolyRingElem
+        T = parent(variables)
+        pols = T(pols)
+        gensR = gens(T)
+        position = findfirst(var -> var == variables, gensR)
+        result = zero(pols)
+
+        d = Vector{Int}(undef, length(variables))  # Preallocate d
+        @inbounds for term in terms(T(pols))
+            for j in 1:length(variables)
+                po = position[j]
+                d[j] = degree_fmpz(term, po)
+            end
+            if all(d .<= power)
+                result += term
+            end
         end
-        if all(d .<= s)
-            result += term
+
+        return result
+    else
+        T = parent(variables[1])
+        gensR = gens(T)
+        position = [findfirst(var -> var == vi, gensR) for vi in variables]
+        result = zero(pols)
+
+        d = Vector{Int}(undef, length(variables))  # Preallocate d
+        @inbounds for term in terms(T(pols))
+            for j in 1:length(variables)
+                po = position[j]
+                d[j] = degree_fmpz(term, po)
+            end
+            if all(d .<= power)
+                result += term
+            end
         end
+
+        return result
     end
-    
-    return result
 end
+
