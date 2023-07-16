@@ -53,7 +53,7 @@
             -62496*q[1]^6 - 3672*q[1]^4 + 216*q[1]^2 + 1
             -3744*q[1]^6 + 1512*q[1]^4 - 72*q[1]^2 + 1
         ]
-        @test filter_vector(ep,q,[6])==expected_result
+        @test filter_vector(ep,q,6)==expected_result
     end
     
     @testset "polynomial_to_matrix test" begin
@@ -64,7 +64,6 @@
          -504   216   -72
          
         ]
-        
         result = polynomial_to_matrix(eq)
         
         for idx in Tuple(eachindex(result))
@@ -84,7 +83,6 @@
             0
             1792
         ]
-        
         result = matrix_of_integral(Iq3)
         
         for idx in Tuple(eachindex(result))
@@ -93,7 +91,6 @@
         end
     end
      
-
     @testset "solve_polynomial_system Error" begin
         max_degree=8
         d=4
