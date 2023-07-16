@@ -156,5 +156,9 @@
             @test result[2][i] == expected_result[2][i]
         end
     end
+    @testset "quasi_matrix error" begin
+        @test_throws DimensionMismatch quasi_matrix(q,Iq,8)
+    end  
+
 
 end

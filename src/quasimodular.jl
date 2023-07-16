@@ -43,7 +43,7 @@ returns the number filter_term of function in a vector of polynomial.
 ```julia
 julia> R,q=@polynomial_ring(QQ,q)
 
-julia> v=[-122976*q^6 - 16632*q^4 - 504*q^2 + 1,-645120*q^12 - 691200*q^10 - 339840*q^8 - 62496*q^6 - 3672*q^4 + 216*q^2 + 1,-884736*q^18 - 1990656*q^16 - 2156544*q^14 - 1340928*q^12 - 497664*q^10 - 95040*q^8 - 3744*q^6 + 1512*q^4 - 72*q^2 + 1]
+julia> v=[-122976*q^6 - 16632*q^4 - 504*q^2 + 1, -645120*q^12 - 691200*q^10 - 339840*q^8 - 62496*q^6 - 3672*q^4 + 216*q^2 + 1, -884736*q^18 - 1990656*q^16 - 2156544*q^14 - 1340928*q^12 - 497664*q^10 - 95040*q^8 - 3744*q^6 + 1512*q^4 - 72*q^2 + 1]
 
 julia> filter_vector(v,q,6)
 3-element Vector{QQMPolyRingElem}:
@@ -87,7 +87,7 @@ end
      eisenstein_series(q::Union{QQMPolyRingElem, Vector{QQMPolyRingElem}}, order::Int,k::Int)                  
 
 Return the expansion of the  weight  Eisenstein series k with fixed order.
-$E_k = 1 - \frac{2*k}{ B_k}  \sum_{d=1}^{m} (σ_k(d, k-1) * q^(2*d))$
+For a fixed order $m$, we compute $E_k = 1 - \frac{2*k}{ B_k}  \sum_{d=1}^{m} (σ_{k-1}(d) q^{2 d}$
 ```julia
 julia> eisenstein_series(q,5,2)  #$E_2$
 -144*q^10 - 168*q^8 - 96*q^6 - 72*q^4 - 24*q^2 + 1
@@ -131,7 +131,7 @@ end
 @doc raw"""
      polynomial_to_matrix(vect::Vector{QQMPolyRingElem})
 
-Return a matrix from a given vector of polynomials with same degree. The returned matrix is of type QQMatrix.
+returns a matrix from a given vector of polynomials with same degree. The returned matrix is of type QQMatrix.
 
 ```julia
 julia> vp=[ -122976*q^6 - 16632*q^4 - 504*q^2 + 1, -62496*q^6 - 3672*q^4 + 216*q^2 + 1,-3744*q^6 + 1512*q^4 - 72*q^2 + 1]
@@ -153,7 +153,7 @@ end
 @doc raw"""
      polynomial_to_matrix(vect::Vector{QQMPolyRingElem})
 
-Return a matrix from a given   polynomial. The returned matrix is of type QQMatrix.
+returns a matrix from a given   polynomial. The returned matrix is of type QQMatrix.
 
 ```julia
 julia> Iq=25344*q^8 + 1792*q^6 +32q^4
@@ -197,16 +197,28 @@ function solve_polynomial_system(A::QQMatrix, Q::QQMatrix)
         return "The system has no solution"
     end
 end
-    function quasi_matrix(q::Union{QQMPolyRingElem, Vector{QQMPolyRingElem}},Iq::QQMPolyRingElem, max_degree::Int64)
-    if typeof(q) == Vector{QQMPolyRingElem}
-        Evector=filter_vector(express_as_powers( q[1],max_degree),[q[1]],[max_degree])
+@doc raw"""
+     quasi_matrix(q::Union{QQMPolyRingElem, Vector{QQMPolyRingElem}},Iq::QQMPolyRingElem, max_degree::Int64)
+
+returns solution of the system $Ax=b$, where A is a matrix from homogeneous Eisenstein series $E_2, E_4, E_6$.
+The solution is of the form (factor, coefficients) where coefficients is a vector of rationals numbers.
+Given a Feynman Integral $I(q)=\sum_{n=1}{d} a_i q^{d}$, we compute the coefficients $b_{i,j,k}$ such that 
+$I(q)=\sum_{i,j,k} b_{i,j,k} E_2^i E_4^j E_6^k$
+
+```julia
+julia> Iq=886656*q^12 + 182272*q^10 + 25344*q^8 + 1792*q^6 +32q^4
+
+julia> quasi_matrix(q,Iq,12)
+(1//93312, QQFieldElem[4; 4; -12; -3; 4; 6; -3])
+```
+"""
+function quasi_matrix(q::Union{QQMPolyRingElem, Vector{QQMPolyRingElem}},Iq::QQMPolyRingElem, max_degree::Int64)
+    if  total_degree(Iq)!=max_degree
+        throw(DimensionMismatch("Degree of the polynomial must be equal to max_degree  $max_degree"))
+    else  
+        Evector=filter_vector(express_as_powers( q,max_degree),q,max_degree) 
         A=polynomial_to_matrix(Evector)
         Q=matrix_of_integral(Iq)
-            return solve_polynomial_system(A,Q)
-    else
-        Evector=filter_vector(express_as_powers( q,max_degree),[q],[max_degree])
-        A=polynomial_to_matrix(Evector)
-        Q=matrix_of_integral(Iq)
-            return solve_polynomial_system(A,Q)
+        return solve_polynomial_system(A,Q)
     end
 end
