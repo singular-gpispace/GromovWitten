@@ -87,7 +87,7 @@ end
      eisenstein_series(q::Union{QQMPolyRingElem, Vector{QQMPolyRingElem}}, order::Int,k::Int)                  
 
 Return the expansion of the  weight  Eisenstein series k with fixed order.
-For a fixed order $m$, we compute $E_k = 1 - \frac{2*k}{ B_k}  \sum_{d=1}^{m} σ_{k-1}(d) q^{2 d}$
+For a fixed order $m$, we compute $$E_k = 1 - \frac{2 k}{ B_k}  \sum_{d=1}^{m} \sigma_{k-1}(d)  q^{2 d}$$
 ```julia
 julia> eisenstein_series(q,5,2)  #E2
 -144*q^10 - 168*q^8 - 96*q^6 - 72*q^4 - 24*q^2 + 1
