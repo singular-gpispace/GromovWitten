@@ -12,11 +12,11 @@ julia> constterm(x[1],x[2],3)
 ```
 
 
-    constterm(x1::QQMPolyRingElem, x2::QQMPolyRingElem, z1::QQMPolyRingElem, z2::QQMPolyRingElem,aa::Integer, N::Integer)
+     constterm(x1::QQMPolyRingElem, x2::QQMPolyRingElem, z1::QQMPolyRingElem, z2::QQMPolyRingElem,aa::Integer, N::Integer)
     
 here `aa=1 ` is the order for sfunction series and `` N=\sum_{n=1}^{3g-3} a_i`` where ``a=[a_1,…,a_{3g-3}]`` is a branch type.
 
-# Examples (without vertex contribution)
+# Examples (with vertex contribution)
 
 ```julia
 julia> R,x,z=@polynomial_ring(QQ,x[1:2],z[1:2]);  # using Nemo.
