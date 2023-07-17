@@ -33,7 +33,7 @@ makedocs(;
         ],
         "Functions" => "Overview.md",
         #"Quasimodular" =>"Feynman Integral/Feynman.md"
-        #"Quasimodular" =>"quasimodular.md"
+        "Quasimodular" =>"quasimodular.md"
     ],
 )
 

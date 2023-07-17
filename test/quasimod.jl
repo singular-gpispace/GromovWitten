@@ -156,16 +156,16 @@
             @test result[2][i] == expected_result[2][i]
         end
     end
+    Jq= 843264*q[1]^12 + 165888*q[1]^10 + 20736*q[1]^8 + 1152*q[1]^6
     @testset "quasi_matrix error" begin
-        @test_throws DimensionMismatch quasi_matrix(q,Iq,8)
+        @test_throws DimensionMismatch quasi_matrix(q,Jq,8)
     end  
     @testset "feynman_as_eisensteins" begin
-        expected_result = (1//93312, " +4 E6^2 +4 E4^3 -12 E2^1 * E4^1 * E6^1 -3 E2^2 * E4^2 +4 E2^3 * E6^1 +6 E2^4 * E4^1 -3 E2^6")
+        expected_result = (1//20736, " +1 E4^3 -3 E2^2 * E4^2 +3 E2^4 * E4^1 -1 E2^6")
     
-        result = feynman_as_eisensteins(q,Iq,12)
+        result = feynman_as_eisensteins(q,Jq,12)
         @test result == expected_result
     
     end
-
 
 end
