@@ -4,11 +4,8 @@ In this module, we compute the solution of the system $Ax=b$, where $A$ is a mat
 from the Feynman Integral $I(q)$
 The solution is of the form (factor, coefficients) where coefficients is a vector of rationals numbers.
 Given a Feynman Integral
-
 $$I(q)=\sum_{n=1}^{d} a_i q^{d},$$
-
 we compute the coefficients $b_{i,j,k}$ such that
-
 $$I(q)=\sum_{i,j,k} b_{i,j,k} E_2^i E_4^j E_6^k $$
 
 ## Example
