@@ -11,9 +11,11 @@
     @test feynman_integral_degree_order(x,q,G,o,3,l=[0,0,0])==3*q[1]^4*q[4]^2+ q[1]^2*q[2]^2*q[3]^2+ q[1]^2*q[2]^2*q[4]^2+ q[1]^2*q[3]^2*q[4]^2+ 9*q[1]^2*q[4]^4
     @test sum_of_coeff(feynman_integral_degree_order(x,q,G,o,3))==15
     @test sum_of_coeff(feynman_integral_degree(x,q,G ,3))==90
+    @test feynman_integral_degree_sum_order(x,q,G,o,[1,2])==q[1]^2*q[4]^2
+    @test feynman_integral_degree_sum(x,q,z,G,[1,2])==2*q[1]^2*q[2]^2 + 2*q[1]^2*q[3]^2 + 2*q[1]^2*q[4]^2
+
     ve=[]
     G=graph(ve)
     @test_throws DomainError R,x,q=polynomial_ring(G,"x","q")
-
-
+    @test_throws DomainError R,x,q,z=polynomial_ring(G,"x","q","z")
 end
