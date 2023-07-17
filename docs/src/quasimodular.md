@@ -55,6 +55,5 @@ The actual homogeneous polynomial is:
 
 ```julia
 julia> feynman_as_eisensteins(q,Iq,12)
-
 (1//93312, " +4 E6^2 +4 E4^3 -12 E2^1 * E4^1 * E6^1 -3 E2^2 * E4^2 +4 E2^3 * E6^1 +6 E2^4 * E4^1 -3 E2^6")
 ```
