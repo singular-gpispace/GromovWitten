@@ -160,10 +160,10 @@
     @testset "quasi_matrix error" begin
         @test_throws DimensionMismatch quasi_matrix(q,Jq,8)
     end  
-    @testset "feynman_as_eisensteins" begin
+    @testset "quasimodular_form" begin
         expected_result = (1//20736, " +1 E4^3 -3 E2^2 * E4^2 +3 E2^4 * E4^1 -1 E2^6")
     
-        result = feynman_as_eisensteins(q,Jq,12)
+        result = quasimodular_form(q,Jq,12)
         @test result == expected_result
     
     end

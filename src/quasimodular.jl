@@ -226,7 +226,7 @@ function solve_polynomial_system(A::QQMatrix, Q::QQMatrix)
         return "The system has no solution"
     end
 end
-@doc raw"""
+#=@doc raw"""
      quasi_matrix(q::Union{QQMPolyRingElem, Vector{QQMPolyRingElem}},Iq::QQMPolyRingElem, max_degree::Int64)
 
 returns solution of the system $Ax=b$, where A is a matrix from homogeneous Eisenstein series $E_2, E_4, E_6$ and $b$
@@ -241,7 +241,7 @@ julia> Iq=886656*q^12 + 182272*q^10 + 25344*q^8 + 1792*q^6 +32q^4
 julia> quasi_matrix(q,Iq,12)
 (1//93312, QQFieldElem[4; 4; -12; -3; 4; 6; -3])
 ```
-"""
+"""=#
 function quasi_matrix(q::Union{QQMPolyRingElem, Vector{QQMPolyRingElem}},Iq::QQMPolyRingElem, max_degree::Int64)
     if  total_degree(Iq)!=max_degree
         throw(DimensionMismatch("Degree of the polynomial must be equal to max_degree  $max_degree"))
@@ -253,7 +253,7 @@ function quasi_matrix(q::Union{QQMPolyRingElem, Vector{QQMPolyRingElem}},Iq::QQM
     end
 end
 @doc raw"""
-     feynman_as_eisensteins(q, Iq, max_degree)
+     quasimodular_form(q, Iq, max_degree)
 
 express the Feynman Integral polynomial $I(q)$ in terms of a polynomial in  $E_2, E_4, E_6$ 
 This leads to 
@@ -262,11 +262,11 @@ $$I(q)=\sum_{i,j,k} b_{i,j,k} E_2^i E_4^j E_6^k$$
 ```julia
 julia> Iq=886656*q^12 + 182272*q^10 + 25344*q^8 + 1792*q^6 +32q^4
 
-julia> feynman_as_eisensteins(q,Iq,12)
+julia> quasimodular_form(q,Iq,12)
 (1//93312, " +4 E6^2 +4 E4^3 -12 E2^1 * E4^1 * E6^1 -3 E2^2 * E4^2 +4 E2^3 * E6^1 +6 E2^4 * E4^1 -3 E2^6")
 ```
 """
-function feynman_as_eisensteins(q, Iq, max_degree)
+function quasimodular_form(q, Iq, max_degree)
     fac, coef = quasi_matrix(q, Iq, max_degree)
     comb_result = express_as_eisenstein_series(12)
     result = []
