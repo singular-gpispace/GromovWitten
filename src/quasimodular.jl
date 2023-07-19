@@ -1,40 +1,21 @@
-@doc raw"""
-     express_as_eisenstein_series(n::Int)
-
-returns the quasi-modular representation of a Feynman polynomial.
-Given a degree n, it return all homogeneous in term of $E_2^i E_4^j E_6^4$ with $2i+4j+6k=n$
-# Example
-```julia
-julia> express_as_eisenstein_series(12)
-7-element Vector{Any}:
- "E6^2"
- "E4^3"
- "E2^1 * E4^1 * E6^1"
- "E2^2 * E4^2"
- "E2^3 * E6^1"
- "E2^4 * E4^1"
- "E2^6"
-```
-"""
-function express_as_eisenstein_series(n::Int)
+function express_as_eisenstein_series(E2,E4,E6,n::Int)
     expressions = []
     for e2 in 0:n
         for e4 in 0:n
             for e6 in 0:n
                 d = 2*e2 + 4*e4 + 6*e6
                 if d == n && (e2 > 0 || e4 > 0 || e6 > 0)
-                    terms = []
+                    term = 1
                     if e2 != 0
-                        push!(terms, "E2^$e2")
+                        term *= E2^e2
                     end
                     if e4 != 0
-                        push!(terms, "E4^$e4")
+                        term *= E4^e4
                     end
                     if e6 != 0
-                        push!(terms, "E6^$e6")
+                        term *= E6^e6
                     end
-                    expression = join(terms, " * ")
-                    push!(expressions, expression)
+                    push!(expressions, term)
                 end
             end
         end
@@ -260,29 +241,32 @@ This leads to
 $$I(q)=\sum_{i,j,k} b_{i,j,k} E_2^i E_4^j E_6^k$$
 
 ```julia
+julia> R,q=@polynomial_ring(QQ,q)
+
 julia> Iq=886656*q^12 + 182272*q^10 + 25344*q^8 + 1792*q^6 +32q^4
+```
+We define the polynomial ring in E2,E4,E6.
+
+```julia
+julia> S,E2,E4,E6=@polynomial_ring(QQ,E2,E4,E6)
 
 julia> quasimodular_form(q,Iq,12)
-(1//93312, " +4 E6^2 +4 E4^3 -12 E2^1 * E4^1 * E6^1 -3 E2^2 * E4^2 +4 E2^3 * E6^1 +6 E2^4 * E4^1 -3 E2^6")
+(1//93312, -3*E2^6 + 6*E2^4*E4 + 4*E2^3*E6 - 3*E2^2*E4^2 - 12*E2*E4*E6 + 4*E4^3 + 4*E6^2)
 ```
 """
-function quasimodular_form(q, Iq, max_degree)
+function quasimodular_form(E2,E4,E6,q, Iq, max_degree)
     fac, coef = quasi_matrix(q, Iq, max_degree)
-    comb_result = express_as_eisenstein_series(12)
-    result = []
+    comb_result = express_as_eisenstein_series(E2,E4,E6,12)
+    p=0
     for (i, term) in enumerate(comb_result)
         if coef[i] == 0
             continue
         end
-        expression = string(coef[i], " ",term)
-        if sign(coef[i]) == -1
-            expression = string(" ", expression)
-        else
-            expression = string(" +", expression)
-        end
-        push!(result, expression)
+        tmp=coef[i]*term
+        p=p+tmp
     end
-    final_expression = join(result)
-    return fac, final_expression
+    p=fac,p
+    
+    return p
 end
 

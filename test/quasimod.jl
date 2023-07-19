@@ -6,19 +6,21 @@
     R, x, q = polynomial_ring(G,"x","q")
     @test substitute(q,feynman_integral_degree_sum(x,q,G,6))==886656*q[1]^12 + 182272*q[1]^10 + 25344*q[1]^8 + 1792*q[1]^6 + 32*q[1]^4
     Iq=substitute(q,feynman_integral_degree_sum(x,q,G,6))
+    S,E2,E4,E6=@polynomial_ring(QQ,E2,E4,E6)
+
 
     @testset "express_as_eisenstein_series test" begin
         expected_result = [
-            "E6^2"
-            "E4^3"
-            "E2^1 * E4^1 * E6^1"
-            "E2^2 * E4^2"
-            "E2^3 * E6^1"
-            "E2^4 * E4^1"
-            "E2^6"
+            E6^2
+            E4^3
+            E2*E4*E6
+            E2^2*E4^2
+            E2^3*E6
+            E2^4*E4
+            E2^6
         ]
         
-        @test express_as_eisenstein_series(12) == expected_result
+        @test express_as_eisenstein_series(E2,E4,E6,12) == expected_result
     end
     
     @test sum_of_divisor_powers(1,1)==1
@@ -161,9 +163,9 @@
         @test_throws DimensionMismatch quasi_matrix(q,Jq,8)
     end  
     @testset "quasimodular_form" begin
-        expected_result = (1//20736, " +1 E4^3 -3 E2^2 * E4^2 +3 E2^4 * E4^1 -1 E2^6")
+        expected_result = (1//20736, -E2^6 + 3*E2^4*E4 - 3*E2^2*E4^2 + E4^3)
     
-        result = quasimodular_form(q,Jq,12)
+        result = quasimodular_form(E2,E4,E6,q,Jq,12)
         @test result == expected_result
     
     end
