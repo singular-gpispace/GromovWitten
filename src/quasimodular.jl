@@ -256,7 +256,7 @@ julia> quasimodular_form(q,Iq,12)
 """
 function quasimodular_form(E2,E4,E6,q, Iq, max_degree)
     fac, coef = quasi_matrix(q, Iq, max_degree)
-    comb_result = express_as_eisenstein_series(E2,E4,E6,12)
+    comb_result = express_as_eisenstein_series(E2,E4,E6,max_degree)
     p=0
     for (i, term) in enumerate(comb_result)
         if coef[i] == 0
