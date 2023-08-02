@@ -121,7 +121,7 @@ function coeftermX( x::Vector, q::Vector,z::Vector,G::graph ,p::QQMPolyRingElem,
     p=coeff(p,x,L)
     return p
 end =#
-function lis(G::graph,d::Int64,l::Vector{Int64})
+function lis(G::FeynmanGraph,d::Int64,l::Vector{Int64})
     ee = Edge.(G.edge)
     #G=DiGraph(Edge.(G.edge))
     L=zeros(Int,nv(G))

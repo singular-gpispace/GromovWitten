@@ -6,7 +6,7 @@
 
 #  coefterm compute the coefficients term x1^0,...,xn^0, By I(q)=coeff[x1^0,...,xn^0](P(x,q))
 #Where I(q) is the Feynman Integral and P(x,q) the Propagator.
-#=function coefterm(x::Vector,q::Vector,G::graph ,p::QQMPolyRingElem,d::Integer;l=zeros(Int,nv(G)))
+#=function coefterm(x::Vector,q::Vector,G::FeynmanGraph ,p::QQMPolyRingElem,d::Integer;l=zeros(Int,nv(G)))
    #here l is leak vector of the graph G.
     ee=Edge.(G.edge) 
     G=DiGraph(Edge.(G.edge)) # convert from graph to Graph (so we can use nv(G))
@@ -74,12 +74,12 @@ function preimg(L::Vector{Int64}, xi::Int64)
 end
 
 @doc raw"""
-    flip_signature(G::graph ,p::Vector{Int64},a::Vector{Int64})
+    flip_signature(F::FeynmanGraph ,p::Vector{Int64},a::Vector{Int64})
 
 Let   Ω=[x1,...,xn] be  a given Order and $a$  a branche type,flip_signature  returns -1 if $x_i<x_j$ and O else. 
 It will return -2 in case the Graph G has a loop. 
 """
-function flip_signature(G::graph ,p::Vector{Int64},a::Vector{Int64}) #graph G, list p, branch type a
+function flip_signature(G::FeynmanGraph ,p::Vector{Int64},a::Vector{Int64}) #graph G, list p, branch type a
     ee=Edge.(G.edge)
     b=zeros(Int,length(a))
     for (i, (ai, ev)) in enumerate(zip(a, ee))
@@ -98,20 +98,20 @@ function flip_signature(G::graph ,p::Vector{Int64},a::Vector{Int64}) #graph G, l
 
 return b
 end
-function signature_and_multiplicities_order(G::graph, a::Vector{Int64},o::Vector)
+function signature_and_multiplicities_order(G::FeynmanGraph, a::Vector{Int64},o::Vector)
     b=Vector{Tuple{Int64, Vector{Int64}}}()
     push!(b,(1,flip_signature(G,o,a))) 
 return b
 end
 # flip_signature regroup all Orders with the same signature so same
 @doc raw"""
-    signature_and_multiplicities( G::graph, a::Vector{Int64})
+    signature_and_multiplicities( G::FeynmanGraph, a::Vector{Int64})
 
  returns flip_signature and their multiplicities.
 # Examples
 ```julia
-julia> G=graph(ve)
- graph([(1, 1), (1, 2), (2, 3), (3, 1)])
+julia> G=FeynmanGraph(ve)
+ FeynmanGraph([(1, 1), (1, 2), (2, 3), (3, 1)])
 
 julia> a=[2,0,0,1];
 
@@ -123,7 +123,7 @@ julia> signature_and_multiplicities(G,a)
  (1, [-2, -1, -1, 1])
 ```
 """
-function signature_and_multiplicities( G::graph, a::Vector{Int64})
+function signature_and_multiplicities( G::FeynmanGraph, a::Vector{Int64})
     ee=Edge.(G.edge)
     p=Vector{Int64}()
     b=Vector{Tuple{Int64, Vector{Int64}}}()

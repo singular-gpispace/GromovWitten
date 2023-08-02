@@ -31,37 +31,35 @@ Consider the Caterpillar 3 graph
 ![alt text](img/Cartepillar3.png)
 
 ```jldoctest quasi
-julia> G = graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3,4)] )
-graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
+julia> G = FeynmanGraph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3,4)] )
+FeynmanGraph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
 ```
 
-We then define a polynomial ring with all variables required by our implementation:
+We then define the FeynmanIntegral type.
 
 ```jldoctest quasi
-julia> R, x, q = polynomial_ring(G, "x", "q")
-(Multivariate polynomial ring in 10 variables over QQ, Nemo.QQMPolyRingElem[x[1], x[2], x[3], x[4]], Nemo.QQMPolyRingElem[q[1], q[2], q[3], q[4], q[5], q[6]])
+julia> F=FeynmanIntegral(G)
+FeynmanIntegral(FeynmanGraph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)]), Dict{Symbol, Dict{Vector{Int64}, Nemo.QQMPolyRingElem}}(), (Multivariate polynomial ring in 14 variables over QQ, Nemo.QQMPolyRingElem[x[1], x[2], x[3], x[4]], Nemo.QQMPolyRingElem[q[1], q[2], q[3], q[4], q[5], q[6]], Nemo.QQMPolyRingElem[z[1], z[2], z[3], z[4]]))
 ```
 
 We compute the  sum of all Feynman Integral of degree up to 6.
 
 ```jldoctest quasi
-julia> Iq=substitute(q,feynman_integral_degree_sum(x,q,G,6))
+julia> Iq=substitute(feynman_integral_degree_sum(F,6))
 886656*q[1]^12 + 182272*q[1]^10 + 25344*q[1]^8 + 1792*q[1]^6 + 32*q[1]^4
 ```
 
-To express the Feynman Integral Iq in term of Eisenstein series $E_2, E_4, E_6$.
-
-We define a polynomial ring in $E2, E4, E6$
+To express the Feynman Integral Iq in term of Eisenstein series $E_2, E_4, E_6$, we define a polynomial ring in q
 
 ```jldoctest quasi
-julia> S,E2,E4,E6=@polynomial_ring(QQ,E2,E4,E6)
-(Multivariate polynomial ring in 3 variables over QQ, E2, E4, E6)
+julia> R,q=@polynomial_ring(QQ,q)
+(Multivariate polynomial ring in 1 variable over QQ, q)
 ```
 
-The quasimodular form of Iq is
+ we compute  quasimodular form of Iq :
 
 ```jldoctest quasi
-julia> quasimodular_form(E2,E4,E6,q,Iq,12)
+julia> quasimodular_form(q,Iq,12)
 (1//93312, -3*E2^6 + 6*E2^4*E4 + 4*E2^3*E6 - 3*E2^2*E4^2 - 12*E2*E4*E6 + 4*E4^3 + 4*E6^2)
 ```
 
@@ -87,18 +85,9 @@ julia> Iq= 843264*q^12 + 165888*q^10 + 20736*q^8 + 1152*q^6
 843264*q^12 + 165888*q^10 + 20736*q^8 + 1152*q^6
 ```
 
-
-
-We define a polynomial ring in $E2, E4, E6$
-
-```jldoctest form
-julia> S,E2,E4,E6=@polynomial_ring(QQ,E2,E4,E6)
-(Multivariate polynomial ring in 3 variables over QQ, E2, E4, E6)
-```
-
 The quasimodular form of $Iq$  is then:
 
 ```jldoctest form
-julia> quasimodular_form(E2,E4,E6,q,Iq,12)
+julia> quasimodular_form(Iq,12)
 (1//20736, -E2^6 + 3*E2^4*E4 - 3*E2^2*E4^2 + E4^3)
 ```

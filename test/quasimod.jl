@@ -2,12 +2,12 @@
     import Nemo: QQFieldElem
 
     ve=[(1, 2), (1,2),(2, 4), (1, 3) ,(3, 4),(3,4)]
-    G=graph(ve)
-    R, x, q = polynomial_ring(G,"x","q")
-    @test substitute(q,feynman_integral_degree_sum(x,q,G,6))==886656*q[1]^12 + 182272*q[1]^10 + 25344*q[1]^8 + 1792*q[1]^6 + 32*q[1]^4
-    Iq=substitute(q,feynman_integral_degree_sum(x,q,G,6))
+    G=FeynmanGraph(ve)
+    F=FeynmanIntegral(G)
+    q=F.S[3]
+    @test substitute(feynman_integral_degree_sum(F,6))==886656*q[1]^12 + 182272*q[1]^10 + 25344*q[1]^8 + 1792*q[1]^6 + 32*q[1]^4
+    Iq=substitute(feynman_integral_degree_sum(F,6))
     S,E2,E4,E6=@polynomial_ring(QQ,E2,E4,E6)
-
 
     @testset "express_as_eisenstein_series test" begin
         expected_result = [
@@ -20,7 +20,7 @@
             E2^6
         ]
         
-        @test express_as_eisenstein_series(E2,E4,E6,12) == expected_result
+        @test express_as_eisenstein_series(12) ==  expected_result
     end
     
     @test sum_of_divisor_powers(1,1)==1
@@ -28,13 +28,13 @@
         @test_throws ErrorException sum_of_divisor_powers(0, 1)
     end    
     @testset "eisenstein_series even" begin
-        @test_throws ErrorException eisenstein_series(q[1],6,3)
+        @test_throws ErrorException eisenstein_series(6,3)
     end  
 
-    @test eisenstein_series(q[1],6,2)==-288*q[1]^12 - 144*q[1]^10 - 168*q[1]^8 - 96*q[1]^6 - 72*q[1]^4 - 24*q[1]^2 + 1
+    @test eisenstein_series(6,2,q)==-288*q[1]^12 - 144*q[1]^10 - 168*q[1]^8 - 96*q[1]^6 - 72*q[1]^4 - 24*q[1]^2 + 1
     
     @testset "express_as_powers even" begin
-        @test_throws ErrorException express_as_powers(q,3)
+        @test_throws InexactError express_as_powers(3)
     end  
 
     @testset "express_as_powers test" begin
@@ -75,7 +75,7 @@
     end
     
     @testset "matrix_of_integral " begin
-        Iq3=substitute(q,feynman_integral_degree_sum(x,q,G,3))
+        Iq3=substitute(feynman_integral_degree_sum(F,3))
         expected_result = [
              0
              0
@@ -96,8 +96,8 @@
     @testset "solve_polynomial_system Error" begin
         max_degree=8
         d=4
-        A = polynomial_to_matrix(filter_vector(express_as_powers(q, max_degree), q, [max_degree]))
-        Q = matrix_of_integral(substitute(q, feynman_integral_degree_sum(x, q, G, d)))
+        A = polynomial_to_matrix(filter_vector(express_as_powers( q,max_degree), q, [max_degree]))
+        Q = matrix_of_integral(substitute( feynman_integral_degree_sum(F, d)))
         expected_result = "The system has no solution"
     
         result = solve_polynomial_system(A, Q)
@@ -108,7 +108,7 @@
         max_degree=12
         d=6
         A = polynomial_to_matrix(filter_vector(express_as_powers(q, max_degree), q, [max_degree]))
-        Q = matrix_of_integral(substitute(q, feynman_integral_degree_sum(x, q, G, d)))
+        Q = matrix_of_integral(substitute( feynman_integral_degree_sum(F, d)))
         expected_result = (QQFieldElem(1//93312),QQFieldElem[4
         4
         -12
@@ -134,7 +134,7 @@
         6
         -3] )
     
-        result = quasi_matrix(q[1],Iq,12)
+        result = quasi_matrix(q,Iq,12)
         @test result[1] == expected_result[1]
 
         for i in size(expected_result[2],1)
@@ -165,7 +165,7 @@
     @testset "quasimodular_form" begin
         expected_result = (1//20736, -E2^6 + 3*E2^4*E4 - 3*E2^2*E4^2 + E4^3)
     
-        result = quasimodular_form(E2,E4,E6,q,Jq,12)
+        result = quasimodular_form(q,Jq,12)
         @test result == expected_result
     
     end

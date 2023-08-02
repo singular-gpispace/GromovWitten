@@ -28,15 +28,15 @@ julia> ve=[(1, 1), (1, 2), (2, 3), (3, 1)]
 and
 
 ```jldoctest graph
-julia> G=graph(ve)
-graph([(1, 1), (1, 2), (2, 3), (3, 1)])
+julia> G=FeynmanGraph(ve)
+FeynmanGraph([(1, 1), (1, 2), (2, 3), (3, 1)])
 ```
 
-We then define the $R,x,q=$``polynomia_lring(G)`` from the graph G.  The polynomial ring has $ 5g-5$ variables, consisting of two sets of variables: $x_{1},x_{2},...,x_{2g-2}$ and $q_{1},q_{2},...,q_{3g-3}$.
+We define the Feynman integral type, which contains the polynomial Ring and the graph G.
 
 ```jldoctest graph
-julia>   R,x,q,z=polynomial_ring(G,"x","q","z")
-(Multivariate polynomial ring in 10 variables over QQ, Nemo.QQMPolyRingElem[x[1], x[2], x[3]], Nemo.QQMPolyRingElem[q[1], q[2], q[3], q[4]], Nemo.QQMPolyRingElem[z[1], z[2], z[3]])
+julia> F=FeynmanIntegral(G)
+FeynmanIntegral(FeynmanGraph([(1, 1), (1, 2), (2, 3), (3, 1)]), Dict{Symbol, Dict{Vector{Int64}, Nemo.QQMPolyRingElem}}(), (Multivariate polynomial ring in 10 variables over QQ, Nemo.QQMPolyRingElem[x[1], x[2], x[3]], Nemo.QQMPolyRingElem[q[1], q[2], q[3], q[4]], Nemo.QQMPolyRingElem[z[1], z[2], z[3]]))
 ```
 
 ## Feynman Integral branche type
@@ -67,22 +67,15 @@ We compute the Specific Feynman Integral for the Graph G given a fixed vertex or
 Here we have the defaults values of the leak vector and the genus function  l=[0,0,0], g=[0,0,0] and we set the order of Sfunction $ aa=0$
 
 ```jldoctest graph
-julia>  feynman_integral_branch_type_order(x,q,z,G,a,o,aa=0,l=[0,0,0],g=[0,0,0])
+julia>  feynman_integral_branch_type_order(F,a,o)
 3*q[1]^4*q[4]^2
 ```
 
-In the case `l=[0,0,0]`, `g=[0,0,0]` and  $ aa=0$ we can write simply write.
-
-```jldoctest graph
-julia>  feynman_integral_branch_type_order(x,q,z,G,a,o)
-3*q[1]^4*q[4]^2
-```
-
-We compute the Specific Feynman Integral for the Graph G given a fixed partition of degree $a$ for all vertex ordering $o$.
+```We compute the Specific Feynman Integral for the Graph G given a fixed partition of degree $a$ for all vertex ordering $o$.
 Here we have the defaults values of the leak vector and the genus function  l=[0,0,0], g=[0,0,0] and we set the order of Sfunction $ aa=0$
 
 ```jldoctest graph
-julia> feynman_integral_branch_type(x,q,z,G,a)
+julia> feynman_integral_branch_type(F,a)
 6*q[1]^4*q[4]^2
 ```
 
@@ -91,7 +84,7 @@ julia> feynman_integral_branch_type(x,q,z,G,a)
 We compute the  Feynman Integral of the graph G over all  partitions of the degree d=3  for a fixed ordering $o$.
 
 ```jldoctest graph
-julia> feynman_integral_degree_order(x,q,z,G,o,3) # here d=3
+julia> feynman_integral_degree_order(F,o,3) # here d=3
 3*q[1]^4*q[4]^2 + q[1]^2*q[2]^2*q[3]^2 + q[1]^2*q[2]^2*q[4]^2 + q[1]^2*q[3]^2*q[4]^2 + 9*q[1]^2*q[4]^4
 
 ```
@@ -99,13 +92,13 @@ julia> feynman_integral_degree_order(x,q,z,G,o,3) # here d=3
 We compute the Feynman integral over all the partitions of the degree d of graph G for all vertex ordering.
 
 ```jldoctest graph
-julia>  feynman_integral_degree(x,q,z,G,3) # here d=3
+julia>  feynman_integral_degree(F,3) # here d=3
 6*q[1]^4*q[2]^2 + 6*q[1]^4*q[3]^2 + 6*q[1]^4*q[4]^2 + 18*q[1]^2*q[2]^4 + 6*q[1]^2*q[2]^2*q[3]^2 + 6*q[1]^2*q[2]^2*q[4]^2 + 18*q[1]^2*q[3]^4 + 6*q[1]^2*q[3]^2*q[4]^2 + 18*q[1]^2*q[4]^4
 ```
 
 We compute the sum of coefficients.
 
 ```
-julia> sum_of_coeff( feynman_integral_degree(x,q,z,G,3))
+julia> sum_of_coeff( feynman_integral_degree(F,3))
 90
 ```
