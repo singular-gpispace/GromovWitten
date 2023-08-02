@@ -151,4 +151,3 @@ function signature_and_multiplicities( G::graph, a::Vector{Int64})
     end
     return b 
 end
-

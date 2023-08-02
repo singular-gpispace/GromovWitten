@@ -4,6 +4,7 @@ GromovWitten  is a package for computing Gromov-Witten invariant via Feynman Int
 module GromovWitten
 # Write your package code here.
 using Nemo, Graphs, Combinatorics,StatsBase
+import Nemo: vars
 export  QQFieldElem,@polynomial_ring
 import Graphs: nv,ne,Edge,dst, src
 export graph,nv,ne,PolynomialRing,QQ

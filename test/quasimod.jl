@@ -3,9 +3,11 @@
 
     ve=[(1, 2), (1,2),(2, 4), (1, 3) ,(3, 4),(3,4)]
     G=graph(ve)
-    R, x, q = polynomial_ring(G,"x","q")
-    @test substitute(q,feynman_integral_degree_sum(x,q,G,6))==886656*q[1]^12 + 182272*q[1]^10 + 25344*q[1]^8 + 1792*q[1]^6 + 32*q[1]^4
-    Iq=substitute(q,feynman_integral_degree_sum(x,q,G,6))
+    q=vars(feynman_integral_degree_sum(G,6))
+    @test substitute(feynman_integral_degree_sum(G,6))==886656*q[1]^12 + 182272*q[1]^10 + 25344*q[1]^8 + 1792*q[1]^6 + 32*q[1]^4
+    Iq=substitute(feynman_integral_degree_sum(G,6))
+   # R, x, q = polynomial_ring(G,"x","q")
+
     S,E2,E4,E6=@polynomial_ring(QQ,E2,E4,E6)
 
 
@@ -75,7 +77,7 @@
     end
     
     @testset "matrix_of_integral " begin
-        Iq3=substitute(q,feynman_integral_degree_sum(x,q,G,3))
+        Iq3=substitute(feynman_integral_degree_sum(G,3))
         expected_result = [
              0
              0
@@ -97,7 +99,7 @@
         max_degree=8
         d=4
         A = polynomial_to_matrix(filter_vector(express_as_powers(q, max_degree), q, [max_degree]))
-        Q = matrix_of_integral(substitute(q, feynman_integral_degree_sum(x, q, G, d)))
+        Q = matrix_of_integral(substitute( feynman_integral_degree_sum( G, d)))
         expected_result = "The system has no solution"
     
         result = solve_polynomial_system(A, Q)
@@ -108,7 +110,7 @@
         max_degree=12
         d=6
         A = polynomial_to_matrix(filter_vector(express_as_powers(q, max_degree), q, [max_degree]))
-        Q = matrix_of_integral(substitute(q, feynman_integral_degree_sum(x, q, G, d)))
+        Q = matrix_of_integral(substitute( feynman_integral_degree_sum( G, d)))
         expected_result = (QQFieldElem(1//93312),QQFieldElem[4
         4
         -12

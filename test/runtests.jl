@@ -1,4 +1,4 @@
-using GromovWitten
+using GromovWitten,Nemo
 using Test
 include("coefterm.jl")
 include("feynmanIntegral.jl")
