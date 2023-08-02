@@ -39,5 +39,8 @@ makedocs(;
 
 deploydocs(;
     repo="github.com/singular-gpispace/GromovWitten.git",
-    devbranch="main",
+    branch = "gh-pages",
+    devbranch="dev",
+    devurl = "dev",
+
 )
