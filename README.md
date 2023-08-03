@@ -46,64 +46,10 @@ and load our package. On the first run this may take some time.
 using GromovWitten  
 ```
 
-# Example of graph with vertex contribution
-
-<img width="400" alt="image" src="https://github.com/singular-gpispace/GromovWitten/assets/46294807/01eefb54-3db4-49cf-93a5-4ec2218ba9ce">
-
-To provide an example on how to use our package, we define a graph G from a list of edges:
-
-```julia
-julia> ve = [ (1, 2), (2, 3), (3, 1)]  
-julia> G = FeynmanGraph(ve)
-```
-
-We then define the Feynman integral type F:
-
-```julia
-julia> F=FeynmanIntegral(G)
-FeynmanIntegral(FeynmanGraph([(1, 2), (2, 3), (3, 1)]), Dict{Symbol, Dict{Vector{Int64}, Nemo.QQMPolyRingElem}}(), (Multivariate polynomial ring in 9 variables over QQ, Nemo.QQMPolyRingElem[x[1], x[2], x[3]], Nemo.QQMPolyRingElem[q[1], q[2], q[3]], Nemo.QQMPolyRingElem[z[1], z[2], z[3]]))
-```
-
-Here, the indexed variables x correspond to the vertices of the graph, the indexed variables y to the edges of the graph, and the indexed variables z again to the vertices of the graph (the latter to be used in the context of Gromov-Witten invariants with non-trivial Psi-classes).
-
-To compute a Feynman iuntegral, we define a partition  $a=[0,0,3]$  of degree d=3, a fixed order of vertex $o=[1,2,3]$ and the genus function $g=[1,0,0]$. The leak in G is $L=[0,0,0]$ , $aa=1$ is the order of the sfunction.
-
-```julia
-julia> g=[1,0,0];
-julia> a=[0,0,3];
-julia> o=[1,2,3]; 
-```
-We have then
-
-```julia
-julia> feynman_integral_branch_type_order(F,a,o,g)
-115//6*q[3]^6
-```
-
-The Feynman Integral branch type for all ordering with genus function $g$  is
-
-```julia
-julia> feynman_integral_branch_type(F,a,g)
-115//3*q[3]^6
-```
-
-also we can compute Feynman Integral of degree 4
-
-```julia
- julia> feynman_integral_degree(F,4,g)
-2041//12*q[1]^8 + 1//4*q[1]^6*q[2]^2 + 1//4*q[1]^6*q[3]^2 + 57//4*q[1]^4*q[2]^4 + 1//2*q[1]^4*q[2]^2*q[3]^2 + 57//4*q[1]^4*q[3]^4 + 1//4*q[1]^2*q[2]^6 + 1//2*q[1]^2*q[2]^4*q[3]^2 + 1//2*q[1]^2*q[2]^2*q[3]^4 + 1//4*q[1]^2*q[3]^6 + 2041//12*q[2]^8 + 1//4*q[2]^6*q[3]^2 + 57//4*q[2]^4*q[3]^4 + 1//4*q[2]^2*q[3]^6 + 2041//12*q[3]^8
-```
-
-Finally we substitute all $q$  variables by $q_{1}$
-
-```julia
-julia> substitute(feynman_integral_degree(F,4,g))
-556*q[1]^8
-```
 
 # Example of graph without vertex contribution and loop.
 
-<img width="400" alt="image" src="https://github.com/singular-gpispace/GromovWitten/assets/46294807/1b45577b-3c92-464f-81f5-57766dcd189e">
+![alt text](docs/src/img/Cartepillar3.png)
 
 ```julia
 julia> G = FeynmanGraph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3,4)] )
@@ -145,52 +91,61 @@ julia>     substitute(feynman_integral_degree_sum(F,8))
 10246144*q[1]^16 + 3294720*q[1]^14 + 886656*q[1]^12 + 182272*q[1]^10 + 25344*q[1]^8 + 1792*q[1]^6 + 32*q[1]^4
 ```
 
-# Example of graph with loop.
 
-<img width="350" alt="image" src="https://github.com/singular-gpispace/GromovWitten/assets/46294807/c94574b9-eaed-47ca-afb0-a53fdd0b64b3">
+# Caching Feynman Integral
 
+We can try to catch the previous result in a table. 
+To do that, we define `feynman_integral_branch_type_cache` , `feynman_integral_degree_cache` and  `feynman_integral_degree__sum_cache`. The last one returns the univariable polynomial of Feynman integral sum up to degree $d$.
+We define first the Feynman graph, 
 ```julia
-julia> G=FeynmanGraph([(1, 1), (1, 2), (2, 3), (3, 1)])
-graph([(1, 1), (1, 2), (2, 3), (3, 1)])
+julia> G = FeynmanGraph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3,4)] )
+graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
 ```
 
 ```julia
-julia> F=FeynmanIntegral(G);
+julia> F=FeynmanIntegral(G)
+```
+we cache the Feynman Integral.
+```julia
+julia> feynman_integral_degree_cache(F, 3);
+```
+To diplay the previous caching 
+```julia
+julia> F.integral_cache[:degree]
+Dict{Vector{Int64}, QQMPolyRingElem} with 4 entries:
+  [8]  => 906376*q[1]^16 + 76832*q[1]^14*q[2]^2 + 76832*q[1]^14*q[3]^2 + 76832*…
+  [3]  => 288*q[1]^6 + 32*q[1]^4*q[2]^2 + 32*q[1]^4*q[3]^2 + 32*q[1]^4*q[5]^2 +…
+  [5]  => 20000*q[1]^10 + 2592*q[1]^8*q[2]^2 + 2592*q[1]^8*q[3]^2 + 2592*q[1]^8…
+  [10] => 5465008*q[1]^20 + 350352*q[1]^18*q[2]^2 + 350352*q[1]^18*q[3]^2 + 350…
+```
+We get the following table of comparison.
+|Type|degree|first_run|second_run|
+|:----|:----|:----|:----|
+|degree|[3] => 288*q[1]^6…|0.044741 s(17.840 MiB)|0.000021 s ( 1.609 KiB)|
+|degree|[5] => 20000*q[1]^10…| 0.209154 s( 129.200 MiB)|0.000021 s ( 1.609 KiB)|
+|degree| [8] => 906376*q[1]^16 …|1.768598 s( 1.113 GiB)|1.000021 s ( 1.609 KiB)|
+|degree|[10] => 5465008*q[1]^20 +…|5.453744 s(3.425 GiB)|0.000033 s ( 1.609 KiB)|
+
+
+simillary for The univariable polynomial, we have 
+```julia
+julia> feynman_integral_degree_sum_cache(F, 3)
+1792*q[1]^6 + 32*q[1]^4
+```
+To diplay the previous caching 
+```julia
+julia> F.integral_cache[:sum]
+Dict{Vector{Int64}, QQMPolyRingElem} with 5 entries:
+  [8]  => 10246144*q[1]^16 + 3294720*q[1]^14 + 886656*q[1]^12 + 182272*q[1]^10 …
+  [3]  => 1792*q[1]^6 + 32*q[1]^4
+  [5]  => 182272*q[1]^10 + 25344*q[1]^8 + 1792*q[1]^6 + 32*q[1]^4
+  [11] => 145337600*q[1]^22 + 66497472*q[1]^20 + 27353088*q[1]^18 + 10246144*q[…
+  [10] => 66497472*q[1]^20 + 27353088*q[1]^18 + 10246144*q[1]^16 + 3294720*q[1]…
 ```
 
-```julia
-julia> O=[1,2,3]  
-3-element Vector{Int64}:
- 1
- 2
- 3
-```
-
-```julia
-julia> a=[ 2,  0, 0, 1]
- 4-element Vector{Int64}:
- 2
- 0
- 0
- 1
-```
-
-```julia
-julia> feynman_integral_branch_type_order(F, a, O)
-3*q[1]^4*q[4]^2
-```
-
-```julia
-julia> feynman_integral_branch_type(F, a)  
-6*q[1]^4*q[4]^2
-```
-
-```julia
-julia> feynman_integral_degree(F, 3)
-6*q[1]^4*q[2]^2 + 6*q[1]^4*q[3]^2 + 6*q[1]^4*q[4]^2 + 18*q[1]^2*q[2]^4 + 6*q[1]^2*q[2]^2*q[3]^2 + 6*q[1]^2*q[2]^2*q[4]^2 + 18*q[1]^2*q[3]^4 + 6*q[1]^2*q[3]^2*q[4]^2 + 18*q[1]^2*q[4]^4
-```
-
-```julia
-julia> substitute(feynman_integral_sum(F, 8))
-20640*q[1]^16 + 9996*q[1]^14 + 4320*q[1]^12 + 1650*q[1]^10 + 456*q[1]^8 + 90*q[1]^6 + 6*q[1]^4
-```
+|Type|degree|normal_time|cache_time|
+|:----|:----|:----|:----|
+|Type|degree|normal_time|cache_time|
+|sum| [3] => 1792*q[1]^6…|  0.028567 s ( 23.850 MiB) |  0.029917 s (23.852 MiB)sum|[5] => 182272*q[1]^10…|  0.337313 s (203.303 MiB) |  0.293910 s (179.465 MiB)sum|[8] => 10246144*q[1]^16  …|  3.529455 s  (2.169 GiB)| 3.210641 s (1.970 GiB|
+|sum|[10] => 66497472*q[1]^20  +…| 12.292280 s (7.607 GiB| 8.813801 s ( 5.439 GiB)|
+|sum |[11] => 145337600*q[1]^22+…|21.427653 s (13.190 )|9.026728 s (5.583 GiB)|
