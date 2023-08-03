@@ -15,7 +15,7 @@ function get_integral_from_cache(F::FeynmanIntegral, integral_type::Symbol , arg
 end
 
 # Function to compute and cache the branch type integral
-function feynman_integral_branch_typ(F::FeynmanIntegral, a::Vector{Int64}; l=zeros(Int, nv(F.G)))
+function feynman_integral_branch_type_cache(F::FeynmanIntegral, a::Vector{Int64}; l=zeros(Int, nv(F.G)))
     # Check if the integral has been computed before
     cached_result = get_integral_from_cache(F, :branch, a)
     if cached_result !== nothing
@@ -32,7 +32,7 @@ function feynman_integral_branch_typ(F::FeynmanIntegral, a::Vector{Int64}; l=zer
 end
 
 # Function to compute and cache the degree integral
-function feynman_integral_degre(F::FeynmanIntegral, d::Int64; l=zeros(Int, nv(F.G)))
+function feynman_integral_degree_cache(F::FeynmanIntegral, d::Int64; l=zeros(Int, nv(F.G)))
     # Check if the integral has been computed before
     cached_result = get_integral_from_cache(F, :degree, [d])
     if cached_result !== nothing
@@ -47,7 +47,7 @@ function feynman_integral_degre(F::FeynmanIntegral, d::Int64; l=zeros(Int, nv(F.
 
     return result
 end
-function feynman_integral_degree_sums(F::FeynmanIntegral, d::Union{Int64, Vector{Int64}}; l=zeros(Int, nv(F.G)))
+function feynman_integral_degree_sum_cache(F::FeynmanIntegral, d::Union{Int64, Vector{Int64}}; l=zeros(Int, nv(F.G)))
     # Check if the current degree is already computed and get the cached result
     current_result = get_integral_from_cache(F, :sum, [d])
     if current_result !== nothing

@@ -13,7 +13,7 @@ feynman_integral_branch_type_order,feynman_integral_degree_order,lis,filter_term
 sum_of_divisor_powers,express_as_eisenstein_series,express_as_powers,polynomial_to_matrix,matrix_of_integral,
 solve_polynomial_system, quasi_matrix,sfunction,inv_sfunction
 export eisenstein_series,quasimodular_form
-export cache_integral_result, get_integral_from_cache, feynman_integral_branch_typ, feynman_integral_degre,feynman_integral_degree_sums
+export cache_integral_result, get_integral_from_cache, feynman_integral_branch_type_cache, feynman_integral_degree_cache,feynman_integral_degree_sum_cache
 
 include("graph.jl")
 include("coeftermV.jl")
