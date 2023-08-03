@@ -58,7 +58,7 @@ julia> substitute(feynman_integral_degree(F,4,g))
 
 # Example of graph without vertex contribution and loop.
 
-<img width="400" alt="image" src="https://github.com/singular-gpispace/GromovWitten/assets/46294807/1b45577b-3c92-464f-81f5-57766dcd189e">
+![alt text](img/Cartepillar3.png)
 
 ```julia
 julia> G = FeynmanGraph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3,4)] )
