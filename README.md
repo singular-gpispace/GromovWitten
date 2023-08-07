@@ -145,7 +145,7 @@ Dict{Vector{Int64}, QQMPolyRingElem} with 5 entries:
 
 |Type|degree|normal_time|cache_time|
 |:----|:----|:----|:----|
-|Type|degree|normal_time|cache_time|
+
 |sum| [3] => 1792*q[1]^6…|  0.028567 s ( 23.850 MiB) |  0.029917 s (23.852 MiB)sum|[5] => 182272*q[1]^10…|  0.337313 s (203.303 MiB) |  0.293910 s (179.465 MiB)sum|[8] => 10246144*q[1]^16  …|  3.529455 s  (2.169 GiB)| 3.210641 s (1.970 GiB|
 |sum|[10] => 66497472*q[1]^20  +…| 12.292280 s (7.607 GiB| 8.813801 s ( 5.439 GiB)|
 |sum |[11] => 145337600*q[1]^22+…|21.427653 s (13.190 )|9.026728 s (5.583 GiB)|
