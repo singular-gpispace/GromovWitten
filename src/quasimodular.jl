@@ -1,28 +1,3 @@
-function express_as_eisenstein_series(n::Int)
-    S,E2,E4,E6=@polynomial_ring(QQ,E2,E4,E6)
-    expressions = []
-    for e2 in 0:n
-        for e4 in 0:n
-            for e6 in 0:n
-                d = 2*e2 + 4*e4 + 6*e6
-                if d == n && (e2 > 0 || e4 > 0 || e6 > 0)
-                    term = 1
-                    if e2 != 0
-                        term *= E2^e2
-                    end
-                    if e4 != 0
-                        term *= E4^e4
-                    end
-                    if e6 != 0
-                        term *= E6^e6
-                    end
-                    push!(expressions, term)
-                end
-            end
-        end
-    end
-    return expressions
-end
 
 #=function filter_term(pols::Union{QQMPolyRingElem, Int64}, variables::Vector{QQMPolyRingElem}, power::Vector{Int64})
     T = parent(variables[1])
@@ -137,20 +112,17 @@ function eisenstein_series( num_terms::Int,k::Int)
         return  e2 = 1 - ((((2*k)// bernoulli(k))))* sum(sum_of_divisor_powers(d, k-1) * q^(2*d) for d in 1:num_terms)
 end
 
-
-
-
-function express_as_powers(q::Union{QQMPolyRingElem, Vector{QQMPolyRingElem}}, max_degree::Int)
+function express_as_powers( max_degree::Int,weightmax::Int64)
     result = Vector{QQMPolyRingElem}()
-    nb=Int64(max_degree//2)
-    E6=eisenstein_series( nb,6,q)
-    E4=eisenstein_series( nb,4,q)
-    E2=eisenstein_series( nb,2,q)
-    for e2 in 0:max_degree
-        for e4 in 0:max_degree
-            for e6 in 0:max_degree
+    nb=Int64(max_degree)
+    E6=eisenstein_series( nb,6)
+    E4=eisenstein_series( nb,4)
+    E2=eisenstein_series( nb,2)
+    for e2 in 0:weightmax
+        for e4 in 0:weightmax
+            for e6 in 0:weightmax
                 degree = 2*e2 + 4*e4 + 6*e6
-                if degree == max_degree# && degree>0
+                if degree == weightmax #&& degree>0
                     push!(result,  (E2^e2) * (E4^e4) * (E6^e6))
                 end
             end
@@ -159,24 +131,30 @@ function express_as_powers(q::Union{QQMPolyRingElem, Vector{QQMPolyRingElem}}, m
     return result
 end
         
-function express_as_powers( max_degree::Int)
- 
-    result = Vector{QQMPolyRingElem}()
-    nb=Int64(max_degree//2)
-    E6=eisenstein_series( nb,6)
-    E4=eisenstein_series( nb,4)
-    E2=eisenstein_series( nb,2)
-    for e2 in 0:max_degree
-        for e4 in 0:max_degree
-            for e6 in 0:max_degree
-                degree = 2*e2 + 4*e4 + 6*e6
-                if degree == max_degree #&& degree>0
-                    push!(result,  (E2^e2) * (E4^e4) * (E6^e6))
+function express_as_eisenstein_series(n::Int)
+    S,E2,E4,E6=@polynomial_ring(QQ,E2,E4,E6)
+    expressions = []
+    for e2 in 0:n
+        for e4 in 0:n
+            for e6 in 0:n
+                d = 2*e2 + 4*e4 + 6*e6
+                if d == n && (e2 > 0 || e4 > 0 || e6 > 0)
+                    term = 1
+                    if e2 != 0
+                        term *= E2^e2
+                    end
+                    if e4 != 0
+                        term *= E4^e4
+                    end
+                    if e6 != 0
+                        term *= E6^e6
+                    end
+                    push!(expressions, term)
                 end
             end
         end
     end
-    return result
+    return expressions
 end
 @doc raw"""
      polynomial_to_matrix(vect::Vector{QQMPolyRingElem})
@@ -263,30 +241,16 @@ julia> quasi_matrix(q,Iq,12)
 (1//93312, QQFieldElem[4; 4; -12; -3; 4; 6; -3])
 ```
 """=#
-function quasi_matrix(Iq::QQMPolyRingElem, max_degree::Int64)
-    if  total_degree(Iq)!=max_degree
-        throw(DimensionMismatch("Degree of the polynomial must be equal to max_degree  $max_degree"))
-    else
-        q=vars(Iq)
-        Evector=filter_vector(express_as_powers( max_degree),q,max_degree) 
-        A=polynomial_to_matrix(Evector)
-        Q=matrix_of_integral(Iq)
+function quasi_matrix(Iq::QQMPolyRingElem, weightmax::Int64)
+    q=vars(Iq)
+    max_degree=total_degree(Iq)
+    Evector=filter_vector(express_as_powers(max_degree,weightmax),q,max_degree)
+    A=polynomial_to_matrix(Evector)
+    Q=matrix_of_integral(Iq)
         return solve_polynomial_system(A,Q)
-    end
-end
-function quasi_matrix(q::Union{QQMPolyRingElem, Vector{QQMPolyRingElem}},Iq::QQMPolyRingElem, max_degree::Int64)
-    if  total_degree(Iq)!=max_degree
-        throw(DimensionMismatch("Degree of the polynomial must be equal to max_degree  $max_degree"))
-    else
-        q=vars(Iq)
-        Evector=filter_vector(express_as_powers(q,max_degree),q,max_degree) 
-        A=polynomial_to_matrix(Evector)
-        Q=matrix_of_integral(Iq)
-        return solve_polynomial_system(A,Q)
-    end
 end
 @doc raw"""
-     quasimodular_form(Iq::QQMPolyRingElem, max_degree::Int64)
+ quasimodular_form(Iq, weightmax::Int64)
 
 express the Feynman Integral polynomial $I(q)$ in terms of a polynomial in  $E_2, E_4, E_6$ 
 This leads to 
@@ -304,25 +268,14 @@ julia> quasimodular_form(Iq,12)
 (1//93312, -3*E2^6 + 6*E2^4*E4 + 4*E2^3*E6 - 3*E2^2*E4^2 - 12*E2*E4*E6 + 4*E4^3 + 4*E6^2)
 ```
 """
-function quasimodular_form(Iq::QQMPolyRingElem, max_degree::Int64)
-    #q=vars(Iq)
-    fac, coef = quasi_matrix( Iq, max_degree)
-    comb_result = express_as_eisenstein_series(12)
-    p = 0
-    for (i, term) in enumerate(comb_result)
-        if coef[i] == 0
-            continue
-        end
-        tmp = coef[i] * term
-        p += tmp
+function quasimodular_form(Iq, weightmax::Int64)
+    if isodd(weightmax)
+        return error("weightmax must be an even number and equal to 6g-6")
     end
-    #p = fac * p
-    return fac ,p
-end
-function quasimodular_form(q::Union{QQMPolyRingElem, Vector{QQMPolyRingElem}},Iq::QQMPolyRingElem, max_degree::Int64)
     q=vars(Iq)
-    fac, coef = quasi_matrix(q, Iq, max_degree)
-    comb_result = express_as_eisenstein_series(12)
+    max_degree=total_degree(Iq)
+    fac, coef = quasi_matrix( Iq, weightmax)
+    comb_result = express_as_eisenstein_series(weightmax)
     p = 0
     for (i, term) in enumerate(comb_result)
         if coef[i] == 0
@@ -332,5 +285,6 @@ function quasimodular_form(q::Union{QQMPolyRingElem, Vector{QQMPolyRingElem}},Iq
         p += tmp
     end
     #p = fac * p
+    
     return fac ,p
 end
