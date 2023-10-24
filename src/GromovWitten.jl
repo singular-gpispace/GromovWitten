@@ -14,7 +14,7 @@ sum_of_divisor_powers,express_as_eisenstein_series,express_as_powers,polynomial_
 solve_polynomial_system, quasi_matrix,sfunction,inv_sfunction
 export eisenstein_series,quasimodular_form
 export cache_integral_result, get_integral_from_cache, feynman_integral_branch_type_cache, feynman_integral_degree_cache,feynman_integral_degree_sum_cache
-
+export feynman_integral,generate_permutation,find_equal_pairs,vector_to_monomial,replace,feynman_integral_deg
 include("graph.jl")
 include("coeftermV.jl")
 include("coefterm.jl")

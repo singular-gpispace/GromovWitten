@@ -23,6 +23,20 @@
     p=coeff(p,x,L) # compute the coefficients of degree x1^l1,...,xn^ln.
     return p
 end =#
+function replace(vector)
+    result_vector = [x == -1 ? 0 : (x == 0 ? -1 : x) for x in vector]
+    return result_vector
+end
+function count_zero(arr)
+    count_zeros = 0
+
+    for element in arr
+        if element == 0
+            count_zeros += 1
+        end
+    end
+    return count_zeros
+end
 @doc raw"""
    partition(k::Integer, n::Integer) 
 
@@ -95,8 +109,7 @@ function flip_signature(G::FeynmanGraph ,p::Vector{Int64},a::Vector{Int64}) #gra
             b[i] = ai
         end
     end
-
-return b
+    return b
 end
 function signature_and_multiplicities_order(G::FeynmanGraph, a::Vector{Int64},o::Vector)
     b=Vector{Tuple{Int64, Vector{Int64}}}()
@@ -123,32 +136,121 @@ julia> signature_and_multiplicities(G,a)
  (1, [-2, -1, -1, 1])
 ```
 """
-function signature_and_multiplicities( G::FeynmanGraph, a::Vector{Int64})
-    ee=Edge.(G.edge)
-    p=Vector{Int64}()
-    b=Vector{Tuple{Int64, Vector{Int64}}}()
-    l=zeros(Int,nv(G))
-    y=Vector{Vector{Int64}}()
-    for (ev,ai) in zip(ee,a)
-        if ai==0 && src(ev) != dst(ev)
-            l[src(ev)] =1
-            l[dst(ev)] =1
+function signature_and_multiplicities(G::FeynmanGraph, a::Vector{Int64})
+    ee = Edge.(G.edge)
+    p = Vector{Int64}()
+    b = Vector{Tuple{Int64, Vector{Int64}}}()
+    l = zeros(Int, nv(G))
+    y = Vector{Vector{Int64}}()
+    if count_zero(a)<=1
+        push!(b,(factorial( nv(G)) ,a))
+         return b
+    else
+         for (ev,ai) in zip(ee,a)
+            if ai==0 && src(ev) != dst(ev)
+                l[src(ev)] =1
+                l[dst(ev)] =1
+            end
         end
-    end
-    for (i,li) in enumerate(l)
-        if li==1
-            push!(p,i)
-        end
-    end 
-    p=collect(permutations(p))
+                #println(l)
 
-    for ga in p 
-        push!(y,flip_signature(G,ga,a)) 
+        for (i,li) in enumerate(l)
+            if li==1
+                push!(p,i)
+            end
+        end 
+        p=collect(permutations(p))
+
+        for ga in p 
+            fl=flip_signature(G,ga,a)
+            push!(y,fl)
+        end
+        dd=div(factorial( nv(G) ) , length( p ) )
+        py=countmap(y)
+        for (key, val) in py
+            push!(b, (dd*val,key ))
+        end
+        if length(b) == 1
+            return b
+        else
+            group = Vector{Tuple{Int64, Vector{Int64}}}()
+
+            for (n, values1) in b
+                mm = 2 * n
+                if (n, values1) in group || (mm, values1) in group
+                    continue
+                end
+
+                equiv = false
+
+                for (m, values2) in b
+                    if (m, values2) in group || (2 * m, values2) in group
+                        continue
+                    end
+
+                    if n == m && values2 == replace(values1)
+                        equiv = true
+                        break
+                    end
+                end
+
+                mn = 2 * n
+
+                if equiv
+                    push!(group, (mm, values1))
+                end
+            end
+
+            # Convert Set to Vector for consistency with the original return type
+            return group
+        end
     end
-    dd=div(factorial( nv(G) ) , length( p ) )
-    for (key, val) in countmap(y)
-        push!(b,( val*dd, key) )
-    end
-    return b 
 end
 
+
+function find_equal_pairs(ve::Vector{Tuple{Int64, Int64}})
+    equal_pairs = Dict{Tuple{Int, Int}, Vector{Int}}()
+    for (i, pair) in enumerate(ve)
+        if haskey(equal_pairs, pair)
+            push!(equal_pairs[pair], i)
+        else
+            equal_pairs[pair] = [i]
+        end
+    end
+    indices = [v for v in values(equal_pairs) if length(v) > 1]
+    return indices
+end
+function vector_to_monomial(F::FeynmanIntegral,v::Vector{Int64})
+    S=@polynomial_ring(QQ, x[1:nv(F.G)], q[1:ne(F.G)], z[1:nv(F.G)])
+    q=S[3]
+    v = 2 * v
+    vec=[]
+    for i in eachindex(v)
+        push!(vec,q[i]^v[i])
+    end
+    poly = prod(vec)
+    return poly
+end
+function generate_permutation(l::Vector{Int64}, indices::Vector{Vector{Int64}})
+    original_l = copy(l)
+    permuted_lists = Set{Vector{Int64}}()  # Use a Set to ensure uniqueness
+    group_permutations = []
+
+    for group_indices in indices
+        group_elements = l[group_indices]
+        push!(group_permutations, collect(permutations(group_elements)))
+    end
+
+    # Generate permutations for each group
+    for permuted_indices in Iterators.product(group_permutations...)
+        temp_l = copy(original_l)
+        for (i, group_indices) in enumerate(indices)
+            for (j, idx) in enumerate(group_indices)
+                temp_l[idx] = permuted_indices[i][j]
+            end
+        end
+        push!(permuted_lists, temp_l)
+    end
+
+    return collect(permuted_lists)
+end

@@ -306,7 +306,113 @@ julia> feynman_integral_degree(F,3,g)
 115//3*q[1]^6 + 1//4*q[1]^4*q[2]^2 + 1//4*q[1]^4*q[3]^2 + 1//4*q[1]^2*q[2]^4 + 1//2*q[1]^2*q[2]^2*q[3]^2 + 1//4*q[1]^2*q[3]^4 + 115//3*q[2]^6 + 1//4*q[2]^4*q[3]^2 + 1//4*q[2]^2*q[3]^4 + 115//3*q[3]^6
 ```
  """
- function feynman_integral_degree( F::FeynmanIntegral,d::Integer ;l=zeros(Int,nv(F.G)))
+ function feynman_integral_degree(F::FeynmanIntegral, d::Int64 ; l=zeros(Int, nv(F.G)) )
+    # ve==F.G.edge
+     indices = find_equal_pairs(F.G.edge)
+     if isempty(indices)
+         return feynman_integral_deg(F,d;l)
+     else
+         ee=Edge.(F.G.edge)
+ 
+         re = Vector{Vector{Any}}()
+         res = []
+         L = partition(length(ee), d)
+ 
+         while !isempty(L)
+             ll = popfirst!(L)
+ 
+             found = false
+ 
+             for sublist in re
+                 if ll in sublist
+                     found = true
+                     break
+                 end
+             end
+ 
+             if !found
+                 ge = generate_permutation(ll, indices)
+                 L = setdiff(L, ge)  # Remove the processed partition from L
+                 if length(ge) == 1
+                     kk= ge[1]
+                     push!(res, feynman_integral_branch_type(F, kk;l))
+                 else
+                     k=ge[1]
+                     f = feynman_integral_branch_type(F, k;l)
+                     if f != 0
+                         push!(res, f)
+                         c1 = collect(coefficients(f))[1]
+                         for i in eachindex(ge)[2:end]
+                             li = ge[i]
+                             r2 = c1 * vector_to_monomial(F,li)
+                             push!(res,  r2)
+ 
+                         end
+                     end
+                 end
+             end
+         end
+         if isempty(res)
+             return 0
+         else
+             return sum(res)
+         end
+     end
+ end
+ function feynman_integral_degree( F::FeynmanIntegral,d::Integer,g::Vector{Int} ;aa=1,l=zeros(Int,nv(F.G)) )
+    # ve==F.G.edge
+     indices = find_equal_pairs(F.G.edge)
+     if isempty(indices)
+         return feynman_integral_deg(F,d,g;aa,l)
+     else
+         ee=Edge.(F.G.edge)
+ 
+         re = Vector{Vector{Any}}()
+         res = []
+         L = partition(length(ee), d)
+ 
+         while !isempty(L)
+             ll = popfirst!(L)
+ 
+             found = false
+ 
+             for sublist in re
+                 if ll in sublist
+                     found = true
+                     break
+                 end
+             end
+ 
+             if !found
+                 ge = generate_permutation(ll, indices)
+                 L = setdiff(L, ge)  # Remove the processed partition from L
+                 if length(ge) == 1
+                     kk= ge[1]
+                     push!(res, feynman_integral_branch_type(F, kk,g;aa,l))
+                 else
+                     k=ge[1]
+                     f = feynman_integral_branch_type(F, k,g;aa,l)
+                     if f != 0
+                         push!(res, f)
+                         c1 = collect(coefficients(f))[1]
+                         for i in eachindex(ge)[2:end]
+                             li = ge[i]
+                             r2 = c1 * vector_to_monomial(F,li)
+                             push!(res,  r2)
+ 
+                         end
+                     end
+                 end
+             end
+         end
+         if isempty(res)
+             return 0
+         else
+             return sum(res)
+         end
+     end
+ end
+ function feynman_integral_deg( F::FeynmanIntegral,d::Integer ;l=zeros(Int,nv(F.G)))
     ee=Edge.(F.G.edge)
     a=partition(length(ee),d) 
     sum=0
@@ -315,7 +421,7 @@ julia> feynman_integral_degree(F,3,g)
     end
     return sum
 end 
-function feynman_integral_degree( F::FeynmanIntegral,d::Integer,g ;aa=1,l=zeros(Int,nv(F.G)))
+function feynman_integral_deg( F::FeynmanIntegral,d::Integer,g ;aa=1,l=zeros(Int,nv(F.G)))
     ee=Edge.(F.G.edge)
     a=partition(length(ee),d) 
     sum=0
@@ -492,4 +598,58 @@ julia> substitute(f)
         r[s:end] .= q[1]
     end
     return evaluate(p,r)
+end
+
+function feynman_integral_degree(F::FeynmanIntegral, d::Int64 ; l=zeros(Int, nv(F.G)) )
+   # ve==F.G.edge
+    indices = find_equal_pairs(F.G.edge)
+    if isempty(indices)
+        return feynman_integral_deg(F,d;l)
+    else
+        ee=Edge.(F.G.edge)
+
+        re = Vector{Vector{Any}}()
+        res = []
+        L = partition(length(ee), d)
+
+        while !isempty(L)
+            ll = popfirst!(L)
+
+            found = false
+
+            for sublist in re
+                if ll in sublist
+                    found = true
+                    break
+                end
+            end
+
+            if !found
+                ge = generate_permutation(ll, indices)
+                L = setdiff(L, ge)  # Remove the processed partition from L
+                if length(ge) == 1
+                    kk= ge[1]
+                    push!(res, feynman_integral_branch_type(F, kk;l))
+                else
+                    k=ge[1]
+                    f = feynman_integral_branch_type(F, k;l)
+                    if f != 0
+                        push!(res, f)
+                        c1 = collect(coefficients(f))[1]
+                        for i in eachindex(ge)[2:end]
+                            li = ge[i]
+                            r2 = c1 * vector_to_monomial(F,li)
+                            push!(res,  r2)
+
+                        end
+                    end
+                end
+            end
+        end
+        if isempty(res)
+            return 0
+        else
+            return sum(res)
+        end
+    end
 end
