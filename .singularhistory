@@ -1,0 +1,6 @@
+apt-get install python3-pip
+;
+exit()
+;
+quit()
+quit;
