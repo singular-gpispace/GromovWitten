@@ -56,10 +56,19 @@ julia> R,q=@polynomial_ring(QQ,q)
 (Multivariate polynomial ring in 1 variable over QQ, q)
 ```
 
- we compute  quasimodular form of Iq :
+
+
+
 
 ```jldoctest quasi
-julia> quasimodular_form(q,Iq,12)
+julia> Iqq=886656*q^12 + 182272*q^10 + 25344*q^8 + 1792*q^6 + 32*q^4
+886656*q^12 + 182272*q^10 + 25344*q^8 + 1792*q^6 + 32*q^4
+```
+
+we compute  quasimodular form of Iq :
+
+```jldoctest quasi
+julia> quasimodular_form(Iqq,12)
 (1//93312, -3*E2^6 + 6*E2^4*E4 + 4*E2^3*E6 - 3*E2^2*E4^2 - 12*E2*E4*E6 + 4*E4^3 + 4*E6^2)
 ```
 
