@@ -269,12 +269,7 @@ function feynman_integral_degree_order( F::FeynmanIntegral,o::Vector{Int64},d::I
  
              found = false
  
-             for sublist in re
-                 if ll in sublist
-                     found = true
-                     break
-                 end
-             end
+            
  
              if !found
                  ge = generate_permutation(ll, indices)
@@ -322,12 +317,7 @@ function feynman_integral_degree_order( F::FeynmanIntegral,o::Vector{Int64},d::I
  
              found = false
  
-             for sublist in re
-                 if ll in sublist
-                     found = true
-                     break
-                 end
-             end
+            
  
              if !found
                  ge = generate_permutation(ll, indices)
@@ -428,14 +418,6 @@ julia> feynman_integral_degree(F,3,g)
              ll = popfirst!(L)
  
              found = false
- 
-             for sublist in re
-                 if ll in sublist
-                     found = true
-                     break
-                 end
-             end
- 
              if !found
                  ge = generate_permutation(ll, indices)
                  L = setdiff(L, ge)  # Remove the processed partition from L
@@ -481,14 +463,6 @@ julia> feynman_integral_degree(F,3,g)
              ll = popfirst!(L)
  
              found = false
- 
-             for sublist in re
-                 if ll in sublist
-                     found = true
-                     break
-                 end
-             end
- 
              if !found
                  ge = generate_permutation(ll, indices)
                  L = setdiff(L, ge)  # Remove the processed partition from L
