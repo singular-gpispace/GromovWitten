@@ -10,7 +10,7 @@ makedocs(;
     clean = true,
     checkdocs = :none,
     doctest = true,
-    strict = true,
+    #strict = true,
     sitename="GromovWitten.jl",
     expandfirst = ["Overview.md"],
     format=Documenter.HTML(;

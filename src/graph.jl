@@ -10,7 +10,7 @@ end
     nv(G::FeynmanGraph) = nv(DiGraph(Edge.(G.edge)))
     ne(G::FeynmanGraph) = length(Edge.(G.edge))
 
-function polynomial_ring(G::FeynmanGraph, x::String, q::String, z::String)
+#=function polynomial_ring(G::FeynmanGraph, x::String, q::String, z::String)
     ee=Edge.(G.edge)
     if length(ee)==0
         throw(DomainError(G,"G must be non empty graph"))
@@ -25,7 +25,7 @@ function polynomial_ring(G::FeynmanGraph, x::String, q::String)
     else
         return @polynomial_ring(QQ, x[1:nv(G)], q[1:ne(G)])
     end
-end
+end=#
 const FeynmanRing{T} =Tuple{Ring,Vararg{Vector{T}}} where T <:QQMPolyRingElem
  
 struct FeynmanIntegral
