@@ -43,4 +43,10 @@ struct FeynmanIntegral
         S=@polynomial_ring(QQ, x[1:nv(G)], q[1:ne(G)], z[1:nv(G)])
         return new(G, Dict{Symbol, Dict{Vector{Int64}, QQMPolyRingElem}}(), S)
     end
+    function FeynmanIntegral(ve::Vector{Tuple{Int, Int}})
+        G = FeynmanGraph(ve)
+        F = FeynmanIntegral(G)
+        return  F
+    end
 end
+ edge(F::FeynmanIntegral) = Edge.(F.G.edge)
