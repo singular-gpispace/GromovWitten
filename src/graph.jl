@@ -9,7 +9,9 @@ end
  # edge(G::FeynmanGraph) = Edge.(G.edge)
     nv(G::FeynmanGraph) = nv(DiGraph(Edge.(G.edge)))
     ne(G::FeynmanGraph) = length(Edge.(G.edge))
-
+function feynman_graph(edges::Vector{Tuple{Int, Int}})
+    return FeynmanGraph(edges)
+end
 #=function polynomial_ring(G::FeynmanGraph, x::String, q::String, z::String)
     ee=Edge.(G.edge)
     if length(ee)==0
