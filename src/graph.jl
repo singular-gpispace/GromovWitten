@@ -23,7 +23,7 @@ function polynomial_ring(G::FeynmanGraph, x::String, q::String)
     if length(ee)==0
         throw(DomainError(G,"G must be non empty graph"))
     else
-        return @polynomial_ring(QQ, x[1:nv(G)], q[1:ne(G)])
+        return polynomial_ring(QQ, :x =>1:nv(G), :q =>1:ne(G), :z => 1:nv(G))
     end
 end=#
 const FeynmanRing{T} =Tuple{Ring,Vararg{Vector{T}}} where T <:QQMPolyRingElem
@@ -40,7 +40,7 @@ struct FeynmanIntegral
     
     # Inner constructor with default values for S
     function FeynmanIntegral(G::FeynmanGraph)
-        S=@polynomial_ring(QQ, x[1:nv(G)], q[1:ne(G)], z[1:nv(G)])
+        S=polynomial_ring(QQ, :x =>1:nv(G), :q =>1:ne(G), :z => 1:nv(G))
         return new(G, Dict{Symbol, Dict{Vector{Int64}, QQMPolyRingElem}}(), S)
     end
     function FeynmanIntegral(ve::Vector{Tuple{Int, Int}})

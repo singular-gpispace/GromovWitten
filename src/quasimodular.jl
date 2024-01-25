@@ -108,7 +108,7 @@ function eisenstein_series( num_terms::Int,k::Int)
     if k % 2 != 0
         error("input k must be even in eisenstein_series(q, num_terms,k)")
     end
-        S, q = @polynomial_ring(QQ,q)
+        S, q = polynomial_ring(QQ,:q)
         return  e2 = 1 - ((((2*k)// bernoulli(k))))* sum(sum_of_divisor_powers(d, k-1) * q^(2*d) for d in 1:num_terms)
 end
 

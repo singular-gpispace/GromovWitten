@@ -221,7 +221,7 @@ function find_equal_pairs(ve::Vector{Tuple{Int64, Int64}})
     return indices
 end
 function vector_to_monomial(F::FeynmanIntegral,v::Vector{Int64})
-    S=@polynomial_ring(QQ, x[1:nv(F.G)], q[1:ne(F.G)], z[1:nv(F.G)])
+    S=polynomial_ring(QQ, :x =>1:nv(F.G), :q =>1:ne(F.G), :z => 1:nv(F.G))
     q=S[3]
     v = 2 * v
     vec=[]

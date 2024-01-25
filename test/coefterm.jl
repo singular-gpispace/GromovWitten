@@ -28,7 +28,7 @@
     @test feynman_integral_degree(F,2,g)==5//6*q[1]^4 + 5//6*q[1]^2*q[2]^2 + 5//6*q[1]^2*q[3]^2 + 5//6*q[2]^4 + 5//6*q[2]^2*q[3]^2 + 5//6*q[3]^4
     @test feynman_integral_degree(F,1,g)==0
     @test feynman_integral_degree(F,1)==0
-    S=@polynomial_ring(QQ, x[1:nv(G)], q[1:ne(G)])
+    S=polynomial_ring(QQ, :x =>1:nv(G), :q =>1:ne(G), :z => 1:nv(G))
     FF=FeynmanIntegral(G,S)
     Fv=FeynmanIntegral(ve)
 end
