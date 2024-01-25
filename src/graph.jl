@@ -9,6 +9,7 @@ end
  # edge(G::FeynmanGraph) = Edge.(G.edge)
     nv(G::FeynmanGraph) = nv(DiGraph(Edge.(G.edge)))
     ne(G::FeynmanGraph) = length(Edge.(G.edge))
+
 function feynman_graph(edges::Vector{Tuple{Int, Int}})
     return FeynmanGraph(edges)
 end
@@ -50,5 +51,8 @@ struct FeynmanIntegral
         F = FeynmanIntegral(G)
         return  F
     end
+end
+function feynman_integral(G::FeynmanGraph)
+    return FeynmanIntegral(G)
 end
  edge(F::FeynmanIntegral) = Edge.(F.G.edge)
