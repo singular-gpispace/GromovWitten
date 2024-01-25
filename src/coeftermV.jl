@@ -160,7 +160,7 @@ julia> filter_term(p,q[1],1)
 q[1]
 ```
  """
- function filter_term(pols::Union{QQMPolyRingElem, Int64}, variables::Union{Vector{QQMPolyRingElem}, QQMPolyRingElem}, power::Union{Vector{Int64}, Int64})
+ function filter_term(pols::Union{QQMPolyRingElem,QQPolyRingElem, Int64}, variables::Union{Vector{QQPolyRingElem},Vector{QQMPolyRingElem}, QQMPolyRingElem,QQPolyRingElem}, power::Union{Vector{Int64}, Int64})
     if typeof(variables) <: QQMPolyRingElem
         T = parent(variables)
         pols = T(pols)

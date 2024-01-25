@@ -1,7 +1,7 @@
 @testset "quasimod.jl" begin
     import Nemo: QQFieldElem
-    S,E2,E4,E6=@polynomial_ring(QQ,E2,E4,E6)
-    R, q = @polynomial_ring(QQ,q)
+    S,(E2,E4,E6)=polynomial_ring(QQ,["E2","E4","E6"])
+    R, q =  polynomial_ring(QQ,:q)
     ve=[(1, 3), (1,2),(1, 2), (2, 4) ,(3, 4),(3,4)]
     G=FeynmanGraph(ve)
     F=FeynmanIntegral(G)
@@ -136,7 +136,7 @@
     end
     Iq=  886656*q^12 + 182272*q^10 + 25344*q^8 + 1792*q^6 + 32*q^4
 
-    @testset "quasi_matrix case Vector{QQMPolyRingElem}" begin
+    @testset "quasi_matrix case Vector{QQPolyRingElem}" begin
         weightmax=12
 
         expected_result = (QQFieldElem(1//93312),QQFieldElem[4

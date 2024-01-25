@@ -20,6 +20,6 @@ include("coeftermV.jl")
 include("coefterm.jl")
 include("feynmanIntegral.jl")
 include("propagator.jl")
-#include("quasimodular.jl")
+include("quasimodular.jl")
 include("hashtable.jl")
 end
