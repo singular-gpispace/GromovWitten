@@ -1,5 +1,5 @@
 
-#=function filter_term(pols::Union{QQPolyRingElem, Int64}, variables::Vector{QQPolyRingElem}, power::Vector{Int64})
+#=function filter_term(pols::Union{QQMPolyRingElem, Int64}, variables::Vector{QQMPolyRingElem}, power::Vector{Int64})
     T = parent(variables[1])
     if typeof(pols) <: Integer
         pols = T(pols)
@@ -22,24 +22,24 @@
 end
 =#
 @doc raw"""
-    filter_vector(polyvector::Vector{QQPolyRingElem}, variables::Union{Vector{QQPolyRingElem}, QQPolyRingElem}, power::Union{Vector{Int64}, Int64})
+    filter_vector(polyvector::Vector{QQMPolyRingElem}, variables::Union{Vector{QQMPolyRingElem}, QQMPolyRingElem}, power::Union{Vector{Int64}, Int64})
 
 returns the number filter_term of function in a vector of polynomial.
 # Example
 ```julia
-julia> R,q= polynomial_ring(QQ,:q)
+julia> R,q=polynomial_ring(QQ,["q"])
 
 julia> v=[-122976*q^6 - 16632*q^4 - 504*q^2 + 1, -645120*q^12 - 691200*q^10 - 339840*q^8 - 62496*q^6 - 3672*q^4 + 216*q^2 + 1, -884736*q^18 - 1990656*q^16 - 2156544*q^14 - 1340928*q^12 - 497664*q^10 - 95040*q^8 - 3744*q^6 + 1512*q^4 - 72*q^2 + 1]
 
 julia> filter_vector(v,q,6)
-3-element Vector{QQPolyRingElem}:
+3-element Vector{QQMPolyRingElem}:
  -122976*q^6 - 16632*q^4 - 504*q^2 + 1
  -62496*q^6 - 3672*q^4 + 216*q^2 + 1
  -3744*q^6 + 1512*q^4 - 72*q^2 + 1
 ```
 """
-function filter_vector(polyvector::Vector{QQPolyRingElem}, variables::Union{Vector{QQPolyRingElem}, QQPolyRingElem}, power::Union{Vector{Int64}, Int64})
-    result = Vector{QQPolyRingElem}()
+function filter_vector(polyvector::Vector{QQMPolyRingElem}, variables::Union{Vector{QQMPolyRingElem}, QQMPolyRingElem}, power::Union{Vector{Int64}, Int64})
+    result = Vector{QQMPolyRingElem}()
     for pols in polyvector
         push!(result, filter_term(pols, variables, power))
     end
@@ -84,7 +84,7 @@ julia> eisenstein_series(5,4) #E4
 ```
 
 
-    eisenstein_series( num_terms::Int,k::Int,q::Union{QQPolyRingElem, Vector{QQPolyRingElem}})      
+    eisenstein_series( num_terms::Int,k::Int,q::Union{QQMPolyRingElem, Vector{QQMPolyRingElem}})      
 
 
 ```julia
@@ -94,26 +94,26 @@ julia> eisenstein_series(5,4,q) #E4
 30240*q^10 + 17520*q^8 + 6720*q^6 + 2160*q^4 + 240*q^2 + 1
 ```
 """
-function eisenstein_series( num_terms::Int,k::Int,q::Union{QQPolyRingElem, Vector{QQPolyRingElem}})                  
+function eisenstein_series( num_terms::Int,k::Int,q::Union{QQMPolyRingElem, Vector{QQMPolyRingElem}})                  
     if k % 2 != 0
         error("input k must be even in eisenstein_series(q, num_terms,k)")
     end
-    if typeof(q) == Vector{QQPolyRingElem}
+    if typeof(q) == Vector{QQMPolyRingElem}
         return  e2 = 1 - ((((2*k)// bernoulli(k))))* sum(sum_of_divisor_powers(d, k-1) * q[1]^(2*d) for d in 1:num_terms)
     else
-        return  e2 = 1 - ((((2*k)// bernoulli(k))))* sum(sum_of_divisor_powers(d, k-1) * q^(2*d) for d in 1:num_terms)
+        return  e2 = 1 - ((((2*k)// bernoulli(k))))* sum(sum_of_divisor_powers(d, k-1) * q[1]^(2*d) for d in 1:num_terms)
     end
 end
 function eisenstein_series( num_terms::Int,k::Int)                  
     if k % 2 != 0
         error("input k must be even in eisenstein_series(q, num_terms,k)")
     end
-        S, q = polynomial_ring(QQ,:q)
-        return  e2 = 1 - ((((2*k)// bernoulli(k))))* sum(sum_of_divisor_powers(d, k-1) * q^(2*d) for d in 1:num_terms)
+        S,q=polynomial_ring(QQ,["q"])
+        return  e2 = 1 - ((((2*k)// bernoulli(k))))* sum(sum_of_divisor_powers(d, k-1) * q[1]^(2*d) for d in 1:num_terms)
 end
 
 function express_as_powers( max_degree::Int,weightmax::Int64)
-    result = Vector{QQPolyRingElem}()
+    result = Vector{QQMPolyRingElem}()
     nb=Int64(max_degree)
     E6=eisenstein_series( nb,6)
     E4=eisenstein_series( nb,4)
@@ -157,7 +157,7 @@ function express_as_eisenstein_series(n::Int)
     return expressions
 end
 @doc raw"""
-     polynomial_to_matrix(vect::Vector{QQPolyRingElem})
+     polynomial_to_matrix(vect::Vector{QQMPolyRingElem})
 
 returns a matrix fromed by the coefficients of  a given vector of polynomials with same degree. The returned matrix is of type QQMatrix.
 
@@ -174,12 +174,12 @@ julia> polynomial_to_matrix(vp)
 [-122976   -62496   -3744]
 ```
 """
-function polynomial_to_matrix(vect::Vector{QQPolyRingElem})
+function polynomial_to_matrix(vect::Vector{QQMPolyRingElem})
     A = matrix(QQ, hcat([collect(coefficients_of_univariate(poly)) for poly in vect]...))
     return A
 end
 @doc raw"""
-     polynomial_to_matrix(vect::Vector{QQPolyRingElem})
+     polynomial_to_matrix(vect::Vector{QQMPolyRingElem})
 
 returns a matrix from a given   polynomial. The returned matrix is of type QQMatrix.
 
@@ -198,7 +198,7 @@ julia> matrix_of_integral(Iq)
 [25344]
 ```
 """
-function matrix_of_integral(Iq::QQPolyRingElem) 
+function matrix_of_integral(Iq::QQMPolyRingElem) 
     # Obtain the coefficients of Iq
     Q = coefficients_of_univariate(Iq)
         
@@ -226,7 +226,7 @@ function solve_polynomial_system(A::QQMatrix, Q::QQMatrix)
     end
 end
 #=@doc raw"""
-     quasi_matrix(q::Union{QQPolyRingElem, Vector{QQPolyRingElem}},Iq::QQPolyRingElem, max_degree::Int64)
+     quasi_matrix(q::Union{QQMPolyRingElem, Vector{QQMPolyRingElem}},Iq::QQMPolyRingElem, max_degree::Int64)
 
 returns solution of the system $Ax=b$, where A is a matrix from homogeneous Eisenstein series $E_2, E_4, E_6$ and $b$
 from the Feynman Integral $I(q)$
@@ -241,7 +241,7 @@ julia> quasi_matrix(q,Iq,12)
 (1//93312, QQFieldElem[4; 4; -12; -3; 4; 6; -3])
 ```
 """=#
-function quasi_matrix(Iq::QQPolyRingElem, weightmax::Int64)
+function quasi_matrix(Iq::QQMPolyRingElem, weightmax::Int64)
     q=vars(Iq)
     max_degree=total_degree(Iq)
     Evector=filter_vector(express_as_powers(max_degree,weightmax),q,max_degree)
@@ -257,7 +257,7 @@ This leads to
 $$I(q)=\sum_{i,j,k} b_{i,j,k} E_2^i E_4^j E_6^k$$
 
 ```julia
-julia> R,q= polynomial_ring(QQ,:q)
+julia> R,q=@polynomial_ring(QQ,q)
 
 julia> Iq=886656*q^12 + 182272*q^10 + 25344*q^8 + 1792*q^6 +32q^4
 ```

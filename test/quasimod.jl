@@ -1,8 +1,8 @@
 @testset "quasimod.jl" begin
     import Nemo: QQFieldElem
     S,(E2,E4,E6)=polynomial_ring(QQ,["E2","E4","E6"])
-    R, q =  polynomial_ring(QQ,:q)
-    ve=[(1, 3), (1,2),(1, 2), (2, 4) ,(3, 4),(3,4)]
+    R,q=polynomial_ring(QQ,["q"])
+        ve=[(1, 3), (1,2),(1, 2), (2, 4) ,(3, 4),(3,4)]
     G=FeynmanGraph(ve)
     F=FeynmanIntegral(G)
     @testset "express_as_eisenstein_series test" begin
@@ -27,13 +27,13 @@
         @test_throws ErrorException eisenstein_series(6,3)
     end  
 
-    @test eisenstein_series(6,2)==-288*q^12 - 144*q^10 - 168*q^8 - 96*q^6 - 72*q^4 - 24*q^2 + 1
+    @test eisenstein_series(6,2)==-288*q[1]^12 - 144*q[1]^10 - 168*q[1]^8 - 96*q[1]^6 - 72*q[1]^4 - 24*q[1]^2 + 1
     
 
     @testset "express_as_powers test" begin
         expected_result = [
-            60480*q^12 + 30240*q^10 + 17520*q^8 + 6720*q^6 + 2160*q^4 + 240*q^2 + 1
-            82944*q^24 + 82944*q^22 + 117504*q^20 + 103680*q^18 + 97344*q^16 + 66816*q^14 + 39744*q^12 + 21600*q^10 + 9456*q^8 + 3264*q^6 + 432*q^4 - 48*q^2 + 1      
+            60480*q[1]^12 + 30240*q[1]^10 + 17520*q[1]^8 + 6720*q[1]^6 + 2160*q[1]^4 + 240*q[1]^2 + 1
+            82944*q[1]^24 + 82944*q[1]^22 + 117504*q[1]^20 + 103680*q[1]^18 + 97344*q[1]^16 + 66816*q[1]^14 + 39744*q[1]^12 + 21600*q[1]^10 + 9456*q[1]^8 + 3264*q[1]^6 + 432*q[1]^4 - 48*q[1]^2 + 1      
         ]
         @test  express_as_powers(6,4) == expected_result
     end
@@ -41,8 +41,8 @@
      ep=express_as_powers(6,4)
      @testset "filter_vector test" begin
         expected_result = [
-            6720*q^6 + 2160*q^4 + 240*q^2 + 1
-            3264*q^6 + 432*q^4 - 48*q^2 + 1    
+            6720*q[1]^6 + 2160*q[1]^4 + 240*q[1]^2 + 1
+            3264*q[1]^6 + 432*q[1]^4 - 48*q[1]^2 + 1    
         ]
         @test filter_vector(ep,q,6)==expected_result
     end
@@ -115,7 +115,7 @@
             @test result[2][i] == expected_result[2][i]
         end
     end
-    Iq=  886656*q^12 + 182272*q^10 + 25344*q^8 + 1792*q^6 + 32*q^4
+    Iq=  886656*q[1]^12 + 182272*q[1]^10 + 25344*q[1]^8 + 1792*q[1]^6 + 32*q[1]^4
 
     @testset "quasi_matrix case QQFieldElem " begin
 
@@ -134,7 +134,7 @@
             @test result[2][i] == expected_result[2][i]
         end
     end
-    Iq=  886656*q^12 + 182272*q^10 + 25344*q^8 + 1792*q^6 + 32*q^4
+    Iq=  886656*q[1]^12 + 182272*q[1]^10 + 25344*q[1]^8 + 1792*q[1]^6 + 32*q[1]^4
 
     @testset "quasi_matrix case Vector{QQPolyRingElem}" begin
         weightmax=12
@@ -154,7 +154,7 @@
             @test result[2][i] == expected_result[2][i]
         end
     end
-    Jq= 843264*q^12 + 165888*q^10 + 20736*q^8 + 1152*q^6
+    Jq= 843264*q[1]^12 + 165888*q[1]^10 + 20736*q[1]^8 + 1152*q[1]^6
    
     @testset "quasimodular_form" begin
         weightmax=12

@@ -52,16 +52,12 @@ julia> Iq=substitute(feynman_integral_degree_sum(F,6))
 To express the Feynman Integral Iq in term of Eisenstein series $E_2, E_4, E_6$, we define a polynomial ring in q
 
 ```jldoctest quasi
-julia> R,q=@polynomial_ring(QQ,q)
-(Multivariate polynomial ring in 1 variable over QQ, q)
+julia> R,q=polynomial_ring(QQ,["q"])
+(Multivariate polynomial ring in 1 variable over QQ, Nemo.QQMPolyRingElem[q])
 ```
 
-
-
-
-
 ```jldoctest quasi
-julia> Iqq=886656*q^12 + 182272*q^10 + 25344*q^8 + 1792*q^6 + 32*q^4
+julia> Iqq=886656*q[1]^12 + 182272*q[1]^10 + 25344*q[1]^8 + 1792*q[1]^6 + 32*q[1]^4
 886656*q^12 + 182272*q^10 + 25344*q^8 + 1792*q^6 + 32*q^4
 ```
 
@@ -83,14 +79,14 @@ We want to find the quasimodular form of the sum of Feynman Integral  $Iq$ up to
 We define first a polynomial ring in one variable $q$.
 
 ```jldoctest form
-julia> R,q=@polynomial_ring(QQ,q)
-(Multivariate polynomial ring in 1 variable over QQ, q)
+julia> R,q=polynomial_ring(QQ,["q"])
+(Multivariate polynomial ring in 1 variable over QQ, Nemo.QQMPolyRingElem[q])
 ```
 
 The sum of Feynman Integral up to degree 6 is:
 
 ```jldoctest form
-julia> Iq= 843264*q^12 + 165888*q^10 + 20736*q^8 + 1152*q^6 
+julia> Iq= 843264*q[1]^12 + 165888*q[1]^10 + 20736*q[1]^8 + 1152*q[1]^6 
 843264*q^12 + 165888*q^10 + 20736*q^8 + 1152*q^6
 ```
 
