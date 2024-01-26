@@ -57,7 +57,7 @@ graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
 ```
 
 ```julia
-julia> F=FeynmanIntegral(G)
+julia> F=feynman_integral(G)
 ```
 
 ```julia
@@ -103,7 +103,7 @@ graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
 ```
 
 ```julia
-julia> F=FeynmanIntegral(G)
+julia> F=feynman_integral(G)
 ```
 we cache the Feynman Integral.
 ```julia
