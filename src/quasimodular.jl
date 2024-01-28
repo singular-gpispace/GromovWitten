@@ -29,13 +29,13 @@ returns the number filter_term of function in a vector of polynomial.
 ```julia
 julia> R,q=polynomial_ring(QQ,["q"])
 
-julia> v=[-122976*q^6 - 16632*q^4 - 504*q^2 + 1, -645120*q^12 - 691200*q^10 - 339840*q^8 - 62496*q^6 - 3672*q^4 + 216*q^2 + 1, -884736*q^18 - 1990656*q^16 - 2156544*q^14 - 1340928*q^12 - 497664*q^10 - 95040*q^8 - 3744*q^6 + 1512*q^4 - 72*q^2 + 1]
+julia> v=[-122976*q[1]^6 - 16632*q[1]^4 - 504*q[1]^2 + 1, -645120*q[1]^12 - 691200*q[1]^10 - 339840*q[1]^8 - 62496*q[1]^6 - 3672*q[1]^4 + 216*q[1]^2 + 1, -884736*q[1]^18 - 1990656*q[1]^16 - 2156544*q[1]^14 - 1340928*q[1]^12 - 497664*q[1]^10 - 95040*q[1]^8 - 3744*q[1]^6 + 1512*q[1]^4 - 72*q[1]^2 + 1]
 
 julia> filter_vector(v,q,6)
 3-element Vector{QQMPolyRingElem}:
- -122976*q^6 - 16632*q^4 - 504*q^2 + 1
- -62496*q^6 - 3672*q^4 + 216*q^2 + 1
- -3744*q^6 + 1512*q^4 - 72*q^2 + 1
+ -122976*q[1]^6 - 16632*q[1]^4 - 504*q[1]^2 + 1
+ -62496*q[1]^6 - 3672*q[1]^4 + 216*q[1]^2 + 1
+ -3744*q[1]^6 + 1512*q[1]^4 - 72*q[1]^2 + 1
 ```
 """
 function filter_vector(polyvector::Vector{QQMPolyRingElem}, variables::Union{Vector{QQMPolyRingElem}, QQMPolyRingElem}, power::Union{Vector{Int64}, Int64})
@@ -74,13 +74,13 @@ end
                  
 
 Return the expansion of the  weight  Eisenstein series k with fixed order.
-For a fixed order $m$, we compute $$E_k = 1 - \frac{2 k}{ B_k}  \sum_{d=1}^{m} \sigma_{k-1}(d)  q^{2 d}$$
+For a fixed order $m$, we compute $$E_k = 1 - \frac{2 k}{ B_k}  \sum_{d=1}^{m} \sigma_{k-1}(d)  q[1]^{2 d}$$
 ```julia
 julia> eisenstein_series(5,2)  #E2
--144*q^10 - 168*q^8 - 96*q^6 - 72*q^4 - 24*q^2 + 1
+-144*q[1]^10 - 168*q[1]^8 - 96*q[1]^6 - 72*q[1]^4 - 24*q[1]^2 + 1
 
 julia> eisenstein_series(5,4) #E4
-30240*q^10 + 17520*q^8 + 6720*q^6 + 2160*q^4 + 240*q^2 + 1
+30240*q[1]^10 + 17520*q[1]^8 + 6720*q[1]^6 + 2160*q[1]^4 + 240*q[1]^2 + 1
 ```
 
 
@@ -89,9 +89,9 @@ julia> eisenstein_series(5,4) #E4
 
 ```julia
 julia> eisenstein_series(5,2,q)  #E2
--144*q^10 - 168*q^8 - 96*q^6 - 72*q^4 - 24*q^2 + 1
+-144*q[1]^10 - 168*q[1]^8 - 96*q[1]^6 - 72*q[1]^4 - 24*q[1]^2 + 1
 julia> eisenstein_series(5,4,q) #E4
-30240*q^10 + 17520*q^8 + 6720*q^6 + 2160*q^4 + 240*q^2 + 1
+30240*q[1]^10 + 17520*q[1]^8 + 6720*q[1]^6 + 2160*q[1]^4 + 240*q[1]^2 + 1
 ```
 """
 function eisenstein_series( num_terms::Int,k::Int,q::Union{QQMPolyRingElem, Vector{QQMPolyRingElem}})                  
@@ -162,7 +162,7 @@ end
 returns a matrix fromed by the coefficients of  a given vector of polynomials with same degree. The returned matrix is of type QQMatrix.
 
 ```julia
-julia> vp=[ -122976*q^6 - 16632*q^4 - 504*q^2 + 1, -62496*q^6 - 3672*q^4 + 216*q^2 + 1,-3744*q^6 + 1512*q^4 - 72*q^2 + 1]
+julia> vp=[ -122976*q[1]^6 - 16632*q[1]^4 - 504*q[1]^2 + 1, -62496*q[1]^6 - 3672*q[1]^4 + 216*q[1]^2 + 1,-3744*q[1]^6 + 1512*q[1]^4 - 72*q[1]^2 + 1]
 
 julia> polynomial_to_matrix(vp)
 [      1        1       1]
@@ -184,7 +184,7 @@ end
 returns a matrix from a given   polynomial. The returned matrix is of type QQMatrix.
 
 ```julia
-julia> Iq=25344*q^8 + 1792*q^6 +32q^4
+julia> Iq=25344*q[1]^8 + 1792*q[1]^6 +32q[1]^4
 
 julia> matrix_of_integral(Iq)
 [    0]
@@ -231,11 +231,11 @@ end
 returns solution of the system $Ax=b$, where A is a matrix from homogeneous Eisenstein series $E_2, E_4, E_6$ and $b$
 from the Feynman Integral $I(q)$
 The solution is of the form (factor, coefficients) where coefficients is a vector of rationals numbers.
-Given a Feynman Integral $$I(q)=\sum_{n=1}^{d} a_i q^{d}$$, we compute the coefficients $b_{i,j,k}$ such that 
+Given a Feynman Integral $$I(q)=\sum_{n=1}^{d} a_i q[1]^{d}$$, we compute the coefficients $b_{i,j,k}$ such that 
 $$I(q)=\sum_{i,j,k} b_{i,j,k} E_2^i E_4^j E_6^k$$
 
 ```julia
-julia> Iq=886656*q^12 + 182272*q^10 + 25344*q^8 + 1792*q^6 +32q^4
+julia> Iq=886656*q[1]^12 + 182272*q[1]^10 + 25344*q[1]^8 + 1792*q[1]^6 +32q[1]^4
 
 julia> quasi_matrix(q,Iq,12)
 (1//93312, QQFieldElem[4; 4; -12; -3; 4; 6; -3])
@@ -257,9 +257,9 @@ This leads to
 $$I(q)=\sum_{i,j,k} b_{i,j,k} E_2^i E_4^j E_6^k$$
 
 ```julia
-julia> R,q=@polynomial_ring(QQ,q)
+julia> R,q=polynomial_ring(QQ,["q"])
 
-julia> Iq=886656*q^12 + 182272*q^10 + 25344*q^8 + 1792*q^6 +32q^4
+julia> Iq=886656*q[1]^12 + 182272*q[1]^10 + 25344*q[1]^8 + 1792*q[1]^6 +32q[1]^4
 ```
 We define the polynomial ring in E2,E4,E6.
 
