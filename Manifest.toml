@@ -11,9 +11,9 @@ version = "0.0.1"
 
 [[deps.AbstractAlgebra]]
 deps = ["InteractiveUtils", "LinearAlgebra", "MacroTools", "Preferences", "Random", "RandomExtensions", "SparseArrays", "Test"]
-git-tree-sha1 = "208722b1b4ddc970df3c357c37ccf9acd6b19e17"
+git-tree-sha1 = "5d91e4568351d9cc8d021fa81c0f6b7193b12baf"
 uuid = "c3fe647b-3220-5bb0-a1ea-a7954cac585d"
-version = "0.36.6"
+version = "0.37.1"
 
 [[deps.AbstractTrees]]
 git-tree-sha1 = "faa260e4cb5aba097a73fab382dd4b5819d8ec8c"
@@ -277,9 +277,9 @@ version = "2022.10.11"
 
 [[deps.Nemo]]
 deps = ["AbstractAlgebra", "Antic_jll", "Arb_jll", "Calcium_jll", "FLINT_jll", "Libdl", "LinearAlgebra", "Pkg", "Random", "RandomExtensions", "SHA"]
-git-tree-sha1 = "941541c4e8a9b7c6583b882a79841c3556f85ddf"
+git-tree-sha1 = "6e1eaba70149e3ad18c1d2947b9223d8fdf36e47"
 uuid = "2edaba10-b0f1-5616-af89-8c11ac63239a"
-version = "0.40.1"
+version = "0.41.2"
 
 [[deps.NetworkOptions]]
 uuid = "ca575930-c2e3-43a9-ace4-1e988b2c1908"
@@ -391,9 +391,9 @@ uuid = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
 
 [[deps.StaticArrays]]
 deps = ["LinearAlgebra", "PrecompileTools", "Random", "StaticArraysCore"]
-git-tree-sha1 = "f68dd04d131d9a8a8eb836173ee8f105c360b0c5"
+git-tree-sha1 = "7b0e9c14c624e435076d19aea1e5cbdec2b9ca37"
 uuid = "90137ffa-7385-5640-81b9-e52037218182"
-version = "1.9.1"
+version = "1.9.2"
 
     [deps.StaticArrays.extensions]
     StaticArraysChainRulesCoreExt = "ChainRulesCore"
