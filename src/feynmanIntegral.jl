@@ -667,7 +667,7 @@ julia> substitute(f)
  5*x[1]^6 + x[1]^4 - x[1]^2
 ```
  """
- function substitute(p::Union{fmpq_mpoly, Int64})
+ function substitute(p::Union{QQMPolyRingElem, Int64})
     if typeof(p)==Int64 || p==zero(p)
         return zero(p)
     else
