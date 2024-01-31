@@ -6,7 +6,7 @@ module GromovWitten
 using Nemo, Graphs, Combinatorics,StatsBase
 export  polynomial_ring
 import Graphs: nv,ne,Edge,dst, src
-export FeynmanGraph,feynman_graph,QQ,FeynmanIntegral,feynman_integral
+export FeynmanGraph,feynman_graph,QQ,FeynmanIntegral,feynman_integral,nv,ne
 export constterm, proterm, coefterm, partition, preimg, substitute,flip,signature_and_multiplicities_order,
 feynman_integral_branch_type, feynman_integral_degree,feynman_integral_degree_sum_order,feynman_integral_degree_sum,sum_of_coeff,loopterm,  flip_signature,signature_and_multiplicities,
 feynman_integral_branch_type_order,feynman_integral_degree_order,lis,filter_term,filter_vector,
