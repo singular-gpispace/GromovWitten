@@ -1,6 +1,3 @@
-using Pkg
-Pkg.activate(joinpath(@__DIR__, ".."))
-push!(LOAD_PATH, joinpath(@__DIR__, "..", "docs", "src"))  # Add docs/src/ to LOAD_PATH
 using GromovWitten
 using Documenter
 DocMeta.setdocmeta!(GromovWitten, :DocTestSetup, :(using GromovWitten); recursive=true)
