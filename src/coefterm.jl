@@ -8,8 +8,8 @@
 #Where I(q) is the Feynman Integral and P(x,q) the Propagator.
 #=function coefterm(x::Vector,q::Vector,G::FeynmanGraph ,p::QQMPolyRingElem,d::Integer;l=zeros(Int,nv(G)))
    #here l is leak vector of the graph G.
-    ee=Edge.(G.edge) 
-    G=DiGraph(Edge.(G.edge)) # convert from graph to Graph (so we can use nv(G))
+    ee=edges(G) 
+    G=DiGraph(edges(G)) # convert from graph to Graph (so we can use nv(G))
     L=zeros(Int,nv(G)) #  define zeros Vector of length nv(G)
     for ev in ee
         if src(ev) == dst(ev) #checking for loop term. 
@@ -94,7 +94,7 @@ Let   Ω=[x1,...,xn] be  a given Order and $a$  a branche type,flip_signature  r
 It will return -2 in case the Graph G has a loop. 
 """
 function flip_signature(G::FeynmanGraph ,p::Vector{Int64},a::Vector{Int64}) #graph G, list p, branch type a
-    ee=Edge.(G.edge)
+    ee=edges(G)
     b=zeros(Int,length(a))
     for (i, (ai, ev)) in enumerate(zip(a, ee))
         if ai == 0 && src(ev) != dst(ev)
@@ -137,7 +137,7 @@ julia> signature_and_multiplicities(G,a)
 ```
 """
 function signature_and_multiplicities(G::FeynmanGraph, a::Vector{Int64})
-    ee = Edge.(G.edge)
+    ee = edges(G)
     p = Vector{Int64}()
     b = Vector{Tuple{Int64, Vector{Int64}}}()
     l = zeros(Int, nv(G))
@@ -208,8 +208,8 @@ function signature_and_multiplicities(G::FeynmanGraph, a::Vector{Int64})
 end
 
 
-function find_equal_pairs(ve::Vector{Tuple{Int64, Int64}})
-    equal_pairs = Dict{Tuple{Int, Int}, Vector{Int}}()
+function find_equal_pairs(ve::Vector{Edge})
+    equal_pairs = Dict{Edge, Vector{Int}}()
     for (i, pair) in enumerate(ve)
         if haskey(equal_pairs, pair)
             push!(equal_pairs[pair], i)
