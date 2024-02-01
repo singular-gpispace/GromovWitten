@@ -9,8 +9,6 @@ import Combinatorics: permutations, with_replacement_combinations
 
 import StatsBase: countmap
 
-import Graphs: nv, ne, Edge, dst, src, DiGraph
-
 export cache_integral_result
 export coefterm
 export constterm

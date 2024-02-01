@@ -106,8 +106,8 @@ end
     return hp
 end
 function coeftermX( x::Vector, q::Vector,z::Vector,G::graph ,p::QQMPolyRingElem,d::Integer;l=zeros(Int,nv(G)))
-    ee=Edge.(G.edge)
-    G=DiGraph(Edge.(G.edge))
+    ee=edges(G)
+    G=DiGraph(edges(G))
     L=zeros(Int,nv(G))
     for ev in ee
         if src(ev) == dst(ev)
@@ -122,8 +122,8 @@ function coeftermX( x::Vector, q::Vector,z::Vector,G::graph ,p::QQMPolyRingElem,
     return p
 end =#
 function lis(G::FeynmanGraph,d::Int64,l::Vector{Int64})
-    ee = Edge.(G.edge)
-    #G=DiGraph(Edge.(G.edge))
+    ee = edges(G)
+    #G=DiGraph(edges(G))
     L=zeros(Int,nv(G))
      @inbounds for ev in ee
         if src(ev) != dst(ev)
