@@ -4,11 +4,11 @@
 #                                                                             #
 ###############################################################################
 struct FeynmanGraph
-    edge::Vector
+    edge::Vector{Tuple{Int, Int}}
 end
- # edge(G::FeynmanGraph) = Edge.(G.edge)
-    nv(G::FeynmanGraph) = nv(DiGraph(Edge.(G.edge)))
-    ne(G::FeynmanGraph) = length(Edge.(G.edge))
+
+nv(G::FeynmanGraph) = length(union([e[1] for e in G.edge], [e[2] for e in G.edge]))
+ne(G::FeynmanGraph) = length(G.edge)
 
 function feynman_graph(edges::Vector{Tuple{Int, Int}})
     return FeynmanGraph(edges)
