@@ -23,6 +23,7 @@
     p=coeff(p,x,L) # compute the coefficients of degree x1^l1,...,xn^ln.
     return p
 end =#
+
 function replace(vector)
     result_vector = [x == -1 ? 0 : (x == 0 ? -1 : x) for x in vector]
     return result_vector
@@ -48,7 +49,7 @@ This function returns the number of partitions of $n$ into fixed  $k$ parts.
 
 
 ```jldoctest
-julia> partition(3,4)
+julia> GromovWitten.partition(3,4)
 15-element Vector{Vector{Int64}}:
  [4, 0, 0]
  [3, 1, 0]

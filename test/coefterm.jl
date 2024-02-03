@@ -1,6 +1,6 @@
 @testset "flip.jl" begin
     ve = [ (1, 2), (2, 3), (3, 1)]
-    G=FeynmanGraph(ve)
+    G=feynman_graph(ve)
     F=FeynmanIntegral(G)
     a=[0,0,3];
     l=[0,0,0];
