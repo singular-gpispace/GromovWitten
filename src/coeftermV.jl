@@ -18,7 +18,7 @@ z^n, {aa} \rightarrow \infty
 julia> R,x=polynomial_ring(QQ,:x=>1:1); # using Nemo
 julia> sfunction(x[1],4)
 
-1//92897280*z[1]^8 + 1//322560*z[1]^6 + 1//1920*z[1]^4 + 1//24*z[1]^2 
+1//92897280*z[1]^8 + 1//322560*z[1]^6 + 1//1920*z[1]^4 + 1//24*z[1]^2 +1
 ```
 """
 function sfunction(x::QQMPolyRingElem,k::Int64)
@@ -140,10 +140,9 @@ end
  replaces all terms of the polynomial p with zero whenever the variables raised to a power of s1 exceed the specified power s.
   
 # Examples
-```julia  
-julia> p=8*q[1]^6*q[2]^2 + 8*q[1]^6*q[3]^2 + 8*q[1]^6*q[4]^2 + 54*q[1]^4*q[2]^4 + 18*q[1]^4*q[2]^2*q[3]^2 + 18*q[1]^4*q[2]^2*q[4]^2 
-+ 54*q[1]^4*q[3]^4 + 18*q[1]^4*q[3]^2*q[4]^2 + 54*q[1]^4*q[4]^4 + 56*q[1]^2*q[2]^6 + 6*q[1]^2*q[2]^4*q[3]^2 + 6*q[1]^2*q[2]^4*q[4]^2 
-+ 6*q[1]^2*q[2]^2*q[3]^4 + 12*q[1]^2*q[2]^2*q[3]^2*q[4]^2 + 6*q[1]^2*q[2]^2*q[4]^4 + 56*q[1]^2*q[3]^6 + 6*q[1]^2*q[3]^4*q[4]^2 + 6*q[1]^2*q[3]^2*q[4]^4 + 56*q[1]^2*q[4]^6
+```julia   
+julia> R,x=polynomial_ring(QQ, :q=>1:4)
+julia> p= 8*q[1]^6*q[2]^2 + 8*q[1]^6*q[3]^2 + 8*q[1]^6*q[4]^2 + 54*q[1]^4*q[2]^4 + 18*q[1]^4*q[2]^2*q[3]^2 + 18*q[1]^4*q[2]^2*q[4]^2 +54*q[1]^4*q[3]^4 + 18*q[1]^4*q[3]^2*q[4]^2 + 54*q[1]^4*q[4]^4 + 56*q[1]^2*q[2]^6 + 6*q[1]^2*q[2]^4*q[3]^2 + 6*q[1]^2*q[2]^4*q[4]^2 +6*q[1]^2*q[2]^2*q[3]^4 + 12*q[1]^2*q[2]^2*q[3]^2*q[4]^2 + 6*q[1]^2*q[2]^2*q[4]^4 + 56*q[1]^2*q[3]^6 + 6*q[1]^2*q[3]^4*q[4]^2 + 6*q[1]^2*q[3]^2*q[4]^4 + 56*q[1]^2*q[4]^6
 ```
 we replace all term in $p$  with `q[1]^a*q[2]^b*q[3]^c > q[1]*q[2]*q[3]` by zero,this means all power $(a,b,c)>(2,2,2)$
 

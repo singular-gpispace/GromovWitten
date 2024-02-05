@@ -48,7 +48,7 @@ This function returns the number of partitions of $n$ into fixed  $k$ parts.
 
 
 
-```jldoctest
+```jldoctest Gromov
 julia> using GromovWitten
 
 julia> partition(3, 4)
@@ -125,18 +125,18 @@ end
 
  returns flip_signature and their multiplicities.
 # Examples
-```julia
-julia> G=FeynmanGraph(ve)
- FeynmanGraph([(1, 1), (1, 2), (2, 3), (3, 1)])
+```jldoctest Gromov
+julia> using GromovWitten
+
+julia> G=FeynmanGraph([(1, 1), (1, 2), (2, 3), (3, 1)])
+FeynmanGraph([(1, 1), (1, 2), (2, 3), (3, 1)])
 
 julia> a=[2,0,0,1];
 
 julia> signature_and_multiplicities(G,a)
- 4-element Vector{Tuple{Int64, Vector{Int64}}}:
- (1, [-2, 0, 0, 1])
- (2, [-2, -1, 0, 1])
- (2, [-2, 0, -1, 1])
- (1, [-2, -1, -1, 1])
+2-element Vector{Tuple{Int64, Vector{Int64}}}:
+ (2, [-2, 0, 0, 1])
+ (4, [-2, -1, 0, 1])
 ```
 """
 function signature_and_multiplicities(G::FeynmanGraph, a::Vector{Int64})
