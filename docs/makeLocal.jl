@@ -19,8 +19,6 @@ pkg"activate .."
 push!(LOAD_PATH,"../src/")
 push!(LOAD_PATH, joinpath(@__DIR__, "..", "src"))
 
-#
-
 using Documenter, GromovWitten
 
 makedocs(;

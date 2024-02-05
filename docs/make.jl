@@ -1,3 +1,6 @@
+push!(LOAD_PATH, joinpath(@__DIR__, "..", "src"))
+import Pkg
+#Pkg.add("Documenter")
 using GromovWitten
 using Documenter
 DocMeta.setdocmeta!(GromovWitten, :DocTestSetup, :(using GromovWitten); recursive=true)

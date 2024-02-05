@@ -49,7 +49,9 @@ This function returns the number of partitions of $n$ into fixed  $k$ parts.
 
 
 ```jldoctest
-julia> GromovWitten.partition(3,4)
+julia> using GromovWitten
+
+julia> partition(3, 4)
 15-element Vector{Vector{Int64}}:
  [4, 0, 0]
  [3, 1, 0]
