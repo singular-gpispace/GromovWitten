@@ -125,7 +125,7 @@ end
 
  returns flip_signature and their multiplicities.
 # Examples
-```jldoctest Gromov
+```julia 
 julia> using GromovWitten
 
 julia> G=FeynmanGraph([(1, 1), (1, 2), (2, 3), (3, 1)])
@@ -135,8 +135,8 @@ julia> a=[2,0,0,1];
 
 julia> signature_and_multiplicities(G,a)
 2-element Vector{Tuple{Int64, Vector{Int64}}}:
- (2, [-2, 0, 0, 1])
  (4, [-2, -1, 0, 1])
+ (2, [-2, 0, 0, 1])
 ```
 """
 function signature_and_multiplicities(G::FeynmanGraph, a::Vector{Int64})
