@@ -21,17 +21,38 @@ push!(LOAD_PATH, joinpath(@__DIR__, "..", "src"))
 
 using Documenter, GromovWitten
 
+DocMeta.setdocmeta!(GromovWitten, :DocTestSetup, :(using GromovWitten); recursive=true)
+
 makedocs(;
     modules=[GromovWitten],
-	format = Documenter.HTML(
-        prettyurls = prettyurls = get(ENV, "CI", nothing) == "true",
+    clean = true,
+    checkdocs = :none,
+    doctest = true,
+    #strict = true,
+    sitename="GromovWitten.jl",
+    expandfirst = ["Overview.md"],
+    format=Documenter.HTML(;
+        prettyurls=get(ENV, "CI", "false") == "true",
+        canonical="https://singular-gpispace.github.io/GromovWitten.git",
+        edit_link="main",
+        assets=String[],
     ),
     pages=[
-        "Home" => "index.md",
+        "Home" =>[
+            "index.md",
+            "Installation.md", 
+            "SmallExample.md",
+        ],
+        
+        "Examples" =>[
+            "Hurwitz.md",
+            "Gromov.md",
+            #"Feynman Integral/Feynman.md",
+        ],
+        "Functions" => "Overview.md",
+        #"Quasimodular" =>"Feynman Integral/Feynman.md"
+        "Quasimodular" =>"quasimodular.md"
     ],
-    repo="https://github.com/singular-gpispace/GromovWitten.jl/{commit}{path}#{line}",
-    sitename="GromovWitten",
-    authors="Ali Traore",
 )
 
 # Documenter can also automatically deploy documentation to gh-pages.
