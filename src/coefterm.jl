@@ -79,7 +79,7 @@ function partition(n::Integer,k::Integer)
     end
     p=with_replacement_combinations(1:n,k)
     return map(A -> [sum(A .== i) for i in 1:n],p)
-   end
+end
    
 #give the position of the vertices xi in the list L. 
 function preimg(L::Vector{Int64}, xi::Int64)
