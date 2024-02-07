@@ -2,6 +2,7 @@
     ve = [ (1, 2), (2, 3), (3, 1)]
     G=feynman_graph(ve)
     F=FeynmanIntegral(G)
+    @test vv=GromovWitten.vector(G)==ve
     a=[0,0,3];
     l=[0,0,0];
     Ω=[1,2,3];
@@ -31,4 +32,5 @@
     S=polynomial_ring(QQ, :x =>1:nv(G), :q =>1:ne(G), :z => 1:nv(G))
     FF=FeynmanIntegral(G,S)
     Fv=FeynmanIntegral(ve)
+
 end
