@@ -17,7 +17,7 @@ struct FeynmanGraph
     _edges::Vector{Edge}
 end
 FeynmanGraph(edges::Vector{Tuple{Int, Int}}) = FeynmanGraph(Edge.(edges))
-
+vector(G::FeynmanGraph)=[(e.src,e.dst) for e in G._edges]
 edges(G::FeynmanGraph) = G._edges
 nv(G::FeynmanGraph) = length(union([e.src for e in G._edges], [e.dst for e in G._edges]))
 ne(G::FeynmanGraph) = length(G._edges)
