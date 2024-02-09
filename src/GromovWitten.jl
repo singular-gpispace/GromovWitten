@@ -42,6 +42,7 @@ export loopterm
 export matrix_of_integral
 export ne
 export nv
+export edges
 export partition
 export polynomial_ring
 export polynomial_to_matrix
