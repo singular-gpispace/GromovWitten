@@ -40,8 +40,8 @@ export inv_sfunction
 export lis
 export loopterm
 export matrix_of_integral
-export ne
-export nv
+export ne,src
+export nv, dst
 export edges
 export partition
 export polynomial_ring
