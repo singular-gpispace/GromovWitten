@@ -42,7 +42,7 @@ export loopterm
 export matrix_of_integral
 export ne,src
 export nv, dst
-export edges
+export edges,edg
 export partition
 export polynomial_ring
 export polynomial_to_matrix

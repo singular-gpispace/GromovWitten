@@ -2,7 +2,7 @@
     ve = [ (1, 2), (2, 3), (3, 1)]
     G=feynman_graph(ve)
     F=FeynmanIntegral(G)
-    @test vv=GromovWitten.vector(G)==ve
+    @test vv=edg(G)==ve
     a=[0,0,3];
     l=[0,0,0];
     Ω=[1,2,3];
