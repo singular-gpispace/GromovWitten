@@ -14,14 +14,24 @@
 # ```
 # julia --color=yes makeLocal.jl
 # ```
-using Pkg
-pkg"activate .."
-push!(LOAD_PATH,"../src/")
+# Modify the LOAD_PATH to include the source directory
 push!(LOAD_PATH, joinpath(@__DIR__, "..", "src"))
 
-using Documenter, GromovWitten
+# Import Pkg module
+using Pkg
 
-DocMeta.setdocmeta!(GromovWitten, :DocTestSetup, :(using GromovWitten); recursive=true)
+# Activate the project in the parent directory
+Pkg.activate(joinpath(@__DIR__, ".."))
+
+# Install Documenter package
+Pkg.add("Documenter")
+
+# Import required packages
+using GromovWitten
+using Documenter
+
+# Set up documentation test setup
+DocMeta.setdocmeta!(GromovWitten, :DocTestSetup, :(using GromovWitten; recursive=true))
 
 makedocs(;
     modules=[GromovWitten],

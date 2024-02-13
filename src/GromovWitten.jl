@@ -7,8 +7,8 @@ using Nemo
 
 import Combinatorics: permutations, with_replacement_combinations
 
-import StatsBase: countmap
-
+export next_partition,combination
+export count_member
 export cache_integral_result
 export coefterm
 export constterm

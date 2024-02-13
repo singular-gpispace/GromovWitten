@@ -3,7 +3,6 @@
     G=FeynmanGraph(ve)
     F=FeynmanIntegral(G)
     R,x,q,z=F.S
-    @test partition(0,1)== [[0]]
     @test partition(1,0)== [[0]]
     @test  loopterm(z[1],q[1],1,2)==11//192*q[1]^4*z[1]^4 + 3//4*q[1]^4*z[1]^2 + 3*q[1]^4
 
@@ -13,5 +12,7 @@
     
         @test preimg(L, xi) == 3
     end
-
+    @testset "partition test" begin
+        @test_throws ErrorException partition(0,1)
+    end   
 end

@@ -38,6 +38,16 @@ function count_zero(arr)
     end
     return count_zeros
 end
+function count_member(itr)
+    d = Dict{eltype(itr), Int}()
+    for val in itr
+        if isa(val, Number) && isnan(val)
+            continue
+        end
+        d[val] = get(d, val, 0) + 1
+    end
+    return d
+end
 @doc raw"""
    partition(k::Integer, n::Integer) 
 
@@ -70,7 +80,7 @@ julia> partition(3, 4)
  [0, 0, 4]
 ```
 """
-function partition(n::Integer,k::Integer)
+#=function partition(n::Integer,k::Integer)
     if(k==0)
         return [[0]]
     end
@@ -80,7 +90,75 @@ function partition(n::Integer,k::Integer)
     p=with_replacement_combinations(1:n,k)
     return map(A -> [sum(A .== i) for i in 1:n],p)
 end
-   
+=#
+@doc raw"""
+    combination(f::Function, k::Int, d::Int)
+    next_partition(a::Vector{Int})
+
+#Examples
+
+This function returns the number of partitions of $n$ into fixed  $k$ parts. 
+
+
+
+```jldoctest Gromov
+julia> using GromovWitten
+
+julia> combination(next_partition,3, 4)
+15-element Vector{Vector{Int64}}:
+ [4, 0, 0]
+ [3, 1, 0]
+ [3, 0, 1]
+ [2, 2, 0]
+ [2, 1, 1]
+ [2, 0, 2]
+ [1, 3, 0]
+ [1, 2, 1]
+ [1, 1, 2]
+ [1, 0, 3]
+ [0, 4, 0]
+ [0, 3, 1]
+ [0, 2, 2]
+ [0, 1, 3]
+ [0, 0, 4]
+```
+"""
+function next_partition(a::Vector{Int})
+    n = sum(a)
+    k = length(a)
+    for i in reverse(1:k)
+        if i == k && a[i] == n
+            return a
+        else
+            for j in reverse(1:i-1)
+                if  a[j] != 0
+                    a[j] -= 1
+                    ak=copy(a[k])
+                    a[k] = 0
+                    a[j+1] = ak + 1
+                    return a
+                end
+            end
+        end
+    end
+end
+function combination(f::Function, k::Int, d::Int)
+    if(k==0)
+        error("k should be nonzero")
+    end
+    x=[d; fill(0, k - 1)]
+    n=binomial(d+k-1, d)
+    ru=Vector{Vector{Int}}()
+    result = x
+    push!(ru,copy(x))
+    for i in 2:n
+        result = f(result)
+        push!(ru,copy(result))
+    end
+    return ru
+end
+partition(k::Integer,d::Integer)=combination(next_partition,k::Integer,d::Integer)
+
 #give the position of the vertices xi in the list L. 
 function preimg(L::Vector{Int64}, xi::Int64)
     for (i,Li) in enumerate(L)
@@ -169,7 +247,7 @@ function signature_and_multiplicities(G::FeynmanGraph, a::Vector{Int64})
             push!(y,fl)
         end
         dd=div(factorial( nv(G) ) , length( p ) )
-        py=countmap(y)
+        py=count_member(y)
         for (key, val) in py
             push!(b, (dd*val,key ))
         end
