@@ -5,8 +5,7 @@ module GromovWitten
 
 using Nemo
 
-import Combinatorics: permutations, with_replacement_combinations
-
+import Combinatorics: permutations
 export next_partition,combination
 export count_member
 export cache_integral_result
