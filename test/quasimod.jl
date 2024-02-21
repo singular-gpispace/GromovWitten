@@ -90,7 +90,7 @@
         Q = matrix_of_integral(substitute( feynman_integral_degree_sum(F, d)))
         expected_result = "The system has no solution"
     
-        result = solve_polynomial_system(A, Q)
+        result = solve_polynomial_system(A, Q,side = :right)
         @test result == expected_result
     end
 

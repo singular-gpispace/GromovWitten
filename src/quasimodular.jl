@@ -210,11 +210,11 @@ function matrix_of_integral(Iq::QQMPolyRingElem)
         return Q
 end
 
-function solve_polynomial_system(A::QQMatrix, Q::QQMatrix)
+function solve_polynomial_system(A::QQMatrix, Q::QQMatrix; side::Symbol = :right)
     m, n = size(A)
     
     # Solve the polynomial system
-    can_solve, x = can_solve_with_solution(A, Q)
+    can_solve, x = can_solve_with_solution(A, Q; side = :right)
     
     # Compute the common factor and scaled vector
     if can_solve
