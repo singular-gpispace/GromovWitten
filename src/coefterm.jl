@@ -283,7 +283,7 @@ function signature_and_multiplicities(G::FeynmanGraph, a::Vector{Int64})
             end
 
             # Convert Set to Vector for consistency with the original return type
-            return group
+            return group # to be modified. 
         end
     end
 end

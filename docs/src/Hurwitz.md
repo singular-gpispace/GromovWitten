@@ -30,7 +30,6 @@ julia> o=[1,3,4,2];
 The Feynman Integral branch type for a fixed ordering  is
 
 ```julia
-
 julia>  feynman_integral_branch_type_order(F,a,o) 
 128*q[2]^4*q[3]^2*q[6]^2
 ```
