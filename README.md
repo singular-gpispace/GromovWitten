@@ -18,7 +18,7 @@
 
 # GromovWitten
 
-The package GromovWitten computes generating series for tropical Hurwitz numbers of elliptic curves via mirror symmetry and Feynman integrals, and thus, by a correspondence theorem, Hurwitz numbers in the sense algebraic geometry. Generalizations of the method also allow for the computation of Gromov-Witten invariants for ellptic curves, and are also implemented in the package. GromovWitten is based on the computeralgebra system OSCAR and is provided as a package for the Julia programming language.
+The package GromovWitten computes generating series for tropical Hurwitz numbers of elliptic curves via mirror symmetry and Feynman integrals, and thus, by a correspondence theorem, Hurwitz numbers in the sense algebraic geometry. Generalizations of the method also allow for the computation of Gromov-Witten invariants for elliptic curves, and are also implemented in the package. GromovWitten is based on the computeralgebra system OSCAR and is provided as a package for the Julia programming language.
 
 # Installation
 
@@ -28,7 +28,7 @@ We assume that Julia is installed in a recent enough version to run OSCAR. Navig
 git clone https://github.com/singular-gpispace/GromovWitten.git
 ```
 
-Navigate to  GromovWitten  folder execute the following command:
+Navigate to the `GromovWitten` folder and execute the following command:
 
 ```bash
 julia --project
@@ -43,7 +43,7 @@ import Pkg; Pkg.instantiate()
 and load our package. On the first run this may take some time.
 
 ```bash
-using GromovWitten  
+using GromovWitten
 ```
 
 
@@ -57,7 +57,7 @@ graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
 ```
 
 ```julia
-julia> F=feynman_integral(G)
+julia> F = feynman_integral(G);
 ```
 
 ```julia
@@ -65,17 +65,16 @@ julia> a = [0, 2, 1, 0, 0, 1];
 ```
 
 ```julia
-julia> o=[1,3,4,2];
+julia> o = [1,3,4,2];
 ```
 
 ```julia
-
-julia>  feynman_integral_branch_type_order(F,a,o) 
+julia> feynman_integral_branch_type_order(F, a, o)
 128*q[2]^4*q[3]^2*q[6]^2
 ```
 
 ```julia
-julia> feynman_integral_branch_type(F, a)  
+julia> feynman_integral_branch_type(F, a)
 256*q[2]^4*q[3]^2*q[6]^2
 ```
 also we can compute Feynman Integral of degree 3
@@ -87,29 +86,29 @@ julia> f = feynman_integral_degree(F, 3)
 Finally we substitute all $q$  variables by $q_{1}$ after computing the sum of all Feynman Integral of degree up to 8.
 
 ```julia
-julia>     substitute(feynman_integral_degree_sum(F,8))
+julia> substitute(feynman_integral_degree_sum(F,8))
 10246144*q[1]^16 + 3294720*q[1]^14 + 886656*q[1]^12 + 182272*q[1]^10 + 25344*q[1]^8 + 1792*q[1]^6 + 32*q[1]^4
 ```
 
 
 # Caching Feynman Integral
 
-We can try to catch the previous result in a table. 
+We can try to cache the previous result in a table.
 To do that, we define `feynman_integral_branch_type_cache` , `feynman_integral_degree_cache` and  `feynman_integral_degree__sum_cache`. The last one returns the univariable polynomial of Feynman integral sum up to degree $d$.
-We define first the Feynman graph, 
+We define first the Feynman graph,
 ```julia
 julia> G = feynman_graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3,4)] )
 graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
 ```
 
 ```julia
-julia> F=feynman_integral(G)
+julia> F = feynman_integral(G);
 ```
 we cache the Feynman Integral.
 ```julia
 julia> feynman_integral_degree_cache(F, 3);
 ```
-To diplay the previous caching 
+To display the previous caching
 ```julia
 julia> F.integral_cache[:degree]
 Dict{Vector{Int64}, QQMPolyRingElem} with 4 entries:
@@ -127,12 +126,12 @@ We get the following table of comparison.
 |degree|[10] => 5465008*q[1]^20 +…|5.453744 s(3.425 GiB)|0.000033 s ( 1.609 KiB)|
 
 
-simillary for The univariable polynomial, we have 
+similarly for The univariable polynomial, we have
 ```julia
 julia> feynman_integral_degree_sum_cache(F, 3)
 1792*q[1]^6 + 32*q[1]^4
 ```
-To diplay the previous caching 
+To display the previous caching
 ```julia
 julia> F.integral_cache[:sum]
 Dict{Vector{Int64}, QQMPolyRingElem} with 5 entries:
