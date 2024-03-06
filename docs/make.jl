@@ -1,6 +1,8 @@
 
 # Modify the LOAD_PATH to include the source directory
-push!(LOAD_PATH, joinpath(@__DIR__, "..", "src"))
+#push!(LOAD_PATH, joinpath(@__DIR__, "..", "src"))
+# Activate the project in the parent directory
+Pkg.activate(joinpath(@__DIR__, "..", "docs")) # Activate the 'docs' project
 
 # Import Pkg module
 using Pkg

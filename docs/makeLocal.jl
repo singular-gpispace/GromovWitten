@@ -15,16 +15,21 @@
 # julia --color=yes makeLocal.jl
 # ```
 # Modify the LOAD_PATH to include the source directory
-push!(LOAD_PATH, joinpath(@__DIR__, "..", "src"))
+#push!(LOAD_PATH, joinpath(@__DIR__, "..", "src"))
 
 # Import Pkg module
 using Pkg
+# Activate the project in the parent directory
+Pkg.activate(joinpath(@__DIR__, "docs")) # Activate the 'docs' project
+
 
 # Activate the project in the parent directory
-Pkg.activate(joinpath(@__DIR__, ".."))
+#Pkg.activate(joinpath(@__DIR__, ".."))
 
 # Install Documenter package
 Pkg.add("Documenter")
+
+push!(LOAD_PATH, joinpath(@__DIR__, "..", "src"))
 
 # Import required packages
 using GromovWitten
@@ -50,7 +55,7 @@ makedocs(;
     pages=[
         "Home" =>[
             "index.md",
-            "Installation.md", 
+            "Installation.md",
             "SmallExample.md",
         ],
         

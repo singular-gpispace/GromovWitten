@@ -11,14 +11,14 @@ end
 
 To provide an example on how to use our package, we define a Feynman graph G from a list of edges:
 
-```jldoctest graph
+```jldoctest mygraph
 julia> G=FeynmanGraph([(1, 2), (1,2),(1,2)])
 FeynmanGraph([(1, 2), (1, 2), (1, 2)])
 ```
 
 We then define Feynman integral which includes polynomial  with all variables required by our implementation:
 
-```jldoctest graph
+```jldoctest mygraph
 julia> F=FeynmanIntegral(G)
 FeynmanIntegral(FeynmanGraph([(1, 2), (1, 2), (1, 2)]), Dict{Symbol, Dict{Vector{Int64}, Nemo.QQMPolyRingElem}}(), (Multivariate polynomial ring in 7 variables over QQ, Nemo.QQMPolyRingElem[x[1], x[2]], Nemo.QQMPolyRingElem[q[1], q[2], q[3]], Nemo.QQMPolyRingElem[z[1], z[2]]))
 ```
