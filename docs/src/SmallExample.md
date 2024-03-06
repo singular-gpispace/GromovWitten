@@ -25,7 +25,7 @@ FeynmanIntegral(FeynmanGraph([(1, 2), (1, 2), (1, 2)]), Dict{Symbol, Dict{Vector
 
 We compute then the Feynman Integral of degree 3.
 
-```jldoctest graph
+```jldoctest mygraph
 julia> f = feynman_integral_degree(F, 3)
 24*q[1]^6 + 20*q[1]^4*q[2]^2 + 20*q[1]^4*q[3]^2 + 20*q[1]^2*q[2]^4 + 20*q[1]^2*q[3]^4 + 24*q[2]^6 + 20*q[2]^4*q[3]^2 + 20*q[2]^2*q[3]^4 + 24*q[3]^6
 ```
