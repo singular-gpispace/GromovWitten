@@ -126,7 +126,7 @@ We get the following table of comparison.
 |degree|[10] => 5465008*q[1]^20 +…|5.453744 s(3.425 GiB)|0.000033 s ( 1.609 KiB)|
 
 
-similarly for The univariable polynomial, we have
+similarly for the case of Feynman graph degree sum, we have:
 ```julia
 julia> feynman_integral_degree_sum_cache(F, 3)
 1792*q[1]^6 + 32*q[1]^4
