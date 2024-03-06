@@ -1,17 +1,11 @@
+#=
+To build the documentation, do this from within the GromovWitten.jl directory:
 
-# Modify the LOAD_PATH to include the source directory
-#push!(LOAD_PATH, joinpath(@__DIR__, "..", "src"))
-# Activate the project in the parent directory
-Pkg.activate(joinpath(@__DIR__, "..", "docs")) # Activate the 'docs' project
+julia --project=docs/ -e 'using Pkg; Pkg.develop(PackageSpec(path=pwd())); Pkg.instantiate()'
+julia --project=docs/ docs/make.jl
 
-# Import Pkg module
-using Pkg
-
-# Activate the project in the parent directory
-Pkg.activate(joinpath(@__DIR__, ".."))
-
-# Install Documenter package
-Pkg.add("Documenter")
+To run the tests again, it suffices to repeat the second command.
+=#
 
 # Import required packages
 using GromovWitten
@@ -37,7 +31,7 @@ makedocs(;
     pages=[
         "Home" =>[
             "index.md",
-            "Installation.md", 
+            "Installation.md",
             "SmallExample.md",
         ],
         
