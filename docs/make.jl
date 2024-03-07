@@ -9,7 +9,7 @@ To run the tests again, it suffices to repeat the second command.
 
 # Import required packages
 using GromovWitten
-#using Documenter
+using Documenter
 
 # Set up documentation test setup
 DocMeta.setdocmeta!(GromovWitten, :DocTestSetup, :(using GromovWitten; recursive=true))
