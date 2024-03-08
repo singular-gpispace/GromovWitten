@@ -22,25 +22,18 @@ The package GromovWitten computes generating series for tropical Hurwitz numbers
 
 # Installation
 
-We assume that Julia is installed in a recent enough version to run OSCAR. Navigate in a terminal to the folder where you want to install the package and pull the package from Github:
+We assume that Julia is installed in a recent enough version to run  [OSCAR](https://github.com/oscar-system/Oscar.jl). To install the package, follow these steps:
+
 
 ```bash
-git clone https://github.com/singular-gpispace/GromovWitten.git
+using Pkg
+Pkg.add(url="https://github.com/singular-gpispace/GromovWitten.git")
 ```
 
-Navigate to the `GromovWitten` folder and execute the following command:
+This command will fetch the package from its GitHub repository and set it up in your Julia environment.
 
-```bash
-julia --project
-```
+Once the package is installed, you can load it with the following command:
 
-This will activate the environment for our package. In Julia install missing packages:
-
-```bash
-import Pkg; Pkg.instantiate()
-```
-
-and load our package. On the first run this may take some time.
 
 ```bash
 using GromovWitten
