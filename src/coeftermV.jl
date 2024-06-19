@@ -21,13 +21,13 @@ julia> sfunction(x[1],4)
 1//92897280*z[1]^8 + 1//322560*z[1]^6 + 1//1920*z[1]^4 + 1//24*z[1]^2 +1
 ```
 """
-function sfunction(x::QQMPolyRingElem,k::Int64)
-    su=0
-   for n in 0:k
-       su=su+(1//BigInt(2^(2n)))//(factorial(BigInt((2*n+1))))*(x)^(2*n)
-       
-   end
-   return su
+function sfunction(x::QQMPolyRingElem, k::Int64)
+    su = 0
+    for n in 0:k
+        su = su + (1 // BigInt(2^(2n))) // (factorial(BigInt((2 * n + 1)))) * (x)^(2 * n)
+
+    end
+    return su
 end
 
 @doc raw"""
@@ -50,11 +50,11 @@ julia> inv_sfunction(x[1],4)
 7//5760*x[1]^4 - 1//24*x[1]^2 + 1
 ```
 """
-function inv_sfunction(z::QQMPolyRingElem,k::Int64)
-    su=0
+function inv_sfunction(z::QQMPolyRingElem, k::Int64)
+    su = 0
     for n in 0:k+1
-        su=su-(((1//2^(n))*(-2 + 2^n)*bernoulli(n))//(factorial(n)))*z^n
-        
+        su = su - (((1 // 2^(n)) * (-2 + 2^n) * bernoulli(n)) // (factorial(n))) * z^n
+
     end
     return su
 end
@@ -64,37 +64,37 @@ end
 returns loop contribution with zero genus gi at a vertex i. 
 """
 
-function loopterm( q::QQMPolyRingElem, a::Integer)
-    p=0
-   if a==0
-       return p
-   else 
-       for w in 1:a
-           if a%w==0
-               p = p + w*q^(2*a)
-           end
-       end
-   end
-       return p
+function loopterm(q::QQMPolyRingElem, a::Integer)
+    p = 0
+    if a == 0
+        return p
+    else
+        for w in 1:a
+            if a % w == 0
+                p = p + w * q^(2 * a)
+            end
+        end
+    end
+    return p
 end
 @doc raw"""
     loopterm( z::QQMPolyRingElem, q::QQMPolyRingElem, aa::Integer, a::Integer)
 
 returns loop contribution with nonzero genus gi at a vertex i. 
 """
-function loopterm( z::QQMPolyRingElem,q::QQMPolyRingElem, aa::Integer, a::Integer)
-    p=0
-   if a==0
-       return p
-   else 
-       for w in 1:a
-           if a%w==0
-               S1=sfunction(w*z,aa)
-               p = p + S1*S1*w*q^(2*a)
-           end
-       end
-   end
-       return p
+function loopterm(z::QQMPolyRingElem, q::QQMPolyRingElem, aa::Integer, a::Integer)
+    p = 0
+    if a == 0
+        return p
+    else
+        for w in 1:a
+            if a % w == 0
+                S1 = sfunction(w * z, aa)
+                p = p + S1 * S1 * w * q^(2 * a)
+            end
+        end
+    end
+    return p
 end
 #=function coefterm2Z( x::Vector, q::Vector,z::Vector,hp::QQMPolyRingElem,g::Vector) 
     g=2 .* g
@@ -121,18 +121,18 @@ function coeftermX( x::Vector, q::Vector,z::Vector,G::graph ,p::QQMPolyRingElem,
     p=coeff(p,x,L)
     return p
 end =#
-function lis(G::FeynmanGraph,d::Int64,l::Vector{Int64})
+function lis(G::FeynmanGraph, d::Int64, l::Vector{Int64})
     ee = edges(G)
     #G=DiGraph(edges(G))
-    L=zeros(Int,nv(G))
-     @inbounds for ev in ee
+    L = zeros(Int, nv(G))
+    @inbounds for ev in ee
         if src(ev) != dst(ev)
             L[src(ev)] += d
             L[dst(ev)] += d
         end
     end
-               L=L .+l
-   return L
+    L = L .+ l
+    return L
 end
 @doc raw"""
      filter_term(p::Union{QQMPolyRingElem, Int64}, variables::Vector{QQMPolyRingElem}, s::Vector{Int64})
@@ -159,7 +159,7 @@ julia> filter_term(p,q[1],1)
 q[1]
 ```
  """
- function filter_term(pols::Union{QQMPolyRingElem,QQPolyRingElem, Int64}, variables::Union{Vector{QQPolyRingElem},Vector{QQMPolyRingElem}, QQMPolyRingElem,QQPolyRingElem}, power::Union{Vector{Int64}, Int64})
+function filter_term(pols::Union{QQMPolyRingElem,QQPolyRingElem,Int64}, variables::Union{Vector{QQPolyRingElem},Vector{QQMPolyRingElem},QQMPolyRingElem,QQPolyRingElem}, power::Union{Vector{Int64},Int64})
     if typeof(variables) <: QQMPolyRingElem
         T = parent(variables)
         pols = T(pols)

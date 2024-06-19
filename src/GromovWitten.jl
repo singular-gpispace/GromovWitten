@@ -6,7 +6,7 @@ module GromovWitten
 using Nemo
 
 import Combinatorics: permutations
-export next_partition,combination
+export next_partition, combination
 export count_member
 export cache_integral_result
 export coefterm
@@ -39,9 +39,9 @@ export inv_sfunction
 export lis
 export loopterm
 export matrix_of_integral
-export ne,src
+export ne, src
 export nv, dst
-export edges,edg
+export edges, edg
 export partition
 export polynomial_ring
 export polynomial_to_matrix

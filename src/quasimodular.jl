@@ -17,7 +17,7 @@
             result += term
         end
     end
-    
+
     return result
 end
 =#
@@ -38,7 +38,7 @@ julia> filter_vector(v,q,6)
  -3744*q[1]^6 + 1512*q[1]^4 - 72*q[1]^2 + 1
 ```
 """
-function filter_vector(polyvector::Vector{QQMPolyRingElem}, variables::Union{Vector{QQMPolyRingElem}, QQMPolyRingElem}, power::Union{Vector{Int64}, Int64})
+function filter_vector(polyvector::Vector{QQMPolyRingElem}, variables::Union{Vector{QQMPolyRingElem},QQMPolyRingElem}, power::Union{Vector{Int64},Int64})
     result = Vector{QQMPolyRingElem}()
     for pols in polyvector
         push!(result, filter_term(pols, variables, power))
@@ -60,7 +60,7 @@ julia> sum_of_divisor_powers(6,1)
 ```
 """
 function sum_of_divisor_powers(n::Int, k::Int)
-    if n==0
+    if n == 0
         error(" First Argument must be non-zero")
     end
     divs = divisors(n)
@@ -94,50 +94,50 @@ julia> eisenstein_series(5,4,q) #E4
 30240*q[1]^10 + 17520*q[1]^8 + 6720*q[1]^6 + 2160*q[1]^4 + 240*q[1]^2 + 1
 ```
 """
-function eisenstein_series( num_terms::Int,k::Int,q::Union{QQMPolyRingElem, Vector{QQMPolyRingElem}})                  
+function eisenstein_series(num_terms::Int, k::Int, q::Union{QQMPolyRingElem,Vector{QQMPolyRingElem}})
     if k % 2 != 0
         error("input k must be even in eisenstein_series(q, num_terms,k)")
     end
     if typeof(q) == Vector{QQMPolyRingElem}
-        return  e2 = 1 - ((((2*k)// bernoulli(k))))* sum(sum_of_divisor_powers(d, k-1) * q[1]^(2*d) for d in 1:num_terms)
+        return e2 = 1 - ((((2 * k) // bernoulli(k)))) * sum(sum_of_divisor_powers(d, k - 1) * q[1]^(2 * d) for d in 1:num_terms)
     else
-        return  e2 = 1 - ((((2*k)// bernoulli(k))))* sum(sum_of_divisor_powers(d, k-1) * q[1]^(2*d) for d in 1:num_terms)
+        return e2 = 1 - ((((2 * k) // bernoulli(k)))) * sum(sum_of_divisor_powers(d, k - 1) * q[1]^(2 * d) for d in 1:num_terms)
     end
 end
-function eisenstein_series( num_terms::Int,k::Int)                  
+function eisenstein_series(num_terms::Int, k::Int)
     if k % 2 != 0
         error("input k must be even in eisenstein_series(q, num_terms,k)")
     end
-        S,q=polynomial_ring(QQ,["q"])
-        return  e2 = 1 - ((((2*k)// bernoulli(k))))* sum(sum_of_divisor_powers(d, k-1) * q[1]^(2*d) for d in 1:num_terms)
+    S, q = polynomial_ring(QQ, ["q"])
+    return e2 = 1 - ((((2 * k) // bernoulli(k)))) * sum(sum_of_divisor_powers(d, k - 1) * q[1]^(2 * d) for d in 1:num_terms)
 end
 
-function express_as_powers( max_degree::Int,weightmax::Int64)
+function express_as_powers(max_degree::Int, weightmax::Int64)
     result = Vector{QQMPolyRingElem}()
-    nb=Int64(max_degree)
-    E6=eisenstein_series( nb,6)
-    E4=eisenstein_series( nb,4)
-    E2=eisenstein_series( nb,2)
+    nb = Int64(max_degree)
+    E6 = eisenstein_series(nb, 6)
+    E4 = eisenstein_series(nb, 4)
+    E2 = eisenstein_series(nb, 2)
     for e2 in 0:weightmax
         for e4 in 0:weightmax
             for e6 in 0:weightmax
-                degree = 2*e2 + 4*e4 + 6*e6
+                degree = 2 * e2 + 4 * e4 + 6 * e6
                 if degree == weightmax #&& degree>0
-                    push!(result,  (E2^e2) * (E4^e4) * (E6^e6))
+                    push!(result, (E2^e2) * (E4^e4) * (E6^e6))
                 end
             end
         end
     end
     return result
 end
-        
+
 function express_as_eisenstein_series(n::Int)
-    S,(E2,E4,E6)=polynomial_ring(QQ,["E2","E4","E6"])
+    S, (E2, E4, E6) = polynomial_ring(QQ, ["E2", "E4", "E6"])
     expressions = []
     for e2 in 0:n
         for e4 in 0:n
             for e6 in 0:n
-                d = 2*e2 + 4*e4 + 6*e6
+                d = 2 * e2 + 4 * e4 + 6 * e6
                 if d == n && (e2 > 0 || e4 > 0 || e6 > 0)
                     term = 1
                     if e2 != 0
@@ -198,29 +198,29 @@ julia> matrix_of_integral(Iq)
 [25344]
 ```
 """
-function matrix_of_integral(Iq::QQMPolyRingElem) 
+function matrix_of_integral(Iq::QQMPolyRingElem)
     # Obtain the coefficients of Iq
     Q = coefficients_of_univariate(Iq)
-        
+
     # Convert Q to a matrix representation
     Q_matrix = Matrix(transpose(reduce(hcat, Q)))
 
     # Convert the matrix to the QQ type so we can call can_with_solution.
     Q = matrix(QQ, Q_matrix)
-        return Q
+    return Q
 end
 
-function solve_polynomial_system(A::QQMatrix, Q::QQMatrix; side::Symbol = :right)
+function solve_polynomial_system(A::QQMatrix, Q::QQMatrix; side::Symbol=:right)
     m, n = size(A)
-    
+
     # Solve the polynomial system
-    can_solve, x = can_solve_with_solution(A, Q; side = :right)
-    
+    can_solve, x = can_solve_with_solution(A, Q; side=:right)
+
     # Compute the common factor and scaled vector
     if can_solve
         common_factor = gcd(x...)
         coeff_vector = [val // common_factor for val in x]
-        return  common_factor, coeff_vector
+        return common_factor, coeff_vector
     else
         return "The system has no solution"
     end
@@ -242,12 +242,12 @@ julia> quasi_matrix(q,Iq,12)
 ```
 """=#
 function quasi_matrix(Iq::QQMPolyRingElem, weightmax::Int64)
-    q=vars(Iq)
-    max_degree=total_degree(Iq)
-    Evector=filter_vector(express_as_powers(max_degree,weightmax),q,max_degree)
-    A=polynomial_to_matrix(Evector)
-    Q=matrix_of_integral(Iq)
-        return solve_polynomial_system(A,Q)
+    q = vars(Iq)
+    max_degree = total_degree(Iq)
+    Evector = filter_vector(express_as_powers(max_degree, weightmax), q, max_degree)
+    A = polynomial_to_matrix(Evector)
+    Q = matrix_of_integral(Iq)
+    return solve_polynomial_system(A, Q)
 end
 @doc raw"""
  quasimodular_form(Iq, weightmax::Int64)
@@ -272,9 +272,9 @@ function quasimodular_form(Iq, weightmax::Int64)
     if isodd(weightmax)
         return error("weightmax must be an even number and equal to 6g-6")
     end
-    q=vars(Iq)
-    max_degree=total_degree(Iq)
-    fac, coef = quasi_matrix( Iq, weightmax)
+    q = vars(Iq)
+    max_degree = total_degree(Iq)
+    fac, coef = quasi_matrix(Iq, weightmax)
     comb_result = express_as_eisenstein_series(weightmax)
     p = 0
     for (i, term) in enumerate(comb_result)
@@ -285,6 +285,6 @@ function quasimodular_form(Iq, weightmax::Int64)
         p += tmp
     end
     #p = fac * p
-    
-    return fac ,p
+
+    return fac, p
 end
