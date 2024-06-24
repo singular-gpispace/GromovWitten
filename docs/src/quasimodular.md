@@ -19,7 +19,7 @@ I(q)=\sum_{n=1}^{d} a_i q^{d},
 we compute the coefficients $b_{i,j,k}$ such that
 
 ```math
-I(q)=\sum_{\substack{i,j,k \in \mathbb{N}_0 \\ 2i+4j+6k=d}} b_{i,j,k} E_2^i E_4^j E_6^k
+I(q)=\sum_{\substack{i,j,k \in \mathbb{N}_0 \\ 2i+4j+6k=6g-6}} b_{i,j,k} E_2^i E_4^j E_6^k
 ```
 
 ## Example
