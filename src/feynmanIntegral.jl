@@ -17,7 +17,7 @@ julia> feynman_integral_branch_type(F,a)
 256*q[2]^4*q[3]^2*q[6]^2
 ```
 
-     feynman_integral_branch_type( F::FeynmanGraph,   a::Vector{Int64} ;aa=0,l=zeros(Int,nv(F.G)),g=zeros(Int,nv(F.G)))
+     feynman_integral_branch_type( F::FeynmanGraph,   a::Vector{Int64} ;g=zeros(Int,nv(F.G)),l=zeros(Int,nv(F.G)))
 
 # Examples (with vertex contribution)
 
@@ -61,7 +61,7 @@ function feynman_integral_branch_type(F::FeynmanIntegral, a::Vector{Int64}; l=ze
     end
     return p
 end
-function feynman_integral_branch_type(F::FeynmanIntegral, a::Vector{Int64}, g::Vector{Int64}; aa=1, l=zeros(Int, nv(F.G)))
+function feynman_integral_branch_type(F::FeynmanIntegral, a::Vector{Int64}, g::Vector{Int64}; l=zeros(Int, nv(F.G)))
     ee = edges(F.G)
     N = sum(a)
     f = signature_and_multiplicities(F.G, a)
@@ -72,8 +72,10 @@ function feynman_integral_branch_type(F::FeynmanIntegral, a::Vector{Int64}, g::V
     z = F.S[4]  # Vector of elements z from the polynomial ring R
     sz = 1
     g = 2 .* g
+    m = maximum(g)
+
     for k in eachindex(l)
-        sz = sz * filter_term(inv_sfunction(z[k], aa), z, g)
+        sz = sz * filter_term(inv_sfunction(z[k], m), z, g)
     end
     sz = filter_term(sz, z, g)
     for i in eachindex(f)
@@ -81,16 +83,16 @@ function feynman_integral_branch_type(F::FeynmanIntegral, a::Vector{Int64}, g::V
         for j in eachindex(f[i][2])
 
             if f[i][2][j] == -1
-                tmp = tmp * filter_term(constterm(x[src(ee[j])], x[dst(ee[j])], z[src(ee[j])], z[dst(ee[j])], aa, N), z, g)
+                tmp = tmp * filter_term(constterm(x[src(ee[j])], x[dst(ee[j])], z[src(ee[j])], z[dst(ee[j])], m, N), z, g)
 
             elseif f[i][2][j] == 0
-                tmp = tmp * filter_term(constterm(x[dst(ee[j])], x[src(ee[j])], z[src(ee[j])], z[dst(ee[j])], aa, N), z, g)
+                tmp = tmp * filter_term(constterm(x[dst(ee[j])], x[src(ee[j])], z[src(ee[j])], z[dst(ee[j])], m, N), z, g)
 
             elseif f[i][2][j] == -2
-                tmp = tmp * filter_term(loopterm(z[src(ee[j])], q[j], aa, a[j]), z, g)
+                tmp = tmp * filter_term(loopterm(z[src(ee[j])], q[j], m, a[j]), z, g)
 
             else
-                tmp = tmp * filter_term(proterm(x[src(ee[j])], x[dst(ee[j])], z[src(ee[j])], z[dst(ee[j])], q[j], f[i][2][j], aa, N), z, g)
+                tmp = tmp * filter_term(proterm(x[src(ee[j])], x[dst(ee[j])], z[src(ee[j])], z[dst(ee[j])], q[j], f[i][2][j], m, N), z, g)
             end
         end
         p = p + f[i][1] * coeff(tmp, x, L)
@@ -122,7 +124,7 @@ julia> Ω=[1,3,4,2];
 julia> feynman_integral_branch_type_order(F,a,Ω)
 128*q[2]^2=4*q[3]^2*q[6]^2
 ```
-     feynman_integral_branch_type_order( F::FeynmanGraph,   a::Vector{Int64}, Ω::Vector{Int64};aa=0,l=zeros(Int,nv(F.G)),g=zeros(Int,nv(F.G)))
+     feynman_integral_branch_type_order( F::FeynmanGraph,   a::Vector{Int64}, Ω::Vector{Int64}, g::Vector{Int64};l=zeros(Int, nv(F.G)))
 
 # Examples (with vertex contribution)
 
@@ -171,7 +173,7 @@ function feynman_integral_branch_type_order(F::FeynmanIntegral, a::Vector{Int64}
     end
     return p
 end
-function feynman_integral_branch_type_order(F::FeynmanIntegral, a::Vector{Int64}, o::Vector{Int64}, g::Vector{Int64}; aa=1, l=zeros(Int, nv(F.G)))
+function feynman_integral_branch_type_order(F::FeynmanIntegral, a::Vector{Int64}, o::Vector{Int64}, g::Vector{Int64}; l=zeros(Int, nv(F.G)))
     ee = edges(F.G)
     N = sum(a)
     f = signature_and_multiplicities_order(F.G, a, o)
@@ -183,9 +185,10 @@ function feynman_integral_branch_type_order(F::FeynmanIntegral, a::Vector{Int64}
 
     sz = 1
     g = 2 .* g
+    m = maximum(g)
 
     for k in eachindex(l)
-        sz = sz * filter_term(inv_sfunction(z[k], aa), z, g)
+        sz = sz * filter_term(inv_sfunction(z[k], m), z, g)
     end
     sz = filter_term(sz, z, g)
     for i in eachindex(f)
@@ -193,16 +196,16 @@ function feynman_integral_branch_type_order(F::FeynmanIntegral, a::Vector{Int64}
         for j in eachindex(f[i][2])
 
             if f[i][2][j] == -1
-                tmp = tmp * filter_term(constterm(x[src(ee[j])], x[dst(ee[j])], z[src(ee[j])], z[dst(ee[j])], aa, N), z, g)
+                tmp = tmp * filter_term(constterm(x[src(ee[j])], x[dst(ee[j])], z[src(ee[j])], z[dst(ee[j])], m, N), z, g)
 
             elseif f[i][2][j] == 0
-                tmp = tmp * filter_term(constterm(x[dst(ee[j])], x[src(ee[j])], z[src(ee[j])], z[dst(ee[j])], aa, N), z, g)
+                tmp = tmp * filter_term(constterm(x[dst(ee[j])], x[src(ee[j])], z[src(ee[j])], z[dst(ee[j])], m, N), z, g)
 
             elseif f[i][2][j] == -2
-                tmp = tmp * filter_term(loopterm(z[src(ee[j])], q[j], aa, a[j]), z, g)
+                tmp = tmp * filter_term(loopterm(z[src(ee[j])], q[j], m, a[j]), z, g)
 
             else
-                tmp = tmp * filter_term(proterm(x[src(ee[j])], x[dst(ee[j])], z[src(ee[j])], z[dst(ee[j])], q[j], f[i][2][j], aa, N), z, g)
+                tmp = tmp * filter_term(proterm(x[src(ee[j])], x[dst(ee[j])], z[src(ee[j])], z[dst(ee[j])], q[j], f[i][2][j], m, N), z, g)
             end
         end
         p = p + f[i][1] * coeff(tmp, x, L)
@@ -215,7 +218,7 @@ function feynman_integral_branch_type_order(F::FeynmanIntegral, a::Vector{Int64}
     return p
 end
 @doc raw"""
-    feynman_integral_degree_order(  F::FeynmanGraph,o::Vector{Int64},d::Integer;aa=0,l=zeros(Int,nv(F.G)))
+    feynman_integral_degree_order(  F::FeynmanGraph,o::Vector{Int64},d::Integer;l=zeros(Int,nv(F.G)))
 
  compute the Feynman Integral for  all the partitions of the degree d  for a fixed ordering `Ω`
     
@@ -234,7 +237,7 @@ julia> feynman_integral_degree_order(F,Ω,4)
 4*q[1]^4*q[2]^2*q[3]^2 + 4*q[1]^2*q[2]^4*q[5]^2 + 4*q[1]^2*q[2]^4*q[6]^2 + 4*q[1]^2*q[3]^4*q[5]^2 + 4*q[1]^2*q[3]^4*q[6]^2 + 176*q[2]^8 + 496*q[2]^6*q[3]^2 + 60*q[2]^6*q[5]^2 + 60*q[2]^6*q[6]^2 + 788*q[2]^4*q[3]^4 + 128*q[2]^4*q[3]^2*q[5]^2 + 128*q[2]^4*q[3]^2*q[6]^2 + 4*q[2]^4*q[4]^2*q[5]^2 + 4*q[2]^4*q[4]^2*q[6]^2 + 16*q[2]^4*q[5]^4 + 16*q[2]^4*q[6]^4 + 496*q[2]^2*q[3]^6 + 128*q[2]^2*q[3]^4*q[5]^2 + 128*q[2]^2*q[3]^4*q[6]^2 + 4*q[2]^2*q[3]^2*q[4]^4 + 48*q[2]^2*q[3]^2*q[5]^4 + 4*q[2]^2*q[3]^2*q[5]^2*q[6]^2 + 48*q[2]^2*q[3]^2*q[6]^4 + 176*q[3]^8 + 60*q[3]^6*q[5]^2 + 60*q[3]^6*q[6]^2 + 4*q[3]^4*q[4]^2*q[5]^2 + 4*q[3]^4*q[4]^2*q[6]^2 + 16*q[3]^4*q[5]^4 + 16*q[3]^4*q[6]^4
 ```
  
-     feynman_integral_degree_order(  F::FeynmanGraph,o::Vector{Int64},d::Integer;aa=0,l=zeros(Int,nv(F.G)),g=zeros(Int,nv(F.G)))
+     feynman_integral_degree_order(  F::FeynmanGraph,o::Vector{Int64},d::Integer, g::Vector{Int64};l=zeros(Int, nv(F.G)))
  
 # Examples (with vertex contribution)
 
@@ -299,10 +302,10 @@ function feynman_integral_degree_order(F::FeynmanIntegral, o::Vector{Int64}, d::
         end
     end
 end
-function feynman_integral_degree_order(F::FeynmanIntegral, o::Vector{Int64}, d::Integer, g::Vector{Int}; aa=1, l=zeros(Int, nv(F.G)))
+function feynman_integral_degree_order(F::FeynmanIntegral, o::Vector{Int64}, d::Integer, g::Vector{Int}; l=zeros(Int, nv(F.G)))
     indices = find_equal_pairs(edges(F.G))
     if isempty(indices)
-        return feynman_integral_deg_order(F, o, d, g; aa, l)
+        return feynman_integral_deg_order(F, o, d, g; l)
     else
         ee = edges(F.G)
 
@@ -322,10 +325,10 @@ function feynman_integral_degree_order(F::FeynmanIntegral, o::Vector{Int64}, d::
                 L = setdiff(L, ge)  # Remove the processed partition from L
                 if length(ge) == 1
                     kk = ge[1]
-                    push!(res, feynman_integral_branch_type_order(F, kk, o, g; aa, l))
+                    push!(res, feynman_integral_branch_type_order(F, kk, o, g; l))
                 else
                     k = ge[1]
-                    f = feynman_integral_branch_type_order(F, k, o, g; aa, l)
+                    f = feynman_integral_branch_type_order(F, k, o, g; l)
                     if f != 0
                         push!(res, f)
                         c1 = collect(coefficients(f))[1]
@@ -355,12 +358,12 @@ function feynman_integral_deg_order(F::FeynmanIntegral, o::Vector{Int64}, d::Int
     end
     return sum
 end
-function feynman_integral_deg_order(F::FeynmanIntegral, o::Vector{Int64}, d::Integer, g; aa=1, l=zeros(Int, nv(F.G)))
+function feynman_integral_deg_order(F::FeynmanIntegral, o::Vector{Int64}, d::Integer, g; l=zeros(Int, nv(F.G)))
     ee = edges(F.G)
     a = partition(length(ee), d)
     sum = 0
     for ai in a
-        sum = sum + feynman_integral_branch_type_order(F, ai, o, g; aa, l)
+        sum = sum + feynman_integral_branch_type_order(F, ai, o, g; l)
     end
     return sum
 end
@@ -384,7 +387,7 @@ julia> feynman_integral_degree(F,3)
 ```
  --------------------------
 
-     feynman_integral_degree(  F::FeynmanGraph,d::Integer;aa=0,l=zeros(Int,nv(F.G)),g=zeros(Int,nv(F.G)))
+     feynman_integral_degree(  F::FeynmanGraph,d::Integer, g::Vector{Int64};l=zeros(Int, nv(F.G)))
  
 # Examples (with vertex contribution)
 ```julia
@@ -444,10 +447,10 @@ function feynman_integral_degree(F::FeynmanIntegral, d::Int64; l=zeros(Int, nv(F
         end
     end
 end
-function feynman_integral_degree(F::FeynmanIntegral, d::Integer, g::Vector{Int}; aa=1, l=zeros(Int, nv(F.G)))
+function feynman_integral_degree(F::FeynmanIntegral, d::Integer, g::Vector{Int}; l=zeros(Int, nv(F.G)))
     indices = find_equal_pairs(edges(F.G))
     if isempty(indices)
-        return feynman_integral_deg(F, d, g; aa, l)
+        return feynman_integral_deg(F, d, g; l)
     else
         ee = edges(F.G)
 
@@ -464,10 +467,10 @@ function feynman_integral_degree(F::FeynmanIntegral, d::Integer, g::Vector{Int};
                 L = setdiff(L, ge)  # Remove the processed partition from L
                 if length(ge) == 1
                     kk = ge[1]
-                    push!(res, feynman_integral_branch_type(F, kk, g; aa, l))
+                    push!(res, feynman_integral_branch_type(F, kk, g; l))
                 else
                     k = ge[1]
-                    f = feynman_integral_branch_type(F, k, g; aa, l)
+                    f = feynman_integral_branch_type(F, k, g; l)
                     if f != 0
                         push!(res, f)
                         c1 = collect(coefficients(f))[1]
@@ -497,18 +500,18 @@ function feynman_integral_deg(F::FeynmanIntegral, d::Integer; l=zeros(Int, nv(F.
     end
     return sum
 end
-function feynman_integral_deg(F::FeynmanIntegral, d::Integer, g; aa=1, l=zeros(Int, nv(F.G)))
+function feynman_integral_deg(F::FeynmanIntegral, d::Integer, g; l=zeros(Int, nv(F.G)))
     ee = edges(F.G)
     a = partition(length(ee), d)
     sum = 0
     for ai in a
-        sum = sum + feynman_integral_branch_type(F, ai, g; aa, l)
+        sum = sum + feynman_integral_branch_type(F, ai, g; l)
     end
     return sum
 end
 
 @doc raw"""
-     feynman_integral_degree_sum_order( F::FeynmanGraph,o::Vector{Int64}, d::Union{Int64, Vector{Int64}}; aa=0, l=zeros(Int, nv(F.G)), g=zeros(Int, nv(F.G)))
+     feynman_integral_degree_sum_order( F::FeynmanGraph,o::Vector{Int64}, d::Union{Int64, Vector{Int64}};   g=zeros(Int, nv(F.G)),l=zeros(Int, nv(F.G)))
 
 compute the sum of all Feynman Integrals up to a certain degree d with a fixed ordering Ω
 
@@ -528,7 +531,7 @@ julia> feynman_integral_degree_sum_order(F,Ω,3)
 ```
 --------------------------
 
-     feynman_integral_degree_sum_order( F::FeynmanGraph,o::Vector{Int64}, d::Union{Int64, Vector{Int64}}; aa=0, l=zeros(Int, nv(F.G)), g=zeros(Int, nv(F.G)))
+     feynman_integral_degree_sum_order( F::FeynmanGraph,o::Vector{Int64}, d::Union{Int64, Vector{Int64}}, g::Vector{Int64}; l=zeros(Int, nv(F.G)))
  # Examples (with vertex contribution)
 
  ```julia
@@ -559,15 +562,15 @@ function feynman_integral_degree_sum_order(F::FeynmanIntegral, o::Vector{Int64},
     end
     return res
 end
-function feynman_integral_degree_sum_order(F::FeynmanIntegral, o::Vector{Int64}, d::Union{Int64,Vector{Int64}}, g; aa=1, l=zeros(Int, nv(F.G)))
+function feynman_integral_degree_sum_order(F::FeynmanIntegral, o::Vector{Int64}, d::Union{Int64,Vector{Int64}}, g; l=zeros(Int, nv(F.G)))
     res = 0
     if typeof(d) <: Integer
         for i in 1:d
-            res += feynman_integral_degree_order(F, o, i, g; aa, l)
+            res += feynman_integral_degree_order(F, o, i, g; l)
         end
     else
         for i in d[1]:d[end]
-            res += feynman_integral_degree_order(F, o, i, g; aa, l)
+            res += feynman_integral_degree_order(F, o, i, g; l)
         end
     end
     return res
@@ -590,7 +593,7 @@ julia> feynman_integral_degree_sum(F,3)
 ```
  --------------------------
  
-     feynman_integral_degree_sum( F::FeynmanGraph, d::Union{Int64, Vector{Int64}}; aa=0, l=zeros(Int, nv(F.G)), g=zeros(Int, nv(F.G)))
+     feynman_integral_degree_sum( F::FeynmanGraph, d::Union{Int64, Vector{Int64}}, g::Vector{Int64};l=zeros(Int, nv(F.G)))
  
 # Examples (with vertex contribution)
 
@@ -619,15 +622,15 @@ function feynman_integral_degree_sum(F::FeynmanIntegral, d::Union{Int64,Vector{I
     end
     return res
 end
-function feynman_integral_degree_sum(F::FeynmanIntegral, d::Union{Int64,Vector{Int64}}, g; aa=1, l=zeros(Int, nv(F.G)))
+function feynman_integral_degree_sum(F::FeynmanIntegral, d::Union{Int64,Vector{Int64}}, g; l=zeros(Int, nv(F.G)))
     res = 0
     if typeof(d) <: Integer
         for i in 1:d
-            res += feynman_integral_degree(F, i, g; aa, l)
+            res += feynman_integral_degree(F, i, g; l)
         end
     else
         for i in d[1]:d[end]
-            res += feynman_integral_degree(F, i, g; aa, l)
+            res += feynman_integral_degree(F, i, g; l)
         end
     end
     return res

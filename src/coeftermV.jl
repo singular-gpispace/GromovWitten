@@ -8,9 +8,9 @@
 
 **Note**:The function sfunction(z,k) takes account vertex contributions. 
 ```math
-S(z, {aa}) = \sum_{n = 0}^{{aa}} \dfrac{2^{- 1 - n} (1 + (- 1)^n)
-}{(n + 1) !} z^n = \sum_{n = 0}^{{aa}} \dfrac{{2^{- 2 n}} }{(2 n + 1) !}
-z^n, {aa} \rightarrow \infty
+S(z, {m}) = \sum_{n = 0}^{{m}} \dfrac{2^{- 1 - n} (1 + (- 1)^n)
+}{(n + 1) !} z^n = \sum_{n = 0}^{{m}} \dfrac{{2^{- 2 n}} }{(2 n + 1) !}
+z^n, {m} \rightarrow \infty
 ```
 # Examples
 
@@ -31,18 +31,18 @@ function sfunction(x::QQMPolyRingElem, k::Int64)
 end
 
 @doc raw"""
-    inv_sfunction(z::QQMPolyRingElem,aa::Int64)
+    inv_sfunction(z::QQMPolyRingElem,m::Int64)
 
 returns the inverse sfunction
 ```math
- \frac{1}{S(z,aa)}=\frac{z}{2 Sinh(z/2)}= 
- \sum_{n =  0}^{aa} \left( \left\{\begin{array}{ll}
+ \frac{1}{S(z,m)}=\frac{z}{2 Sinh(z/2)}= 
+ \sum_{n =  0}^{m} \left( \left\{\begin{array}{ll}
      1 & \text{if} && n = 1\\
      - \frac{- 2^n (- 2 + 2^n)}{n!} B_n & (n > = 1 && (- 1
      + n)\mod 2 = 1)
    \end{array}\right. \right) z^n 
 ```
-   Where $B_n$ is Bernoulli number and ${aa} \rightarrow \infty$.
+   Where $B_n$ is Bernoulli number and ${m} \rightarrow \infty$.
 # Examples
 ```julia
 julia> R,x=polynomial_ring(QQ,:x=>1:1); # using Nemo
@@ -78,18 +78,18 @@ function loopterm(q::QQMPolyRingElem, a::Integer)
     return p
 end
 @doc raw"""
-    loopterm( z::QQMPolyRingElem, q::QQMPolyRingElem, aa::Integer, a::Integer)
+    loopterm( z::QQMPolyRingElem, q::QQMPolyRingElem, m::Integer, a::Integer)
 
 returns loop contribution with nonzero genus gi at a vertex i. 
 """
-function loopterm(z::QQMPolyRingElem, q::QQMPolyRingElem, aa::Integer, a::Integer)
+function loopterm(z::QQMPolyRingElem, q::QQMPolyRingElem, m::Integer, a::Integer)
     p = 0
     if a == 0
         return p
     else
         for w in 1:a
             if a % w == 0
-                S1 = sfunction(w * z, aa)
+                S1 = sfunction(w * z, m)
                 p = p + S1 * S1 * w * q^(2 * a)
             end
         end
