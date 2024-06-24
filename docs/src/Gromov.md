@@ -17,14 +17,13 @@ We then define a polynomial ring with all variables required by our implementati
 julia> F=FeynmanIntegral(G);
 ```
 
-To compute a Feynman iuntegral, we define a partition  $a=[0,0,3]$  of degree d=3, a fixed order of vertex $o=[1,2,3]$ and the genus function $g=[1,0,0]$. The leak in G is $L=[0,0,0]$ , $aa=1$ is the  default order of the sfunction. We have then
+To compute a Feynman iuntegral, we define a partition  $a=[0,0,3]$  of degree d=3, a fixed order of vertex $o=[1,2,3]$ and the genus function $g=[1,0,0]$. The leak in G is $L=[0,0,0]$ , $m=1$ is the  default order of the sfunction. We have then
 
 ```julia
 julia> g=[1,0,0];
 julia> a=[0,0,3];
 julia> o=[1,2,3]; 
 ```
-
 
 ```julia
  julia> feynman_integral_branch_type_order(F,a,o,g)

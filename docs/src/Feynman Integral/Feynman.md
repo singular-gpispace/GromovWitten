@@ -64,7 +64,7 @@ julia> o=[1,2,3]
 ```
 
 We compute the Specific Feynman Integral for the Graph G given a fixed vertex ordering $o$ and the partition of degree $a$.
-Here we have the defaults values of the leak vector and the genus function  l=[0,0,0], g=[0,0,0] and we set the order of Sfunction $ aa=0$
+Here we have the defaults values of the leak vector and the genus function  l=[0,0,0], g=[0,0,0] and we set the order of Sfunction $ m=0$
 
 ```jldoctest graph
 julia>  feynman_integral_branch_type_order(F,a,o)
@@ -72,7 +72,7 @@ julia>  feynman_integral_branch_type_order(F,a,o)
 ```
 
 ```We compute the Specific Feynman Integral for the Graph G given a fixed partition of degree $a$ for all vertex ordering $o$.
-Here we have the defaults values of the leak vector and the genus function  l=[0,0,0], g=[0,0,0] and we set the order of Sfunction $ aa=0$
+Here we have the defaults values of the leak vector and the genus function  l=[0,0,0], g=[0,0,0] and we set the order of S-function $ m=0$
 
 ```jldoctest graph
 julia> feynman_integral_branch_type(F,a)
