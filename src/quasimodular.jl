@@ -1,3 +1,14 @@
+function number_of_monomials(w, d)
+    dp = zeros(Int, d + 1)
+    dp[1] = 1
+    for weight in w
+        for j in weight:d
+            dp[j+1] += dp[j-weight+1]
+        end
+    end
+
+    return dp[d+1]
+end
 
 #=function filter_term(pols::Union{QQMPolyRingElem, Int64}, variables::Vector{QQMPolyRingElem}, power::Vector{Int64})
     T = parent(variables[1])
