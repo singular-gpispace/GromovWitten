@@ -1,4 +1,7 @@
 @testset "quasimod.jl" begin
+    w = [2, 4, 6]
+    d = 12
+    @test number_of_monomials(w, d) == 7
     import Nemo: QQFieldElem
     S, (E2, E4, E6) = polynomial_ring(QQ, ["E2", "E4", "E6"])
     R, q = polynomial_ring(QQ, ["q"])
