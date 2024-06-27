@@ -50,12 +50,32 @@ julia> filter_vector(v,q,6)
 ```
 """
 function filter_vector(polyvector::Vector{QQMPolyRingElem}, variables::Union{Vector{QQMPolyRingElem},QQMPolyRingElem}, power::Union{Vector{Int64},Int64})
+    # Ensure variables and power are vectors for consistent processing
+    if typeof(variables) <: AbstractArray
+        variables = collect(variables)
+    else
+        variables = [variables]
+    end
+
+    if typeof(power) <: AbstractArray
+        power = collect(power)
+    else
+        power = [power]
+    end
+
     result = Vector{QQMPolyRingElem}()
     for pols in polyvector
         push!(result, filter_term(pols, variables, power))
     end
     return result
 end
+#=function filter_vector(polyvector::Vector{QQMPolyRingElem}, variables::Union{Vector{QQMPolyRingElem},QQMPolyRingElem}, power::Union{Vector{Int64},Int64})
+    result = Vector{QQMPolyRingElem}()
+    for pols in polyvector
+        push!(result, filter_term(pols, variables, power))
+    end
+    return result
+end=#
 @doc raw"""
     sum_of_divisor_powers(n::Int, k::Int)
 

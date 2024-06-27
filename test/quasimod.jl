@@ -119,6 +119,7 @@
             @test result[2][i] == expected_result[2][i]
         end
     end
+    #Iq = substitute(feynman_integral_degree_sum(F, 6))
     Iq = 886656 * q[1]^12 + 182272 * q[1]^10 + 25344 * q[1]^8 + 1792 * q[1]^6 + 32 * q[1]^4
 
     @testset "quasi_matrix case QQFieldElem " begin
