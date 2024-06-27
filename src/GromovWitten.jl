@@ -48,8 +48,8 @@ export polynomial_to_matrix
 export preimg
 export proterm
 export QQ
-export quasimodular_form
-export quasi_matrix
+export quasimodular_form, quasimodularity_form
+export quasi_matrix, quasimodular_matrix
 export replace
 export sfunction
 export signature_and_multiplicities

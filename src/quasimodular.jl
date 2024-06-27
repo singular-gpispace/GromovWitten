@@ -69,6 +69,27 @@ function filter_vector(polyvector::Vector{QQMPolyRingElem}, variables::Union{Vec
     end
     return result
 end
+function filter_vector(polyvector::Vector{QQMPolyRingElem}, power::Union{Vector{Int64},Int64})
+    variables = vars(polyvector[1])
+    # Ensure variables and power are vectors for consistent processing
+    if typeof(variables) <: AbstractArray
+        variables = collect(variables)
+    else
+        variables = [variables]
+    end
+
+    if typeof(power) <: AbstractArray
+        power = collect(power)
+    else
+        power = [power]
+    end
+
+    result = Vector{QQMPolyRingElem}()
+    for pols in polyvector
+        push!(result, filter_term(pols, variables, power))
+    end
+    return result
+end
 #=function filter_vector(polyvector::Vector{QQMPolyRingElem}, variables::Union{Vector{QQMPolyRingElem},QQMPolyRingElem}, power::Union{Vector{Int64},Int64})
     result = Vector{QQMPolyRingElem}()
     for pols in polyvector
@@ -280,6 +301,14 @@ function quasi_matrix(Iq::QQMPolyRingElem, weightmax::Int64)
     Q = matrix_of_integral(Iq)
     return solve_polynomial_system(A, Q)
 end
+function quasimodular_matrix(Iq::QQMPolyRingElem, weightmax::Int64)
+    #q=vars(Iq)
+    max_degree = total_degree(Iq)
+    Evector = filter_vector(express_as_powers(max_degree, weightmax), max_degree)
+    A = polynomial_to_matrix(Evector)
+    Q = matrix_of_integral(Iq)
+    return solve_polynomial_system(A, Q)
+end
 @doc raw"""
  quasimodular_form(Iq, weightmax::Int64)
 
@@ -299,6 +328,26 @@ julia> quasimodular_form(Iq,12)
 (1//93312, -3*E2^6 + 6*E2^4*E4 + 4*E2^3*E6 - 3*E2^2*E4^2 - 12*E2*E4*E6 + 4*E4^3 + 4*E6^2)
 ```
 """
+function quasimodularity_form(Iq, weightmax::Int64)
+    if isodd(weightmax)
+        return error("weightmax must be an even number and equal to 6g-6")
+    end
+    q = vars(Iq)
+    max_degree = total_degree(Iq)
+    fac, coef = quasimodular_matrix(Iq, weightmax)
+    comb_result = express_as_eisenstein_series(weightmax)
+    p = 0
+    for (i, term) in enumerate(comb_result)
+        if coef[i] == 0
+            continue
+        end
+        tmp = coef[i] * term
+        p += tmp
+    end
+    #p = fac * p
+
+    return fac, p
+end
 function quasimodular_form(Iq, weightmax::Int64)
     if isodd(weightmax)
         return error("weightmax must be an even number and equal to 6g-6")
