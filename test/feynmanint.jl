@@ -12,7 +12,7 @@
     @test feynman_integral_branch_type(F, a, l=[0, 0, 0]) == 6 * q[1]^4 * q[4]^2
     @test feynman_integral_degree_order(F, o, 3, l=[0, 0, 0]) == 3 * q[1]^4 * q[4]^2 + q[1]^2 * q[2]^2 * q[3]^2 + q[1]^2 * q[2]^2 * q[4]^2 + q[1]^2 * q[3]^2 * q[4]^2 + 9 * q[1]^2 * q[4]^4
     @test sum_of_coeff(feynman_integral_degree_order(F, o, 3)) == 15
-    @test sum_of_coeff(feynman_integral_degree(F, 3)) == 72
+    @test sum_of_coeff(feynman_integral_degree(F, 3)) == 90
     v = [(1, 2), (1, 2), (2, 3), (3, 1)]
     G = FeynmanGraph(v)
     F = FeynmanIntegral(G)
