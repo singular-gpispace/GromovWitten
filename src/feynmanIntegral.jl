@@ -43,10 +43,10 @@ function feynman_integral_branch_type(F::FeynmanIntegral, a::Vector{Int64}; l=ze
     x = F.S[2]  # Vector of elements x from the polynomial ring R
     q = F.S[3]  # Vector of elements q from the polynomial ring R
 
-    for i in 1:length(f)
+    for i in eachindex(f)
         tmp = 1  # Use the identity element of the polynomial ring R
 
-        for j in 1:length(f[i][2])
+        for j in eachindex(f[i][2])
             if f[i][2][j] == -1
                 tmp *= constterm(x[src(ee[j])], x[dst(ee[j])], N)
             elseif f[i][2][j] == 0
@@ -72,13 +72,13 @@ function feynman_integral_branch_type(F::FeynmanIntegral, a::Vector{Int64},g::Ve
     z = F.S[4]  # Vector of elements z from the polynomial ring R
     sz=1
     g=2 .* g
-    for k in 1:length(l)
+    for k in eachindex(l)
         sz=sz*filter_term(inv_sfunction(z[k],aa),z,g)
     end
     sz=filter_term(sz,z,g)
-    for i in 1:length(f)
+    for i in eachindex(f)
         tmp=1
-        for j in 1:length(f[i][2])
+        for j in eachindex(f[i][2])
 
                 if f[i][2][j] == -1
                         tmp = tmp * filter_term(constterm(x[src(ee[j])], x[dst(ee[j])], z[src(ee[j])], z[dst(ee[j])],aa,N),z,g)
@@ -152,10 +152,10 @@ function feynman_integral_branch_type_order(F::FeynmanIntegral, a::Vector{Int64}
     q = F.S[3]  # Vector of elements q from the polynomial ring R
 
 
-    for i in 1:length(f)
+    for i in eachindex(f)
         tmp = 1  # Use the identity element of the polynomial ring R
 
-        for j in 1:length(f[i][2])
+        for j in eachindex(f[i][2])
             if f[i][2][j] == -1
                 tmp *= constterm(x[src(ee[j])], x[dst(ee[j])], N)
             elseif f[i][2][j] == 0
@@ -184,13 +184,13 @@ function feynman_integral_branch_type_order(F::FeynmanIntegral, a::Vector{Int64}
     sz=1
     g=2 .* g
 
-    for k in 1:length(l)
+    for k in eachindex(l)
         sz=sz*filter_term(inv_sfunction(z[k],aa),z,g)
     end
     sz=filter_term(sz,z,g)
-    for i in 1:length(f)
+    for i in eachindex(f)
         tmp=1
-        for j in 1:length(f[i][2])
+        for j in eachindex(f[i][2])
 
                 if f[i][2][j] == -1
                         tmp = tmp * filter_term(constterm(x[src(ee[j])], x[dst(ee[j])], z[src(ee[j])], z[dst(ee[j])],aa,N),z,g)
@@ -252,7 +252,103 @@ julia> feynman_integral_degree_order(F,Ω,3,g)
 1//24*q[1]^4*q[2]^2 + 1//24*q[1]^4*q[3]^2 + 1//24*q[1]^2*q[2]^4 + 1//12*q[1]^2*q[2]^2*q[3]^2 + 1//24*q[1]^2*q[3]^4 + 1//24*q[2]^4*q[3]^2 + 1//24*q[2]^2*q[3]^4 + 115//6*q[3]^6
 ```
 """
-function feynman_integral_degree_order(F::FeynmanIntegral,o::Vector{Int64},d::Integer;l=zeros(Int,nv(F.G)))
+function feynman_integral_degree_order( F::FeynmanIntegral,o::Vector{Int64},d::Integer,;l=zeros(Int,nv(F.G)) )
+    # ve==F.G.edge
+     indices = find_equal_pairs(F.G.edge)
+     if isempty(indices)
+         return feynman_integral_deg_order(F,o,d;l)
+     else
+         ee=Edge.(F.G.edge)
+ 
+         re = Vector{Vector{Any}}()
+         res = []
+         L = partition(length(ee), d)
+ 
+         while !isempty(L)
+             ll = popfirst!(L)
+ 
+             found = false
+ 
+            
+ 
+             if !found
+                 ge = generate_permutation(ll, indices)
+                 L = setdiff(L, ge)  # Remove the processed partition from L
+                 if length(ge) == 1
+                     kk= ge[1]
+                     push!(res, feynman_integral_branch_type_order(F, kk,o;l))
+                 else
+                     k=ge[1]
+                     f = feynman_integral_branch_type_order(F, k,o;l)
+                     if f != 0
+                         push!(res, f)
+                         c1 = collect(coefficients(f))[1]
+                         for i in eachindex(ge)[2:end]
+                             li = ge[i]
+                             r2 = c1 * vector_to_monomial(F,li)
+                             push!(res,  r2)
+ 
+                         end
+                     end
+                 end
+             end
+         end
+         if isempty(res)
+             return 0
+         else
+             return sum(res)
+         end
+     end
+ end
+function feynman_integral_degree_order( F::FeynmanIntegral,o::Vector{Int64},d::Integer,g::Vector{Int} ;aa=1,l=zeros(Int,nv(F.G)) )
+    # ve==F.G.edge
+     indices = find_equal_pairs(F.G.edge)
+     if isempty(indices)
+         return feynman_integral_deg_order(F,o,d,g;aa,l)
+     else
+         ee=Edge.(F.G.edge)
+ 
+         re = Vector{Vector{Any}}()
+         res = []
+         L = partition(length(ee), d)
+ 
+         while !isempty(L)
+             ll = popfirst!(L)
+ 
+             found = false
+ 
+            
+ 
+             if !found
+                 ge = generate_permutation(ll, indices)
+                 L = setdiff(L, ge)  # Remove the processed partition from L
+                 if length(ge) == 1
+                     kk= ge[1]
+                     push!(res, feynman_integral_branch_type_order(F, kk,o,g;aa,l))
+                 else
+                     k=ge[1]
+                     f = feynman_integral_branch_type_order(F, k,o,g;aa,l)
+                     if f != 0
+                         push!(res, f)
+                         c1 = collect(coefficients(f))[1]
+                         for i in eachindex(ge)[2:end]
+                             li = ge[i]
+                             r2 = c1 * vector_to_monomial(F,li)
+                             push!(res,  r2)
+ 
+                         end
+                     end
+                 end
+             end
+         end
+         if isempty(res)
+             return 0
+         else
+             return sum(res)
+         end
+     end
+ end
+function feynman_integral_deg_order(F::FeynmanIntegral,o::Vector{Int64},d::Integer;l=zeros(Int,nv(F.G)))
     ee=Edge.(F.G.edge)
     a=partition(length(ee),d) 
     sum=0
@@ -261,7 +357,7 @@ function feynman_integral_degree_order(F::FeynmanIntegral,o::Vector{Int64},d::In
     end
     return sum
 end 
-function feynman_integral_degree_order(F::FeynmanIntegral,o::Vector{Int64},d::Integer,g;aa=1,l=zeros(Int,nv(F.G)))
+function feynman_integral_deg_order(F::FeynmanIntegral,o::Vector{Int64},d::Integer,g;aa=1,l=zeros(Int,nv(F.G)))
     ee=Edge.(F.G.edge)
     a=partition(length(ee),d) 
     sum=0
@@ -306,7 +402,97 @@ julia> feynman_integral_degree(F,3,g)
 115//3*q[1]^6 + 1//4*q[1]^4*q[2]^2 + 1//4*q[1]^4*q[3]^2 + 1//4*q[1]^2*q[2]^4 + 1//2*q[1]^2*q[2]^2*q[3]^2 + 1//4*q[1]^2*q[3]^4 + 115//3*q[2]^6 + 1//4*q[2]^4*q[3]^2 + 1//4*q[2]^2*q[3]^4 + 115//3*q[3]^6
 ```
  """
- function feynman_integral_degree( F::FeynmanIntegral,d::Integer ;l=zeros(Int,nv(F.G)))
+ function feynman_integral_degree(F::FeynmanIntegral, d::Int64 ; l=zeros(Int, nv(F.G)) )
+    # ve==F.G.edge
+     indices = find_equal_pairs(F.G.edge)
+     if isempty(indices)
+         return feynman_integral_deg(F,d;l)
+     else
+         ee=Edge.(F.G.edge)
+ 
+         re = Vector{Vector{Any}}()
+         res = []
+         L = partition(length(ee), d)
+ 
+         while !isempty(L)
+             ll = popfirst!(L)
+ 
+             found = false
+             if !found
+                 ge = generate_permutation(ll, indices)
+                 L = setdiff(L, ge)  # Remove the processed partition from L
+                 if length(ge) == 1
+                     kk= ge[1]
+                     push!(res, feynman_integral_branch_type(F, kk;l))
+                 else
+                     k=ge[1]
+                     f = feynman_integral_branch_type(F, k;l)
+                     if f != 0
+                         push!(res, f)
+                         c1 = collect(coefficients(f))[1]
+                         for i in eachindex(ge)[2:end]
+                             li = ge[i]
+                             r2 = c1 * vector_to_monomial(F,li)
+                             push!(res,  r2)
+ 
+                         end
+                     end
+                 end
+             end
+         end
+         if isempty(res)
+             return 0
+         else
+             return sum(res)
+         end
+     end
+ end
+ function feynman_integral_degree( F::FeynmanIntegral,d::Integer,g::Vector{Int} ;aa=1,l=zeros(Int,nv(F.G)) )
+    # ve==F.G.edge
+     indices = find_equal_pairs(F.G.edge)
+     if isempty(indices)
+         return feynman_integral_deg(F,d,g;aa,l)
+     else
+         ee=Edge.(F.G.edge)
+ 
+         re = Vector{Vector{Any}}()
+         res = []
+         L = partition(length(ee), d)
+ 
+         while !isempty(L)
+             ll = popfirst!(L)
+ 
+             found = false
+             if !found
+                 ge = generate_permutation(ll, indices)
+                 L = setdiff(L, ge)  # Remove the processed partition from L
+                 if length(ge) == 1
+                     kk= ge[1]
+                     push!(res, feynman_integral_branch_type(F, kk,g;aa,l))
+                 else
+                     k=ge[1]
+                     f = feynman_integral_branch_type(F, k,g;aa,l)
+                     if f != 0
+                         push!(res, f)
+                         c1 = collect(coefficients(f))[1]
+                         for i in eachindex(ge)[2:end]
+                             li = ge[i]
+                             r2 = c1 * vector_to_monomial(F,li)
+                             push!(res,  r2)
+ 
+                         end
+                     end
+                 end
+             end
+         end
+         if isempty(res)
+             return 0
+         else
+             return sum(res)
+         end
+     end
+ end
+ function feynman_integral_deg( F::FeynmanIntegral,d::Integer ;l=zeros(Int,nv(F.G)))
     ee=Edge.(F.G.edge)
     a=partition(length(ee),d) 
     sum=0
@@ -315,7 +501,7 @@ julia> feynman_integral_degree(F,3,g)
     end
     return sum
 end 
-function feynman_integral_degree( F::FeynmanIntegral,d::Integer,g ;aa=1,l=zeros(Int,nv(F.G)))
+function feynman_integral_deg( F::FeynmanIntegral,d::Integer,g ;aa=1,l=zeros(Int,nv(F.G)))
     ee=Edge.(F.G.edge)
     a=partition(length(ee),d) 
     sum=0
@@ -481,7 +667,7 @@ julia> substitute(f)
  5*x[1]^6 + x[1]^4 - x[1]^2
 ```
  """
- function substitute(p::Union{fmpq_mpoly, Int64})
+ function substitute(p::Union{QQMPolyRingElem, Int64})
     if typeof(p)==Int64 || p==zero(p)
         return zero(p)
     else

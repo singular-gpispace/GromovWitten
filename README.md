@@ -25,10 +25,10 @@ The package GromovWitten computes generating series for tropical Hurwitz numbers
 We assume that Julia is installed in a recent enough version to run OSCAR. Navigate in a terminal to the folder where you want to install the package and pull the package from Github:
 
 ```bash
-git pull https://github.com/singular-gpispace/GromovWitten.git
+git clone https://github.com/singular-gpispace/GromovWitten.git
 ```
 
-I the same folder execute the following command:
+Navigate to  GromovWitten  folder execute the following command:
 
 ```bash
 julia --project
@@ -52,12 +52,12 @@ using GromovWitten
 ![alt text](docs/src/img/Cartepillar3.png)
 
 ```julia
-julia> G = FeynmanGraph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3,4)] )
+julia> G = feynman_graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3,4)] )
 graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
 ```
 
 ```julia
-julia> F=FeynmanIntegral(G)
+julia> F=feynman_integral(G)
 ```
 
 ```julia
@@ -98,12 +98,12 @@ We can try to catch the previous result in a table.
 To do that, we define `feynman_integral_branch_type_cache` , `feynman_integral_degree_cache` and  `feynman_integral_degree__sum_cache`. The last one returns the univariable polynomial of Feynman integral sum up to degree $d$.
 We define first the Feynman graph, 
 ```julia
-julia> G = FeynmanGraph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3,4)] )
+julia> G = feynman_graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3,4)] )
 graph([(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)])
 ```
 
 ```julia
-julia> F=FeynmanIntegral(G)
+julia> F=feynman_integral(G)
 ```
 we cache the Feynman Integral.
 ```julia

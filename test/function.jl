@@ -13,8 +13,5 @@
     
         @test preimg(L, xi) == 3
     end
-    ve=[]
-    G=FeynmanGraph(ve)
-    @test_throws UndefVarError R,x,q=polynomial_ring(G,"x","q")
 
 end

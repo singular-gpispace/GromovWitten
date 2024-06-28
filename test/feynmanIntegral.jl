@@ -19,4 +19,9 @@
     @test  substitute(0)==0
     p=6*q[1]^2*q[2]^2*q[3]^4 + 12*q[1]^2*q[2]^2*q[3]^2*q[4]^2 + 6*q[1]^2*q[2]^2*q[4]^4 + 56*q[1]^2*q[3]^6 + 6*q[1]^2*q[3]^4*q[4]^2 + 6*q[1]^2*q[3]^2*q[4]^4 + 56*q[1]^2*q[4]^6 + q[1]
     @test  filter_term(p,q[1],1)==q[1]
+    ve=[(1, 3), (1,2),(1, 2), (2, 4) ,(3, 4),(3,4)]
+    G=FeynmanGraph(ve)
+    F=FeynmanIntegral(G)
+    d=1
+    @test feynman_integral_degree_order(F,o,d)==0
 end

@@ -15,7 +15,7 @@ z^n, {aa} \rightarrow \infty
 # Examples
 
 ```julia
-julia> R,x=@polynomial_ring(QQ,x[1:1]); # using Nemo
+julia> R,x=polynomial_ring(QQ,:x=>1:1); # using Nemo
 julia> sfunction(x[1],4)
 
 1//92897280*z[1]^8 + 1//322560*z[1]^6 + 1//1920*z[1]^4 + 1//24*z[1]^2 
@@ -45,7 +45,7 @@ returns the inverse sfunction
    Where $B_n$ is Bernoulli number and ${aa} \rightarrow \infty$.
 # Examples
 ```julia
-julia> R,x=@polynomial_ring(QQ,x[1:1]); # using Nemo
+julia> R,x=polynomial_ring(QQ,:x=>1:1); # using Nemo
 julia> inv_sfunction(x[1],4)
 7//5760*x[1]^4 - 1//24*x[1]^2 + 1
 ```
@@ -160,7 +160,7 @@ julia> filter_term(p,q[1],1)
 q[1]
 ```
  """
- function filter_term(pols::Union{QQMPolyRingElem, Int64}, variables::Union{Vector{QQMPolyRingElem}, QQMPolyRingElem}, power::Union{Vector{Int64}, Int64})
+ function filter_term(pols::Union{QQMPolyRingElem,QQPolyRingElem, Int64}, variables::Union{Vector{QQPolyRingElem},Vector{QQMPolyRingElem}, QQMPolyRingElem,QQPolyRingElem}, power::Union{Vector{Int64}, Int64})
     if typeof(variables) <: QQMPolyRingElem
         T = parent(variables)
         pols = T(pols)

@@ -2,18 +2,65 @@
 GromovWitten  is a package for computing Gromov-Witten invariant via Feynman Integral  .
 """
 module GromovWitten
-# Write your package code here.
-using Nemo, Graphs, Combinatorics,StatsBase
-export  QQFieldElem,@polynomial_ring
-import Graphs: nv,ne,Edge,dst, src
-export FeynmanGraph,nv,ne,PolynomialRing,QQ,FeynmanIntegral
-export polynomial_ring,constterm, proterm, propagator, coefterm, partition, preimg, substitute,flip,signature_and_multiplicities_order,
-feynman_integral_branch_type, feynman_integral_degree,feynman_integral_degree_sum_order,feynman_integral_degree_sum,sum_of_coeff,loopterm,  flip_signature,signature_and_multiplicities,
-feynman_integral_branch_type_order,feynman_integral_degree_order,lis,filter_term,filter_vector,
-sum_of_divisor_powers,express_as_eisenstein_series,express_as_powers,polynomial_to_matrix,matrix_of_integral,
-solve_polynomial_system, quasi_matrix,sfunction,inv_sfunction
-export eisenstein_series,quasimodular_form
-export cache_integral_result, get_integral_from_cache, feynman_integral_branch_type_cache, feynman_integral_degree_cache,feynman_integral_degree_sum_cache
+
+using Nemo
+
+import Combinatorics: permutations, with_replacement_combinations
+
+import StatsBase: countmap
+
+import Graphs: nv, ne, Edge, dst, src, DiGraph
+
+export cache_integral_result
+export coefterm
+export constterm
+export eisenstein_series
+export express_as_eisenstein_series
+export express_as_powers
+export FeynmanGraph
+export FeynmanIntegral
+export feynman_graph
+export feynman_integral
+export feynman_integral_branch_type
+export feynman_integral_branch_type_cache
+export feynman_integral_branch_type_order
+export feynman_integral_deg
+export feynman_integral_degree
+export feynman_integral_degree_cache
+export feynman_integral_degree_order
+export feynman_integral_degree_sum
+export feynman_integral_degree_sum_cache
+export feynman_integral_degree_sum_order
+export filter_term
+export filter_vector
+export find_equal_pairs
+export flip
+export flip_signature
+export generate_permutation
+export get_integral_from_cache
+export inv_sfunction
+export lis
+export loopterm
+export matrix_of_integral
+export ne
+export nv
+export partition
+export polynomial_ring
+export polynomial_to_matrix
+export preimg
+export proterm
+export QQ
+export quasimodular_form
+export quasi_matrix
+export replace
+export sfunction
+export signature_and_multiplicities
+export signature_and_multiplicities_order
+export solve_polynomial_system
+export substitute
+export sum_of_coeff
+export sum_of_divisor_powers
+export vector_to_monomial
 
 include("graph.jl")
 include("coeftermV.jl")
@@ -22,4 +69,5 @@ include("feynmanIntegral.jl")
 include("propagator.jl")
 include("quasimodular.jl")
 include("hashtable.jl")
+
 end
