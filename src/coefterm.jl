@@ -224,7 +224,8 @@ function signature_and_multiplicities(G::FeynmanGraph, a::Vector{Int64})
     l = zeros(Int, nv(G))
     y = Vector{Vector{Int64}}()
     if count_zero(a) <= 1
-        push!(b, (factorial(nv(G)), a))
+        o = [i for i in 1:nv(G)]
+        push!(b, (factorial(nv(G)), flip_signature(G, o, a)))
         return b
     else
         for (ev, ai) in zip(ee, a)
