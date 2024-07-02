@@ -289,7 +289,7 @@ function signature_and_multiplicities(G::FeynmanGraph, a::Vector{Int64})
     end
 end
 
-
+#= 
 function find_equal_pairs(ve::Vector{Edge})
     equal_pairs = Dict{Edge,Vector{Int}}()
     for (i, pair) in enumerate(ve)
@@ -335,4 +335,4 @@ function generate_permutation(l::Vector{Int64}, indices::Vector{Vector{Int64}})
     end
 
     return collect(permuted_lists)
-end
+end =#

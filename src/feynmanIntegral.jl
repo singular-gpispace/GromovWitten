@@ -255,6 +255,7 @@ julia> feynman_integral_degree_order(F,Ω,3,g)
 1//24*q[1]^4*q[2]^2 + 1//24*q[1]^4*q[3]^2 + 1//24*q[1]^2*q[2]^4 + 1//12*q[1]^2*q[2]^2*q[3]^2 + 1//24*q[1]^2*q[3]^4 + 1//24*q[2]^4*q[3]^2 + 1//24*q[2]^2*q[3]^4 + 115//6*q[3]^6
 ```
 """
+#= 
 function feynman_integral_degree_order(F::FeynmanIntegral, o::Vector{Int64}, d::Integer, ; l=zeros(Int, nv(F.G)))
     indices = find_equal_pairs(edges(F.G))
     if isempty(indices)
@@ -348,8 +349,8 @@ function feynman_integral_degree_order(F::FeynmanIntegral, o::Vector{Int64}, d::
             return sum(res)
         end
     end
-end
-function feynman_integral_deg_order(F::FeynmanIntegral, o::Vector{Int64}, d::Integer; l=zeros(Int, nv(F.G)))
+end =#
+function feynman_integral_degree_order(F::FeynmanIntegral, o::Vector{Int64}, d::Integer; l=zeros(Int, nv(F.G)))
     ee = edges(F.G)
     a = partition(length(ee), d)
     sum = 0
@@ -358,7 +359,7 @@ function feynman_integral_deg_order(F::FeynmanIntegral, o::Vector{Int64}, d::Int
     end
     return sum
 end
-function feynman_integral_deg_order(F::FeynmanIntegral, o::Vector{Int64}, d::Integer, g; l=zeros(Int, nv(F.G)))
+function feynman_integral_degree_order(F::FeynmanIntegral, o::Vector{Int64}, d::Integer, g; l=zeros(Int, nv(F.G)))
     ee = edges(F.G)
     a = partition(length(ee), d)
     sum = 0
@@ -403,7 +404,7 @@ julia> feynman_integral_degree(F,3,g)
 115//3*q[1]^6 + 1//4*q[1]^4*q[2]^2 + 1//4*q[1]^4*q[3]^2 + 1//4*q[1]^2*q[2]^4 + 1//2*q[1]^2*q[2]^2*q[3]^2 + 1//4*q[1]^2*q[3]^4 + 115//3*q[2]^6 + 1//4*q[2]^4*q[3]^2 + 1//4*q[2]^2*q[3]^4 + 115//3*q[3]^6
 ```
  """
-function feynman_integral_degree(F::FeynmanIntegral, d::Int64; l=zeros(Int, nv(F.G)))
+#= function feynman_integral_degree(F::FeynmanIntegral, d::Int64; l=zeros(Int, nv(F.G)))
     indices = find_equal_pairs(edges(F.G))
     if isempty(indices)
         return feynman_integral_deg(F, d; l)
@@ -490,8 +491,8 @@ function feynman_integral_degree(F::FeynmanIntegral, d::Integer, g::Vector{Int};
             return sum(res)
         end
     end
-end
-function feynman_integral_deg(F::FeynmanIntegral, d::Integer; l=zeros(Int, nv(F.G)))
+end =#
+function feynman_integral_degree(F::FeynmanIntegral, d::Integer; l=zeros(Int, nv(F.G)))
     ee = edges(F.G)
     a = partition(length(ee), d)
     sum = 0
@@ -500,7 +501,7 @@ function feynman_integral_deg(F::FeynmanIntegral, d::Integer; l=zeros(Int, nv(F.
     end
     return sum
 end
-function feynman_integral_deg(F::FeynmanIntegral, d::Integer, g; l=zeros(Int, nv(F.G)))
+function feynman_integral_degree(F::FeynmanIntegral, d::Integer, g; l=zeros(Int, nv(F.G)))
     ee = edges(F.G)
     a = partition(length(ee), d)
     sum = 0
