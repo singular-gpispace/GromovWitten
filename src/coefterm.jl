@@ -252,43 +252,46 @@ function signature_and_multiplicities(G::FeynmanGraph, a::Vector{Int64})
         for (key, val) in py
             push!(b, (dd * val, key))
         end
-        if length(b) == 1
-            return b
-        else
-            group = Vector{Tuple{Int64,Vector{Int64}}}()
-
-            for (n, values1) in b
-                mm = 2 * n
-                if (n, values1) in group || (mm, values1) in group
-                    continue
-                end
-
-                equiv = false
-
-                for (m, values2) in b
-                    if (m, values2) in group || (2 * m, values2) in group
-                        continue
-                    end
-
-                    if n == m && values2 == replace(values1)
-                        equiv = true
-                        break
-                    end
-                end
-
-                mn = 2 * n
-
-                if equiv
-                    push!(group, (mm, values1))
-                end
-            end
-
-            # Convert Set to Vector for consistency with the original return type
-            return group # to be modified. 
-        end
+        return b
     end
-end
+    #=      if length(b) == 1
+             return b
+         else
+             group = Vector{Tuple{Int64,Vector{Int64}}}()
 
+             for (n, values1) in b
+                 mm = 2 * n
+                 if (n, values1) in group || (mm, values1) in group
+                     continue
+                 end
+
+                 equiv = false
+
+                 for (m, values2) in b
+                     if (m, values2) in group || (2 * m, values2) in group
+                         continue
+                     end
+
+                     if n == m && values2 == replace(values1)
+                         equiv = true
+                         break
+                     end
+                 end
+
+                 mn = 2 * n
+
+                 if equiv
+                     push!(group, (mm, values1))
+                 end
+             end
+
+             # Convert Set to Vector for consistency with the original return type
+             return group # to be modified. 
+         end
+     end
+      =#
+
+end
 #= 
 function find_equal_pairs(ve::Vector{Edge})
     equal_pairs = Dict{Edge,Vector{Int}}()
