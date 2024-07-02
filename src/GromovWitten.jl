@@ -60,6 +60,7 @@ export sum_of_coeff
 export sum_of_divisor_powers
 export vector_to_monomial
 export number_of_monomials
+export compos_iterate
 include("graph.jl")
 include("coeftermV.jl")
 include("coefterm.jl")

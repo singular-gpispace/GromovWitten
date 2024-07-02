@@ -264,7 +264,7 @@ function feynman_integral_degree_order(F::FeynmanIntegral, o::Vector{Int64}, d::
 
         re = Vector{Vector{Any}}()
         res = []
-        L = partition(length(ee), d)
+        L = compos_iterate(F, length(ee), d)
 
         while !isempty(L)
             ll = popfirst!(L)
@@ -311,7 +311,7 @@ function feynman_integral_degree_order(F::FeynmanIntegral, o::Vector{Int64}, d::
 
         re = Vector{Vector{Any}}()
         res = []
-        L = partition(length(ee), d)
+        L = compos_iterate(F, length(ee), d)
 
         while !isempty(L)
             ll = popfirst!(L)
@@ -351,7 +351,7 @@ function feynman_integral_degree_order(F::FeynmanIntegral, o::Vector{Int64}, d::
 end
 function feynman_integral_deg_order(F::FeynmanIntegral, o::Vector{Int64}, d::Integer; l=zeros(Int, nv(F.G)))
     ee = edges(F.G)
-    a = partition(length(ee), d)
+    a = compos_iterate(F, length(ee), d)
     sum = 0
     for ai in a
         sum = sum + feynman_integral_branch_type_order(F, ai, o; l)
@@ -360,7 +360,7 @@ function feynman_integral_deg_order(F::FeynmanIntegral, o::Vector{Int64}, d::Int
 end
 function feynman_integral_deg_order(F::FeynmanIntegral, o::Vector{Int64}, d::Integer, g; l=zeros(Int, nv(F.G)))
     ee = edges(F.G)
-    a = partition(length(ee), d)
+    a = compos_iterate(F, length(ee), d)
     sum = 0
     for ai in a
         sum = sum + feynman_integral_branch_type_order(F, ai, o, g; l)
@@ -412,7 +412,7 @@ function feynman_integral_degree(F::FeynmanIntegral, d::Int64; l=zeros(Int, nv(F
 
         re = Vector{Vector{Any}}()
         res = []
-        L = partition(length(ee), d)
+        L = compos_iterate(F, length(ee), d)
 
         while !isempty(L)
             ll = popfirst!(L)
@@ -456,7 +456,7 @@ function feynman_integral_degree(F::FeynmanIntegral, d::Integer, g::Vector{Int};
 
         re = Vector{Vector{Any}}()
         res = []
-        L = partition(length(ee), d)
+        L = compos_iterate(F, length(ee), d)
 
         while !isempty(L)
             ll = popfirst!(L)
@@ -493,7 +493,7 @@ function feynman_integral_degree(F::FeynmanIntegral, d::Integer, g::Vector{Int};
 end
 function feynman_integral_deg(F::FeynmanIntegral, d::Integer; l=zeros(Int, nv(F.G)))
     ee = edges(F.G)
-    a = partition(length(ee), d)
+    a = compos_iterate(F, length(ee), d)
     sum = 0
     for ai in a
         sum = sum + feynman_integral_branch_type(F, ai; l)
@@ -502,7 +502,7 @@ function feynman_integral_deg(F::FeynmanIntegral, d::Integer; l=zeros(Int, nv(F.
 end
 function feynman_integral_deg(F::FeynmanIntegral, d::Integer, g; l=zeros(Int, nv(F.G)))
     ee = edges(F.G)
-    a = partition(length(ee), d)
+    a = compos_iterate(F, length(ee), d)
     sum = 0
     for ai in a
         sum = sum + feynman_integral_branch_type(F, ai, g; l)

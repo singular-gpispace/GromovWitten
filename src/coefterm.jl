@@ -335,3 +335,89 @@ function generate_permutation(l::Vector{Int64}, indices::Vector{Vector{Int64}})
 
     return collect(permuted_lists)
 end
+function compute_valence(ve)
+    # Initialize a dictionary to store vertex degrees
+    vertex_degrees = Dict{Int,Int}()
+
+    # Count occurrences of each vertex in the edge list
+    for (v1, v2) in ve
+        if v1 != v2
+            if haskey(vertex_degrees, v1)
+                vertex_degrees[v1] += 1
+            else
+                vertex_degrees[v1] = 1
+            end
+
+            if haskey(vertex_degrees, v2)
+                vertex_degrees[v2] += 1
+            else
+                vertex_degrees[v2] = 1
+            end
+        end
+    end
+
+    return vertex_degrees
+end
+function vertex_branch(ve, a)
+    b_dict = Dict{Int,Vector{Int}}()
+    for (v, ai) in zip(ve, a)
+        if v[1] == v[2]
+            continue
+        else
+            if haskey(b_dict, v[1])
+                push!(b_dict[v[1]], ai)
+            else
+                b_dict[v[1]] = [ai]
+            end
+
+            if haskey(b_dict, v[2])
+                push!(b_dict[v[2]], ai)
+            else
+                b_dict[v[2]] = [ai]
+            end
+        end
+    end
+    return b_dict
+end
+function check_odd(F, a)
+    ve = edg(F.G)
+    br = vertex_branch(ve, a)
+
+    for values in values(br)
+        if isodd(length(values)) && all(isodd, values)
+            return true
+        end
+    end
+
+    return false
+end
+
+# Check if all degrees are even
+function all_even(degrees)
+    return all(x -> iseven(x), degrees)
+end
+function compos_iterate(F, n, d)
+    ve = edg(F.G)
+    vertex_degrees = compute_valence(ve)
+
+    if all_even(values(vertex_degrees))
+        return partition(n, d)
+    end
+
+    gen = Vector{Vector{Int64}}()
+    x = [d; fill(0, n - 1)]
+
+    while true
+        if !check_odd(F, x)
+            push!(gen, copy(x))
+        end
+        x = next_partition(x)
+        if last(x) == d
+            break
+        end
+    end
+
+    push!(gen, copy(x))
+
+    return gen
+end
