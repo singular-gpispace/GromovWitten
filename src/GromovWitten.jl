@@ -30,7 +30,6 @@ export feynman_integral_degree_sum_cache
 export feynman_integral_degree_sum_order
 export filter_term
 export filter_vector
-export find_equal_pairs
 export flip
 export flip_signature
 export generate_permutation
