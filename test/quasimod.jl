@@ -158,7 +158,6 @@
    
     @testset "quasimodular_form" begin
         weightmax=12
-
         expected_result = (1//20736, -E2^6 + 3*E2^4*E4 - 3*E2^2*E4^2 + E4^3)
     
         result = quasimodular_form(Jq,weightmax)

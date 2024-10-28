@@ -21,6 +21,25 @@
     return result
 end
 =#
+
+function number_monomial(weightmax)
+    w = [2, 4, 6]
+    count = 0
+    for e2 in 0:weightmax
+        for e4 in 0:weightmax
+            for e6 in 0:weightmax
+                degree = w[1] * e2 + w[2] * e4 + w[3] * e6
+                if 0 < degree <= weightmax
+                    count += 1
+                end
+            end
+        end
+    end
+
+    return count
+end
+
+
 @doc raw"""
     filter_vector(polyvector::Vector{QQMPolyRingElem}, variables::Union{Vector{QQMPolyRingElem}, QQMPolyRingElem}, power::Union{Vector{Int64}, Int64})
 
@@ -104,6 +123,7 @@ function eisenstein_series( num_terms::Int,k::Int,q::Union{QQMPolyRingElem, Vect
         return  e2 = 1 - ((((2*k)// bernoulli(k))))* sum(sum_of_divisor_powers(d, k-1) * q[1]^(2*d) for d in 1:num_terms)
     end
 end
+
 function eisenstein_series( num_terms::Int,k::Int)                  
     if k % 2 != 0
         error("input k must be even in eisenstein_series(q, num_terms,k)")
@@ -112,7 +132,8 @@ function eisenstein_series( num_terms::Int,k::Int)
         return  e2 = 1 - ((((2*k)// bernoulli(k))))* sum(sum_of_divisor_powers(d, k-1) * q[1]^(2*d) for d in 1:num_terms)
 end
 
-function express_as_powers( max_degree::Int,weightmax::Int64)
+
+function express_as_powers( max_degree::Int,weightmax)
     result = Vector{QQMPolyRingElem}()
     nb=Int64(max_degree)
     E6=eisenstein_series( nb,6)
@@ -122,7 +143,7 @@ function express_as_powers( max_degree::Int,weightmax::Int64)
         for e4 in 0:weightmax
             for e6 in 0:weightmax
                 degree = 2*e2 + 4*e4 + 6*e6
-                if degree == weightmax #&& degree>0
+                if degree <= weightmax && degree>0
                     push!(result,  (E2^e2) * (E4^e4) * (E6^e6))
                 end
             end
@@ -131,14 +152,14 @@ function express_as_powers( max_degree::Int,weightmax::Int64)
     return result
 end
         
-function express_as_eisenstein_series(n::Int)
-    S,(E2,E4,E6)=polynomial_ring(QQ,["E2","E4","E6"])
+function express_as_eisenstein_series(weightmax::Int)
+    S, (E2, E4, E6) = polynomial_ring(QQ, ["E2", "E4", "E6"])
     expressions = []
-    for e2 in 0:n
-        for e4 in 0:n
-            for e6 in 0:n
+    for e2 in 0:weightmax
+        for e4 in 0:weightmax
+            for e6 in 0:weightmax
                 d = 2*e2 + 4*e4 + 6*e6
-                if d == n && (e2 > 0 || e4 > 0 || e6 > 0)
+                if d <= weightmax && d>0  #&& (e2 > 0 || e4 > 0 || e6 > 0)
                     term = 1
                     if e2 != 0
                         term *= E2^e2
