@@ -1,13 +1,19 @@
-function number_of_monomials(w, d)
-    dp = zeros(Int, d + 1)
-    dp[1] = 1
-    for weight in w
-        for j in weight:d
-            dp[j+1] += dp[j-weight+1]
+
+function number_of_monomials(weightmax)
+    w = [2, 4, 6]
+    count = 0
+    for e2 in 0:weightmax
+        for e4 in 0:weightmax
+            for e6 in 0:weightmax
+                degree = w[1] * e2 + w[2] * e4 + w[3] * e6
+                if 0 < degree <= weightmax
+                    count += 1
+                end
+            end
         end
     end
 
-    return dp[d+1]
+    return count
 end
 
 #=function filter_term(pols::Union{QQMPolyRingElem, Int64}, variables::Vector{QQMPolyRingElem}, power::Vector{Int64})
@@ -174,7 +180,7 @@ function express_as_powers(max_degree::Int, weightmax::Int64)
         for e4 in 0:weightmax
             for e6 in 0:weightmax
                 degree = 2 * e2 + 4 * e4 + 6 * e6
-                if degree == weightmax #&& degree>0
+                if degree <= weightmax && degree>0
                     push!(result, (E2^e2) * (E4^e4) * (E6^e6))
                 end
             end
@@ -182,15 +188,15 @@ function express_as_powers(max_degree::Int, weightmax::Int64)
     end
     return result
 end
-
-function express_as_eisenstein_series(n::Int)
+       
+function express_as_eisenstein_series(weightmax::Int)
     S, (E2, E4, E6) = polynomial_ring(QQ, ["E2", "E4", "E6"])
     expressions = []
-    for e2 in 0:n
-        for e4 in 0:n
-            for e6 in 0:n
-                d = 2 * e2 + 4 * e4 + 6 * e6
-                if d == n && (e2 > 0 || e4 > 0 || e6 > 0)
+    for e2 in 0:weightmax
+        for e4 in 0:weightmax
+            for e6 in 0:weightmax
+                d = 2*e2 + 4*e4 + 6*e6
+                if d <= weightmax && d>0  #&& (e2 > 0 || e4 > 0 || e6 > 0)
                     term = 1
                     if e2 != 0
                         term *= E2^e2
