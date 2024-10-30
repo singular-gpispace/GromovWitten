@@ -1,21 +1,4 @@
 
-function number_of_monomials(weightmax)
-    w = [2, 4, 6]
-    count = 0
-    for e2 in 0:weightmax
-        for e4 in 0:weightmax
-            for e6 in 0:weightmax
-                degree = w[1] * e2 + w[2] * e4 + w[3] * e6
-                if 0 < degree <= weightmax
-                    count += 1
-                end
-            end
-        end
-    end
-
-    return count
-end
-
 #=function filter_term(pols::Union{QQMPolyRingElem, Int64}, variables::Vector{QQMPolyRingElem}, power::Vector{Int64})
     T = parent(variables[1])
     if typeof(pols) <: Integer

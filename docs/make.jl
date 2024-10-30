@@ -44,8 +44,8 @@ makedocs(;
         #"Quasimodular" =>"Feynman Integral/Feynman.md"
         "Quasimodular" =>[
             "quasimodular.md",
-            "quasimodular_psi.md"
-        ]
+            "quasimodular_psi.md",
+        ],
     ],
 )
 

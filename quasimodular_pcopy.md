@@ -48,15 +48,13 @@ Suppose $gg=[1,0,0]$, we have r=3; so
 weightmax$=2(3+1)=8$
 
 ```jldoctest quasi
-julia> g =[1,0,0];
-```
-```jldoctest quasi
 julia> weightmax=8;
 ```
 
 ```jldoctest quasi
 julia> m = number_of_monomial(weightmax)
 10  
+
 ```
 
 
@@ -84,14 +82,14 @@ Consider the Graph with loop at the vertex 1 .
 
 ```jldoctest quasi
 julia> G = FeynmanGraph( [(1, 1),(1, 2), (2, 3), (3, 1)])
-FeynmanGraph([(1, 1), (1, 2), (2, 3), (3, 1)])
+FeynmanGraph( [(1, 2), (2, 3), (3, 1)])
 ```
 
 We then define the FeynmanIntegral type.
 
 ```jldoctest quasi
 julia> F=FeynmanIntegral(G)
-FeynmanIntegral(FeynmanGraph([(1, 1), (1, 2), (2, 3), (3, 1)]), Dict{Symbol, Dict{Vector{Int64}, Nemo.QQMPolyRingElem}}(), (Multivariate polynomial ring in 10 variables over QQ, Nemo.QQMPolyRingElem[x[1], x[2], x[3]], Nemo.QQMPolyRingElem[q[1], q[2], q[3], q[4]], Nemo.QQMPolyRingElem[z[1], z[2], z[3]]))
+FeynmanIntegral(FeynmanGraph( [(1, 1),(1, 2), (2, 3), (3, 1)]), Dict{Symbol, Dict{Vector{Int64}, Nemo.QQMPolyRingElem}}(), (Multivariate polynomial ring in 10 variables over QQ, Nemo.QQMPolyRingElem[x[1], x[2], x[3]], Nemo.QQMPolyRingElem[q[1], q[2], q[3], q[4]], Nemo.QQMPolyRingElem[z[1], z[2],z[3]]))
 ```
 
 We compute the  sum of all Feynman Integral of degree up to $m=\text{number\_of\_monomials}(\text{weightmax}) $.
@@ -100,9 +98,6 @@ weightmax$=2(4+0)=8$.
 
 ```jldoctest quasi
 julia> weightmax=8;
-```
-
-```jldoctest quasi
 julia> m=number_of_monomial(weightmax)
 10
 ```
@@ -122,3 +117,4 @@ we compute  quasimodular form of Iq :
 julia> quasimodularity_form(Iq,weightmax)
 (1//6912, E2^4 - E2^3 - 3*E2^2*E4 + 3*E2*E4 + 2*E2*E6 - 2*E6)
 ```
+

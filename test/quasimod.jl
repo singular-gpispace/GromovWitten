@@ -1,7 +1,7 @@
 @testset "quasimod.jl" begin
     w = [2, 4, 6]
     d = 12
-    @test number_of_monomials( d) == 22
+    @test number_of_monomial( d) == 22
     import Nemo: QQFieldElem
     S, (E2, E4, E6) = polynomial_ring(QQ, ["E2", "E4", "E6"])
     R, q = polynomial_ring(QQ, ["q"])
@@ -114,7 +114,7 @@
 
         F = FeynmanIntegral(ve)
         weightmax=12
-        m=number_of_monomials(6)
+        m=number_of_monomial(6)
         Iq=61425005056*q[1]^46+43646419584*q[1]^44+29331341312*q[1]^42+20067375616*q[1]^40 + 12961886976*q[1]^38 + 8490271392*q[1]^36 + 5225373696*q[1]^34 + 3233267712*q[1]^32 + 1875116544*q[1]^30 + 1079026432*q[1]^28 + 577972224*q[1]^26 + 302347264*q[1]^24 + 145337600*q[1]^22 + 66497472*q[1]^20 + 27353088*q[1]^18 + 10246144*q[1]^16 + 3294720*q[1]^14 + 886656*q[1]^12 + 182272*q[1]^10 + 25344*q[1]^8 + 1792*q[1]^6 + 32*q[1]^4
         result=quasimodular_form(Iq,weightmax)
         @test result == expected_result
@@ -126,7 +126,7 @@
 
         F = FeynmanIntegral(ve)
         weightmax=6
-        m=number_of_monomials(6)
+        m=number_of_monomial(6)
         Iq=substitute(feynman_integral_degree_sum(F, m))
         result=quasimodularity_form(Iq,weightmax)
         @test result == expected_result

@@ -13,6 +13,13 @@ ve = [(1, 2), (1, 2), (1, 2)]
 
 F = FeynmanIntegral(ve)
 weightmax=6
-m=number_of_monomials(6)
+m=number_of_monomial(6)
  Iq=substitute(feynman_integral_degree_sum(F, m))
- quasimodular_form(Iq,weightmax)
+ quasimodularity_form(Iq,weightmax)
+
+ $ julia --project=docs/
+pkg> instantiate
+pkg> dev .
+pkg> up
+julia> include("docs/make.jl")
+julia> include("test/runtests.jl")

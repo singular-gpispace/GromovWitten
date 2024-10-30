@@ -6,6 +6,7 @@ module GromovWitten
 using Nemo
 
 import Combinatorics: permutations
+export number_of_monomial
 export next_partition, combination
 export count_member
 export cache_integral_result
@@ -59,7 +60,6 @@ export substitute
 export sum_of_coeff
 export sum_of_divisor_powers
 export vector_to_monomial
-export number_of_monomials
 include("graph.jl")
 include("coeftermV.jl")
 include("coefterm.jl")
