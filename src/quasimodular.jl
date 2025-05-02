@@ -266,6 +266,27 @@ function solve_polynomial_system(A::QQMatrix, Q::QQMatrix; side::Symbol=:right)
         return "The system has no solution"
     end
 end
+
+function number_monomials( weightmax::Int)
+    w = [2,4,6]
+    count = 0
+
+    # Get the number of weights
+    num_weights = length(w)
+
+    # Iterate over all combinations of exponents using Iterators.product
+    for exponents in Iterators.product((0:weightmax for _ in 1:num_weights)...)
+        # Compute the degree by summing over all weights and exponents
+        degree = sum(w[i] * exponents[i] for i in 1:num_weights)
+        
+        # Count if the degree is valid
+        if degree <= weightmax && degree > 0
+            count += 1
+        end
+    end
+
+    return count
+end
 #=@doc raw"""
      quasi_matrix(q::Union{QQMPolyRingElem, Vector{QQMPolyRingElem}},Iq::QQMPolyRingElem, max_degree::Int64)
 
@@ -305,15 +326,30 @@ express the Feynman Integral polynomial $I(q)$ in terms of a polynomial in  $E_2
 This leads to 
 $$I(q)=\sum_{i,j,k} b_{i,j,k} E_2^i E_4^j E_6^k$$
 
+
+```julia
+julia>     ve = [(1, 3), (1, 2), (1, 2), (2, 4), (3, 4), (3, 4)]
+julia> G = FeynmanGraph(ve)
+julia> F = FeynmanIntegral(G)
+``` 
+we define the maximal weight that appears to the quasimodular form.
+```julia
+julia> weightmax=12 # 6g-6=12 for g=3
+``` 
+we compute the number of monomials in the Feynman Integral $I(q)$.
+```julia
+julia> number_monomials(weightmax)
+22
+```
+We compute then the Feynman Integral $I(q)$ of degree $m=44$ (Iq=substitute(feynman_integral_degree_sum(F,m)))
 ```julia
 julia> R,q=polynomial_ring(QQ,["q"])
-
-julia> Iq=886656*q[1]^12 + 182272*q[1]^10 + 25344*q[1]^8 + 1792*q[1]^6 +32q[1]^4
+julia> Iq=43646419584*q[1]^44 + 29331341312*q[1]^42 + 20067375616*q[1]^40 + 12961886976*q[1]^38 + 8490271392*q[1]^36 + 5225373696*q[1]^34 + 3233267712*q[1]^32 + 1875116544*q[1]^30 + 1079026432*q[1]^28 + 577972224*q[1]^26 + 302347264*q[1]^24 + 145337600*q[1]^22 + 66497472*q[1]^20 + 27353088*q[1]^18 + 10246144*q[1]^16 + 3294720*q[1]^14 + 886656*q[1]^12 + 182272*q[1]^10 + 25344*q[1]^8 + 1792*q[1]^6 + 32*q[1]^4
 ```
-We define the polynomial ring in E2,E4,E6.
+We compute the quasimodular form of the Feynman Integral $I(q)$
 
 ```julia
-julia> quasimodular_form(Iq,12)
+julia> quasimodularity_form(Iq,weightmax)
 (1//93312, -3*E2^6 + 6*E2^4*E4 + 4*E2^3*E6 - 3*E2^2*E4^2 - 12*E2*E4*E6 + 4*E4^3 + 4*E6^2)
 ```
 """
